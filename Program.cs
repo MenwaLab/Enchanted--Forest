@@ -63,7 +63,13 @@ class Program
                 player1.Token.ReduceCooldown();
                 player1.CheckCooldownAndRestoreSpeed();
                 Console.WriteLine("Do you want to use your ability? (Y/N): ");
-                if (Console.ReadLine()!.ToUpper() == "Y")
+                string? input = Console.ReadLine(); // Read and convert to uppercase to simplify checking
+                while (input == null || input != "Y" && input != "N")
+                {
+                    Console.WriteLine("Invalid input. Please enter 'Y' for Yes or 'N' for No:");
+                    input = Console.ReadLine(); // Keep reading until valid input
+                }
+                if (input.ToUpper() == "Y")
                 {
                     player1.Token.UseAbility(player1, player2);
                 }

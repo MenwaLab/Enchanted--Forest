@@ -12,3 +12,4 @@ C:\Users\LENOVO\OneDrive\Desktop\Enchanted--Forest\obj\Debug\net8.0\refint\Encha
 C:\Users\LENOVO\OneDrive\Desktop\Enchanted--Forest\obj\Debug\net8.0\Enchanted--Forest.pdb
 C:\Users\LENOVO\OneDrive\Desktop\Enchanted--Forest\obj\Debug\net8.0\Enchanted--Forest.genruntimeconfig.cache
 C:\Users\LENOVO\OneDrive\Desktop\Enchanted--Forest\obj\Debug\net8.0\ref\Enchanted--Forest.dll
+C:\Users\LENOVO\OneDrive\Desktop\Enchanted--Forest\obj\Debug\net8.0\Enchanted--Forest.sourcelink.json
