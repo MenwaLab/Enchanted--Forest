@@ -30,7 +30,10 @@ public bool Move(int dx, int dy)
     if (Token.CurrentCooldown == 0)
     {
         // Restore speed if it was reduced
-        Token.Speed += 1;  // Assuming you reduced speed by 1 previously
+        if(Token.Speed > Token.BaseSpeed)  // Assuming you reduced speed by 1 previously
+        {
+            Token.Speed=Token.BaseSpeed;
+        }
     }
 }
 }

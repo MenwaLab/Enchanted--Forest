@@ -2,8 +2,8 @@ public class Token
 {
     public string Name { get; set; }
     public string AbilityDescription { get; set; }
-    public int Speed { get; set; }
-    public int BaseSpeed { get; set; }
+    public int Speed { get; set; } //velocidad actual
+    public int BaseSpeed { get; set; }//velocidad original
     public int CooldownTime { get; set; }
     public int CurrentCooldown { get; private set; }
 
@@ -63,7 +63,7 @@ public class Token
                 (user, target) =>
                 {
                     Console.WriteLine($"{user.Name}'s Wizard reduces {target.Name}'s speed for 1 turn.");
-                    target.Token.Speed = 1;
+                    target.Token.Speed = - 1;
                 }),
             
             new Token("Fairy", "Moves another player back 1 square", 4, 2,

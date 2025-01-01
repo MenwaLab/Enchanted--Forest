@@ -115,7 +115,7 @@ class Program
                 }
                 if (input.ToUpper() == "Y")
                 {
-                    player2.Token.UseAbility(player1, player2);
+                    player2.Token.UseAbility(player2, player1);
                 }
                     HandleMovement(player2, generatorMaze);
             }
@@ -135,53 +135,59 @@ class Program
             }
         }
     }
-    public static void HandleMovement(Player player,MazeGeneration generatorMaze)
+public static void HandleMovement(Player player, MazeGeneration generatorMaze)
+{
+    while (true) // Retry until the player successfully moves or changes direction
     {
-        while (true) // Retry until the player successfully moves
-        {
-            Console.WriteLine("Press an arrow key to move:");
-            ConsoleKeyInfo key = Console.ReadKey(true); // Get key press
+        Console.WriteLine("Press an arrow key to move:");
+        ConsoleKeyInfo key = Console.ReadKey(true); // Get key press
 
-            int dx = 0, dy = 0;
-            switch (key.Key)
-            {
-                case ConsoleKey.UpArrow:
-                    dx = -1;
-                    break;
-                case ConsoleKey.DownArrow:
-                    dx = 1;
-                    break;
-                case ConsoleKey.LeftArrow:
-                    dy = -1;
-                    break;
-                case ConsoleKey.RightArrow:
-                    dy = 1;
-                    break;
-                default:
-                    Console.WriteLine("Invalid key. Try again.");
-                    continue;
-            }
-            if (TryMovePlayer(player, dx, dy, player.Token.Speed, generatorMaze))
-                break; // Move successful; exit the loop
-            else
-                Console.WriteLine("No valid moves in that direction. Try again.");
+        int dx = 0, dy = 0;
+        switch (key.Key)
+        {
+            case ConsoleKey.UpArrow:
+                dx = -1;
+                break;
+            case ConsoleKey.DownArrow:
+                dx = 1;
+                break;
+            case ConsoleKey.LeftArrow:
+                dy = -1;
+                break;
+            case ConsoleKey.RightArrow:
+                dy = 1;
+                break;
+            default:
+                Console.WriteLine("Invalid key. Try again.");
+                continue;
         }
+
+        // Attempt to move the player
+        if (TryMovePlayer(player, dx, dy, player.Token.Speed, generatorMaze))
+            break; // Move successful; exit the loop
+        else
+            Console.WriteLine("No valid moves in that direction. Try again.");
     }
-    
-  public static bool TryMovePlayer(Player player, int dx, int dy, int steps, MazeGeneration generatorMaze)
+}
+
+public static bool TryMovePlayer(Player player, int dx, int dy, int steps, MazeGeneration generatorMaze)
 {
     int startX = player.Position.x;
     int startY = player.Position.y;
 
-    int maxSteps = player.Token.Speed -1;
-    steps = Math.Min(steps, maxSteps); 
+    int maxSteps = player.Token.Speed;
+    steps = Math.Min(steps, maxSteps);
 
+    // If no steps to take, return false
     if (steps == 0)
     {
         Console.WriteLine("No valid moves in that direction. Please change direction.");
         return false;
     }
 
+    int totalStepsMoved = 0;
+
+    // Try moving step by step
     for (int step = 1; step <= steps; step++)
     {
         int nextX = startX + dx * step;
@@ -192,34 +198,64 @@ class Program
         // Check if the new position is within bounds and not a wall
         if (!IsValidMove(nextX, nextY, generatorMaze))
         {
-            Console.WriteLine($"Blocked by a wall at ({nextX}, {nextY}). Retrying with fewer steps.");
-            return TryMovePlayer(player, dx, dy, steps - 1, generatorMaze); // Retry with fewer steps
+            Console.WriteLine($"Blocked by a wall at ({nextX}, {nextY}).");
+
+            // If we're not at the last step, stop and return the current valid position
+            if (step > 1)
+            {
+                Console.WriteLine($"Stopping at ({startX + dx * (step - 1)}, {startY + dy * (step - 1)})");
+                player.Position = (startX + dx * (step - 1), startY + dy * (step - 1)); // Update position to the last valid point
+                return true; // Move was successful up to the blocked point
+            }
+            else
+            {
+                // If the first step is blocked, stop the movement entirely
+                Console.WriteLine("No valid moves in this direction. You are stuck!");
+                return false;
+            }
         }
+
+        totalStepsMoved++; // Successfully moved a step
     }
 
-    // Final valid position after successful movement
-    int finalX = startX + dx * steps;
-    int finalY = startY + dy * steps;
+    // Update the player's position after successful movement
+    int finalX = startX + dx * totalStepsMoved;
+    int finalY = startY + dy * totalStepsMoved;
 
-    // Update player's position
-    player.Position = (finalX, finalY);
-    Console.WriteLine($"{player.Name} finished moving to ({finalX}, {finalY}). speed is {player.Token.Speed}");
-
-    // Check for traps at the final position
-    Trap? trap = generatorMaze.IsTrapAtPosition(finalX, finalY);
-    if (trap != null)
+    // Ensure the final position is within bounds and not a wall
+    if (IsValidMove(finalX, finalY, generatorMaze))
     {
-        trap.ApplyEffect(player);
+        // Update the player's position
+        player.Position = (finalX, finalY);
+        Console.WriteLine($"{player.Name} finished moving to ({finalX}, {finalY}). Speed is {player.Token.Speed}");
+
+        // Check for traps at the final position
+        Trap? trap = generatorMaze.IsTrapAtPosition(finalX, finalY);
+        if (trap != null)
+        {
+            trap.ApplyEffect(player);
+        }
+
+        return true; // Movement successful
+    }
+    else
+    {
+        Console.WriteLine($"Blocked by a wall at ({finalX}, {finalY}). Cannot move there.");
+        return false; // If final position is invalid, return false
     }
 
-    return true; // Movement successful
 }
+
+
+
+
  
 // Validates if the player can move to the new position
 public static bool IsValidMove(int newX, int newY, MazeGeneration generatorMaze)
 {
     if (newX < 0 || newY < 0 || newX >= generatorMaze.Size || newY >= generatorMaze.Size)
     {
+        Console.WriteLine($"Position ({newX}, {newY}) is outside the maze bounds.");
         return false; // Out of bounds check
 
     }
@@ -228,6 +264,21 @@ public static bool IsValidMove(int newX, int newY, MazeGeneration generatorMaze)
     {
         return false; // Wall check
 
+    }
+     Trap? trapAtPosition = generatorMaze.IsTrapAtPosition(newX, newY);
+    if (trapAtPosition != null)
+    {
+        // If the trap has been triggered, it's still considered open for movement
+        if (trapAtPosition.Triggered)
+        {
+            Console.WriteLine($"Trap {trapAtPosition.Name} has been triggered but the path is open for movement.");
+            return true; // Allow movement even though the trap is triggered
+        }
+        else
+        {
+            Console.WriteLine($"Trap {trapAtPosition.Name} is not triggered yet.");
+            return true; // Allow movement to a trap that hasn't been triggered yet
+        }
     }
         
     return true;
