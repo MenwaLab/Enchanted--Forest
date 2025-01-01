@@ -266,21 +266,21 @@ public bool IsExitReachable(int exitRow, int exitCol) //Algortimo de Lee
         return row >= 0 && row < size && col >= 0 && col < size;
     }
     
-public bool IsWall(int x, int y)
+public bool IsWall(int row, int col)
 {
-    // Check if the coordinates are outside the maze bounds
-    if (x < 0 || x >= size || y < 0 || y >= size)
+    // Check for out-of-bounds
+    if (row < 0 || row >= maze.GetLength(0) || col < 0 || col >= maze.GetLength(1))
     {
-        Console.WriteLine($"Position ({x}, {y}) is outside the maze bounds.");
-        return true; // Out-of-bounds positions are treated as walls
+        Console.WriteLine($"Position ({row}, {col}) is outside the maze bounds.");
+        return true; // Treat out-of-bounds as walls
     }
 
-    // Determine if the current cell is a wall based on the `isOpen` property
-    bool isWall = !maze[y, x].isOpen;
-    Console.WriteLine($"Position ({x}, {y}) is {(isWall ? "a wall" : "not a wall")}.");
-
+    // Check if the cell is a wall
+    bool isWall = !maze[row, col].isOpen; // Correct indexing: [row][col]
+    Console.WriteLine($"Position ({row}, {col}) is {(isWall ? "a wall" : "not a wall")}.");
     return isWall;
 }
+
 }
 
 

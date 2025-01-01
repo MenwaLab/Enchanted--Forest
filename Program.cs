@@ -108,16 +108,16 @@ class Program
             switch (key.Key)
             {
                 case ConsoleKey.UpArrow:
-                    dy = -1;
-                    break;
-                case ConsoleKey.DownArrow:
-                    dy = 1;
-                    break;
-                case ConsoleKey.LeftArrow:
                     dx = -1;
                     break;
-                case ConsoleKey.RightArrow:
+                case ConsoleKey.DownArrow:
                     dx = 1;
+                    break;
+                case ConsoleKey.LeftArrow:
+                    dy = -1;
+                    break;
+                case ConsoleKey.RightArrow:
+                    dy = 1;
                     break;
                 default:
                     Console.WriteLine("Invalid key. Try again.");

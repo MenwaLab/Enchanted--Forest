@@ -23,19 +23,20 @@ public bool Move(int dx, int dy)
 
     while (remainingSpeed > 0)
     {
-        int nextX = currentX + dx;
-        int nextY = currentY + dy;
+        int nextRow = currentX + dx; // Vertical movement
+        int nextCol = currentY + dy; // Horizontal movement
+
 
         // Check if the next position is a wall
-        if (maze.IsWall(nextX, nextY))
+        if (maze.IsWall(nextRow, nextCol))
         {
-            Console.WriteLine($"Blocked by a wall at ({nextX}, {nextY}). Adjusting movement.");
+            Console.WriteLine($"Blocked by a wall at ({nextRow}, {nextCol}). Adjusting movement.");
             break; // Stop movement when a wall is encountered
         }
 
         // Move to the next position if it's valid
-        currentX = nextX;
-        currentY = nextY;
+        currentX = nextRow;
+        currentY = nextCol;
         remainingSpeed--;
 
         Console.WriteLine($"{Name} moved to ({currentX}, {currentY})");
