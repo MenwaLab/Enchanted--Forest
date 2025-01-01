@@ -3,6 +3,7 @@ public class Token
     public string Name { get; set; }
     public string AbilityDescription { get; set; }
     public int Speed { get; set; }
+    public int BaseSpeed { get; set; }
     public int CooldownTime { get; set; }
     public int CurrentCooldown { get; private set; }
 
@@ -13,6 +14,7 @@ public class Token
         Name = name;
         AbilityDescription = abilityDescription;
         Speed = speed;
+        BaseSpeed = speed;
         CooldownTime = cooldownTime;
         AbilityAction = abilityAction;
         CurrentCooldown = 0; // Start with no cooldown
@@ -71,15 +73,25 @@ public class Token
                     target.Position = (target.Position.x - 1, target.Position.y);
                 }),
             
-            new Token("Puppy", "Skips another player's turn", 5, 3,
+            new Token("Siren🧜‍♀️", "Skips another player's turn", 5, 3,
                 (user, target) =>
                 {
-                    Console.WriteLine($"{user.Name}'s Puppy skips {target.Name}'s turn.");
+                    Console.WriteLine($"{user.Name}'s Siren skips {target.Name}'s turn.");
                     target.Token.SetCooldown(1); // Apply the cooldown directly
+                }),
+
+            new Token("Abuela", "Increases her speed by 1 for 1 turn", 1, 2,
+                (user, target) =>
+                {
+                    Console.WriteLine($"{user.Name}'s Abuela increases her own speed by 1 for this turn.");
+                    user.Token.Speed += 1;
+                    user.Token.SetCooldown(1); // Ensure her ability has a cooldown
                 }),
             
             new Token("Unicorn", "Unaffected by other players' abilities", 3, 4,
                 (user, target) => Console.WriteLine($"{user.Name}'s Unicorn is unaffected by abilities."))
+
+            
         };
     }
 }
