@@ -17,42 +17,7 @@ public class Player
 
 public bool Move(int dx, int dy)
 {
-    int remainingSpeed = Token.Speed; // The speed of the player
-    int currentX = Position.x;
-    int currentY = Position.y;
-
-    while (remainingSpeed > 0)
-    {
-        int nextRow = currentX + dx; // Vertical movement
-        int nextCol = currentY + dy; // Horizontal movement
-
-
-        // Check if the next position is a wall
-        if (maze.IsWall(nextRow, nextCol))
-        {
-            Console.WriteLine($"Blocked by a wall at ({nextRow}, {nextCol}). Adjusting movement.");
-            break; // Stop movement when a wall is encountered
-        }
-
-        // Move to the next position if it's valid
-        currentX = nextRow;
-        currentY = nextCol;
-        remainingSpeed--;
-
-        Console.WriteLine($"{Name} moved to ({currentX}, {currentY})");
-    }
-
-    // Final position reached
-    Position = (currentX, currentY);
-
-    // Check for traps at the final position
-    Trap? trap = maze.IsTrapAtPosition(Position.x, Position.y);
-    if (trap != null)
-    {
-        trap.ApplyEffect(this);
-    }
-
-    return true;
+    return Program.TryMovePlayer(this, dx, dy, Token.Speed, maze);
 }
 
     public override string ToString()

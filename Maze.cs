@@ -9,7 +9,7 @@ public class MazeGeneration
     private int size;
     private Random rand = new Random();
     private List<Trap> traps = new List<Trap>(); 
-    private (int x, int y) exit; 
+    public (int x, int y) exit; 
 
     public MazeGeneration(int size)
     { 
@@ -262,7 +262,7 @@ public bool IsExitReachable(int exitRow, int exitCol) //Algortimo de Lee
         return false; //salida no es alcanzable
     }
 
-    static bool ValidPosition(int size,int row,int col){
+    public static bool ValidPosition(int size,int row,int col){
         return row >= 0 && row < size && col >= 0 && col < size;
     }
     

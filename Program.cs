@@ -64,7 +64,7 @@ class Program
                 player1.CheckCooldownAndRestoreSpeed();
                 Console.WriteLine("Do you want to use your ability? (Y/N): ");
                 string? input = Console.ReadLine(); // Read and convert to uppercase to simplify checking
-                while (input == null || input != "Y" && input != "N")
+                while (input == null || input.ToUpper() != "Y" && input.ToUpper() != "N")
                 {
                     Console.WriteLine("Invalid input. Please enter 'Y' for Yes or 'N' for No:");
                     input = Console.ReadLine(); // Keep reading until valid input
@@ -73,9 +73,16 @@ class Program
                 {
                     player1.Token.UseAbility(player1, player2);
                 }
-                    Console.WriteLine("Muevase de acuerdo a las teclas");
+                    //Console.WriteLine("Muevase de acuerdo a las teclas");
                     HandleMovement(player1, generatorMaze);
             }
+            // Check victory condition after Player 1's turn
+    string? winner = Win(player1, generatorMaze.exit);
+    if (winner != null)
+    {
+        Console.WriteLine($"{winner} has reached the exit and won the game!");
+        break; // End the game
+    }
 
             Console.WriteLine($"{player2.Name}, it's your turn.");
             if (player2.SkipTurns > 0)
@@ -88,13 +95,26 @@ class Program
                 player2.Token.ReduceCooldown();
                 player2.CheckCooldownAndRestoreSpeed();
                 Console.WriteLine("Do you want to use your ability? (Y/N): ");
-                if (Console.ReadLine()!.ToUpper() == "Y")
+                string? input = Console.ReadLine(); // Read and convert to uppercase to simplify checking
+                while (input == null || input.ToUpper() != "Y" && input.ToUpper() != "N")
                 {
-                    player2.Token.UseAbility(player2, player1);
+                    Console.WriteLine("Invalid input. Please enter 'Y' for Yes or 'N' for No:");
+                    input = Console.ReadLine(); // Keep reading until valid input
                 }
-                    Console.WriteLine("Muevase de acuerdo a las teclas");
+                if (input.ToUpper() == "Y")
+                {
+                    player2.Token.UseAbility(player1, player2);
+                }
                     HandleMovement(player2, generatorMaze);
             }
+            // Check victory condition after Player 1's turn
+     winner = Win(player2, generatorMaze.exit);
+
+    if (winner != null)
+    {
+        Console.WriteLine($"{winner} has reached the exit and won the game!");
+        break; // End the game
+    }
         }
     }
     public static void HandleMovement(Player player,MazeGeneration generatorMaze)
@@ -130,41 +150,45 @@ class Program
         }
     }
     
-    public static bool TryMovePlayer(Player player, int dx, int dy, int steps, MazeGeneration generatorMaze)
+  public static bool TryMovePlayer(Player player, int dx, int dy, int steps, MazeGeneration generatorMaze)
 {
-    int currentX = player.Position.x;
-    int currentY = player.Position.y;
+    int startX = player.Position.x;
+    int startY = player.Position.y;
+
+    int maxSteps = player.Token.Speed -1;
+    steps = Math.Min(steps, maxSteps); 
+
+    if (steps == 0)
+    {
+        Console.WriteLine("No valid moves in that direction. Please change direction.");
+        return false;
+    }
 
     for (int step = 1; step <= steps; step++)
     {
-        int nextX = currentX + dx * step;
-        int nextY = currentY + dy * step;
+        int nextX = startX + dx * step;
+        int nextY = startY + dy * step;
 
-        Console.WriteLine($"Player {player.Name} is at ({currentX}, {currentY}). Checking move to ({nextX}, {nextY}).");
+        Console.WriteLine($"Player {player.Name} is at ({startX}, {startY}). Checking move to ({nextX}, {nextY}).");
 
         // Check if the new position is within bounds and not a wall
-        if (generatorMaze.IsWall(nextX, nextY))
+        if (!IsValidMove(nextX, nextY, generatorMaze))
         {
-            Console.WriteLine($"Blocked by a wall at ({nextX}, {nextY}). Trying fewer steps.");
-            if (step > 1) // Reduce the steps by one if it's not the first step
-            {
-                return TryMovePlayer(player, dx, dy, step - 1, generatorMaze); // Retry with fewer steps
-            }
-            return false; // If it's the first step, movement is blocked
+            Console.WriteLine($"Blocked by a wall at ({nextX}, {nextY}). Retrying with fewer steps.");
+            return TryMovePlayer(player, dx, dy, steps - 1, generatorMaze); // Retry with fewer steps
         }
-
-        // Move to the next valid position
-        currentX = nextX;
-        currentY = nextY;
-        Console.WriteLine($"{player.Name} moved to ({currentX}, {currentY}).");
     }
 
-    // Update player's final position after the full movement
-    player.Position = (currentX, currentY);
-    Console.WriteLine($"{player.Name} finished moving to ({currentX}, {currentY}).");
+    // Final valid position after successful movement
+    int finalX = startX + dx * steps;
+    int finalY = startY + dy * steps;
+
+    // Update player's position
+    player.Position = (finalX, finalY);
+    Console.WriteLine($"{player.Name} finished moving to ({finalX}, {finalY}). speed is {player.Token.Speed}");
 
     // Check for traps at the final position
-    Trap? trap = generatorMaze.IsTrapAtPosition(currentX, currentY);
+    Trap? trap = generatorMaze.IsTrapAtPosition(finalX, finalY);
     if (trap != null)
     {
         trap.ApplyEffect(player);
@@ -174,6 +198,36 @@ class Program
 }
 
 
+public static bool ExploreAlternativePaths(Player player, int dx, int dy, int remainingSteps, MazeGeneration generatorMaze)
+{
+    // Try moving left or right (alternating dy or dx based on current direction)
+    int[] altDx = { 0, 0, 1, -1 };
+    int[] altDy = { 1, -1, 0, 0 };
+
+    for (int i = 0; i < altDx.Length; i++)
+    {
+        int newDx = altDx[i];
+        int newDy = altDy[i];
+
+        // Avoid retrying the same direction
+        if (newDx == dx && newDy == dy) continue;
+
+        int nextX = player.Position.x + newDx * remainingSteps;
+        int nextY = player.Position.y + newDy * remainingSteps;
+
+        if (IsValidMove(nextX, nextY, generatorMaze))
+        {
+            Console.WriteLine($"Alternative path found to ({nextX}, {nextY}).");
+            player.Position = (nextX, nextY);
+            return true;
+        }
+    }
+
+    Console.WriteLine("No alternative paths found.");
+    return false;
+}
+
+ 
 // Validates if the player can move to the new position
 public static bool IsValidMove(int newX, int newY, MazeGeneration generatorMaze)
 {
@@ -191,4 +245,14 @@ public static bool IsValidMove(int newX, int newY, MazeGeneration generatorMaze)
         
     return true;
 }
+
+public static string? Win(Player player, (int x, int y) exit)
+{
+    if (player.Position.x == exit.x && player.Position.y == exit.y)
+    {
+        return player.Name; // Return the player's name who won
+    }
+    return null; // No winner yet
+}
+
 }
