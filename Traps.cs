@@ -30,9 +30,11 @@ public class Trap
                     player.SkipTurns = 1;
                     break;
                 case "T2":
-                    // Move back 2 steps for T2
-                    player.Move(-2, 0);
+                // Send the player back to the origin (0, 0)
+                    player.Position = (0, 0);
+                    Console.WriteLine($"{player.Name} has been sent back to the origin (0, 0)!Players position is now {player.Position}");
                     break;
+
                 case "T3":
                     //Reduce speed of your token during 3 turns T3
                     player.Token.Speed = Math.Max(1, player.Token.Speed - 1); // Reduce speed but ensure it's at least 1

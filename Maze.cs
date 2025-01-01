@@ -126,7 +126,7 @@ private void GenerateTraps()
 
     string[] trapEffects = {
         "Pierdes 1 turno",          // Effect for T1
-        "Atrasas 2 casillas",    // Effect for T2
+        "Atrasas al 0,0",    // Effect for T2
         "Reduce tu velocidad 3 turnos"        // Effect for T3
         //"Regresa a la casilla inicial"
         //para mapas mas grandes, repetir las mismas trampas
