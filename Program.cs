@@ -39,7 +39,8 @@ class Program
             Console.WriteLine($"Por favor introduzca un número válido para su ficha (entre 1 y {tokens.Length}): ");
         }
         choice1--;  // Adjust for 0-based indexing
-        Player player1 = new Player("Player 1", tokens[choice1], 0, 0, generatorMaze);
+        (int x1, int y1) = GetRandomValidPosition(generatorMaze, generatorMaze.exit);
+        Player player1 = new Player("Player 1", tokens[choice1], x1, y1, generatorMaze);
 
 
         Console.WriteLine("Player 2, choose your token by entering its number: ");
@@ -50,7 +51,8 @@ class Program
             Console.WriteLine($"Por favor introduzca un número válido para su ficha (entre 1 y {tokens.Length}): ");
         }
         choice2--;
-        Player player2 = new Player("Player 2", tokens[choice2], 0, 0,generatorMaze);
+        (int x2, int y2) = GetRandomValidPosition(generatorMaze, generatorMaze.exit);
+        Player player2 = new Player("Player 2", tokens[choice2], x2, y2,generatorMaze);
 
         Console.WriteLine($"Player 1 chose {player1.Token.Name}");
         Console.WriteLine($"Player 2 chose {player2.Token.Name}. Empezemos el juego!!!");
@@ -60,7 +62,7 @@ class Program
         generatorMaze.PrintMaze();
         while (true)
         {
-            Console.WriteLine($"{player1.Name}, it's your turn.");
+            Console.WriteLine($"{player1.Name}, it's your turn. Tu posicion es {player1.Position}");
              if (player1.SkipTurns > 0)
             {
                 Console.WriteLine($"{player1.Name} is skipping a turn.");
@@ -103,7 +105,7 @@ class Program
             }
     
 
-            Console.WriteLine($"{player2.Name}, it's your turn.");
+            Console.WriteLine($"{player2.Name}, it's your turn. Tu posicion es {player2.Position}");
             if (player2.SkipTurns > 0)
             {
                 Console.WriteLine($"{player2.Name} is skipping a turn.");
@@ -321,5 +323,24 @@ public static void SwapPlayerPositions(Player player1, Player player2)
 
     Console.WriteLine($"{player1.Name} and {player2.Name} have swapped positions.");
 }
+
+public static (int x, int y) GetRandomValidPosition(MazeGeneration maze, (int x, int y) exit)
+{
+    Random random = new Random();
+    int size = maze.Size;
+
+    while (true)
+    {
+        int x = random.Next(0, size);
+        int y = random.Next(0, size);
+
+        // Ensure the position is not a wall, trap, or the exit
+        if (!maze.IsWall(x, y) && maze.IsTrapAtPosition(x, y) == null && (x, y) != exit)
+        {
+            return (x, y);
+        }
+    }
+}
+
 
 }
