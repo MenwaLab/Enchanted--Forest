@@ -75,11 +75,12 @@ public class Token
 
             
             new Token("Siren🧜‍♀️", "Skips another player's turn", 5, 3,
-                (user, target) =>
-                {
-                    Console.WriteLine($"{user.Name}'s Siren skips {target.Name}'s turn.");
-                    target.Token.SetCooldown(1); // Apply the cooldown directly
-                }),
+    (user, target) =>
+    {
+        Console.WriteLine($"{user.Name}'s Siren skips {target.Name}'s turn.");
+        target.SkipTurns = 1; // Directly set the player's SkipTurns property
+    }),
+
 
             new Token("Abuela", "Increases her speed by 1 for 1 turn", 1, 2,
                 (user, target) =>

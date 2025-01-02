@@ -194,7 +194,7 @@ private void SetExit()
         if (maze[exitRow, col].isOpen && IsExitReachable(exitRow, col))
         {
             exit = (exitRow, col);
-            Console.WriteLine($"Exit position set at: ({exitRow}, {col})");
+            //Console.WriteLine($"Exit position set at: ({exitRow}, {col})");
             return;
         }
     }
@@ -276,7 +276,7 @@ public bool IsWall(int row, int col)
 
     // Check if the cell is a wall
     bool isWall = !maze[row, col].isOpen; // Correct indexing: [row][col]
-    Console.WriteLine($"Position ({row}, {col}) is {(isWall ? "a wall" : "not a wall")}.");
+    //Console.WriteLine($"Position ({row}, {col}) is {(isWall ? "a wall" : "not a wall")}.");
     return isWall;
 }
 

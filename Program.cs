@@ -1,16 +1,18 @@
 ﻿using System;
-//using MazeGeneration; ??
 
 class Program
-{
-    
-
+{ 
     static void Main(string[] args)
     {
         bool playAgain=true;
-        while(playAgain==true){
-        
-
+        while(playAgain==true)
+        {
+            playAgain=startGame();
+        }
+        Console.WriteLine("Muchas gracias por jugar Enchanted Forest. Hasta la próxima! -Meyli");
+    }
+    static bool startGame()
+    {
         Console.WriteLine("Welcome to the Maze Game!");
         Console.WriteLine("Por favor introduzca el tamaño del laberinto con el que desea jugar!: ");
         int size;
@@ -39,8 +41,11 @@ class Program
             Console.WriteLine($"Por favor introduzca un número válido para su ficha (entre 1 y {tokens.Length}): ");
         }
         choice1--;  // Adjust for 0-based indexing
-        (int x1, int y1) = GetRandomValidPosition(generatorMaze, generatorMaze.exit);
-        Player player1 = new Player("Player 1", tokens[choice1], x1, y1, generatorMaze);
+
+        var player1Position=GetRandomValidPosition(generatorMaze, generatorMaze.exit);
+
+        //(int x1, int y1) = 
+         Player player1 = new Player("Player 1", tokens[choice1], player1Position.x, player1Position.y, generatorMaze);
 
 
         Console.WriteLine("Player 2, choose your token by entering its number: ");
@@ -51,30 +56,35 @@ class Program
             Console.WriteLine($"Por favor introduzca un número válido para su ficha (entre 1 y {tokens.Length}): ");
         }
         choice2--;
-        (int x2, int y2) = GetRandomValidPosition(generatorMaze, generatorMaze.exit);
-        Player player2 = new Player("Player 2", tokens[choice2], x2, y2,generatorMaze);
+
+        var player2Position = GetRandomValidPosition(generatorMaze, generatorMaze.exit);
+        Player player2 = new Player("Player 2", tokens[choice2], player2Position.x, player2Position.y, generatorMaze);
 
         Console.WriteLine($"Player 1 chose {player1.Token.Name}");
         Console.WriteLine($"Player 2 chose {player2.Token.Name}. Empezemos el juego!!!");
 
-        List<Player> players = new List<Player> { player1, player2 };
-        
-        generatorMaze.PrintMaze();
-        while (true)
+          List<Player> players = new List<Player> { player1, player2 };
+
+          generatorMaze.PrintMaze();
+
+          while (true)
         {
-            Console.WriteLine($"{player1.Name}, it's your turn. Tu posicion es {player1.Position}");
-             if (player1.SkipTurns > 0)
+            foreach(var player in players)
             {
-                Console.WriteLine($"{player1.Name} is skipping a turn.");
-                player1.SkipTurns--;  // Decrease the skip count
-            }
-            else
-            {
-                player1.Token.ReduceCooldown();
-                player1.CheckCooldownAndRestoreSpeed();
+                //generatorMaze.PrintMaze();
+                Console.WriteLine($"{player.Name}, it's your turn. Tu posicion es {player.Position}");
+                if (player.SkipTurns > 0)
+                {
+                    Console.WriteLine($"{player.Name} is skipping a turn.");
+                    player.SkipTurns--;  // Decrease the skip count
+                    continue; 
+                }
+                player.Token.ReduceCooldown();
+                player.CheckCooldownAndRestoreSpeed();
+
                 Console.WriteLine("Do you want to use your ability? (Y/N): ");
-                string? input = Console.ReadLine(); // Read and convert to uppercase to simplify checking
-                
+                string? input = Console.ReadLine();
+
                 while (input == null || input.ToUpper() != "Y" && input.ToUpper() != "N")
                 {
                     Console.WriteLine("Invalid input. Please enter 'Y' for Yes or 'N' for No:");
@@ -83,28 +93,38 @@ class Program
                 
                 if (input.ToUpper() == "Y")
                 {
-                    player1.Token.UseAbility(player1, player2);
+                    Player target = player == players[0] ? players[1] : players[0];
+                    player.Token.UseAbility(player, target);
                 }
-                    
                     //Console.WriteLine("Muevase de acuerdo a las teclas");
-                    HandleMovement(player1, generatorMaze);
-            }
-            // Check victory condition after Player 1's turn
-            string? winner = Win(player1, generatorMaze.exit);
-            if (winner != null)
-            {
-                Console.WriteLine($"{winner} has reached the exit and won the game!");
-                break; // End the game
-            }
-    
-            foreach (var player in players)
-            {
+                    HandleMovement(player, generatorMaze);
+
+                
                 player.Token.Speed = player.Token.Speed > player.Token.BaseSpeed
                     ? player.Token.BaseSpeed
                     : player.Token.Speed;
-            }
-    
+            
+            
+            // Check victory condition after Player 1's turn
+            string? winner = Win(player, generatorMaze.exit);
+            if (winner != null)
+            {
+                Console.WriteLine($"{winner} has reached the exit and won the game!");
+                Console.WriteLine("Quieres jugar otra vez? S/N");
 
+                string? jugarOtravez=Console.ReadLine();
+                while (jugarOtravez == null || jugarOtravez.ToUpper() != "S" && jugarOtravez.ToUpper() != "N")
+                {
+                    Console.WriteLine("Invalid input. Please enter 'S' for Si or 'N' for No:");
+                    jugarOtravez = Console.ReadLine(); // Keep reading until valid input
+                }
+                
+                return jugarOtravez.ToUpper() == "S";
+            }
+        }
+    }
+}
+/*
             Console.WriteLine($"{player2.Name}, it's your turn. Tu posicion es {player2.Position}");
             if (player2.SkipTurns > 0)
             {
@@ -135,18 +155,10 @@ class Program
             {
                 Console.WriteLine($"{winner} has reached the exit and won the game!");
                 Console.WriteLine("Quieres jugar otra vez? S/N" );; // End the game
-                string? jugarOtravez = Console.ReadLine(); // Read and convert to uppercase to simplify checking
                 
-                while (jugarOtravez == null || jugarOtravez.ToUpper() != "S" && jugarOtravez.ToUpper() != "N")
-                {
-                    Console.WriteLine("Invalid input. Please enter 'S' for Si or 'N' for No:");
-                    jugarOtravez = Console.ReadLine(); // Keep reading until valid input
-                }
                 
-                if (jugarOtravez.ToUpper() == "N")
-                {
-                    playAgain=false;
-                }
+                
+                
                   
             }
             foreach (var player in players)
@@ -158,6 +170,7 @@ class Program
         }
         }
     }
+    */
 public static void HandleMovement(Player player, MazeGeneration generatorMaze)
 {
     while (true) // Retry until the player successfully moves or changes direction
@@ -278,7 +291,7 @@ public static bool IsValidMove(int newX, int newY, MazeGeneration generatorMaze)
 {
     if (newX < 0 || newY < 0 || newX >= generatorMaze.Size || newY >= generatorMaze.Size)
     {
-        Console.WriteLine($"Position ({newX}, {newY}) is outside the maze bounds.");
+        //Console.WriteLine($"Position ({newX}, {newY}) is outside the maze bounds.");
         return false; // Out of bounds check
 
     }
@@ -299,7 +312,7 @@ public static bool IsValidMove(int newX, int newY, MazeGeneration generatorMaze)
         }
         else
         {
-            Console.WriteLine($"Trap {trapAtPosition.Name} is not triggered yet.");
+            //Console.WriteLine($"Trap {trapAtPosition.Name} is not triggered yet.");
             return true; // Allow movement to a trap that hasn't been triggered yet
         }
     }
