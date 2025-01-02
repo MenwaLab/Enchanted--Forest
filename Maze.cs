@@ -122,15 +122,14 @@ private bool HasOpenCellInRow(int row)
 private void GenerateTraps()
 {
     int trapCount = 0; 
-    int totalTraps = 3; 
+    int totalTraps = 4; 
 
     string[] trapEffects = {
         "Pierdes 1 turno",          // Effect for T1
-        "Atrasas al 0,0",    // Effect for T2
-        "Reduce tu velocidad 3 turnos"        // Effect for T3
-        //"Regresa a la casilla inicial"
-        //para mapas mas grandes, repetir las mismas trampas
-        //validate the minimum size of the maze
+        "Regresa a la casilla inicial",    // Effect for T2
+        "Reduce tu velocidad" ,       // Effect for T3
+        "Aumento tu tiempo de enfriamiento"
+        
     };
 
     //Todas las posiciones validas para trampas
@@ -142,7 +141,7 @@ private void GenerateTraps()
         for (int j = 0; j < size; j++)
         {
             //Una posicion valida es un pasillo
-            if (maze[i, j].isOpen)
+            if (maze[i, j].isOpen&& !(i == 0 && j == 0)&& !(i == exit.x && j == exit.y))
             {
                 validPositions.Add((i, j));
             }

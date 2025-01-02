@@ -3,8 +3,14 @@
 
 class Program
 {
+    
+
     static void Main(string[] args)
     {
+        bool playAgain=true;
+        while(playAgain==true){
+        
+
         Console.WriteLine("Welcome to the Maze Game!");
         Console.WriteLine("Por favor introduzca el tamaño del laberinto con el que desea jugar!: ");
         int size;
@@ -16,6 +22,7 @@ class Program
 
         // Create the maze
         MazeGeneration generatorMaze = new MazeGeneration(size);// Create the maze
+        
         Token[] tokens = TokenFactory.GetAvailableTokens();
 
         Console.WriteLine("Available tokens:");
@@ -125,7 +132,20 @@ class Program
             if (winner != null)
             {
                 Console.WriteLine($"{winner} has reached the exit and won the game!");
-                break; // End the game
+                Console.WriteLine("Quieres jugar otra vez? S/N" );; // End the game
+                string? jugarOtravez = Console.ReadLine(); // Read and convert to uppercase to simplify checking
+                
+                while (jugarOtravez == null || jugarOtravez.ToUpper() != "S" && jugarOtravez.ToUpper() != "N")
+                {
+                    Console.WriteLine("Invalid input. Please enter 'S' for Si or 'N' for No:");
+                    jugarOtravez = Console.ReadLine(); // Keep reading until valid input
+                }
+                
+                if (jugarOtravez.ToUpper() == "N")
+                {
+                    playAgain=false;
+                }
+                  
             }
             foreach (var player in players)
             {
@@ -133,6 +153,7 @@ class Program
                 ? player.Token.BaseSpeed
                 : player.Token.Speed;
             }
+        }
         }
     }
 public static void HandleMovement(Player player, MazeGeneration generatorMaze)
@@ -291,6 +312,14 @@ public static string? Win(Player player, (int x, int y) exit)
         return player.Name; // Return the player's name who won
     }
     return null; // No winner yet
+}
+public static void SwapPlayerPositions(Player player1, Player player2)
+{
+    var tempPosition = player1.Position;
+    player1.Position = player2.Position;
+    player2.Position = tempPosition;
+
+    Console.WriteLine($"{player1.Name} and {player2.Name} have swapped positions.");
 }
 
 }

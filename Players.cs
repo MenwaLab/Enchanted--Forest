@@ -20,6 +20,7 @@ public bool Move(int dx, int dy)
     return Program.TryMovePlayer(this, dx, dy, Token.Speed, maze);
 }
 
+
     public override string ToString()
     {
         return $"{Name} at {Position}, Token: {Token.Name}";

@@ -66,12 +66,13 @@ public class Token
                     target.Token.Speed = - 1;
                 }),
             
-            new Token("Fairy", "Moves another player back 1 square", 4, 2,
-                (user, target) =>
-                {
-                    Console.WriteLine($"{user.Name}'s Fairy moves {target.Name} back 1 square.");
-                    target.Position = (target.Position.x - 1, target.Position.y);
-                }),
+            new Token("Fairy", "Swaps position with the other player", 4, 2,
+    (user, target) =>
+    {
+        Console.WriteLine($"{user.Name}'s Fairy swaps position with {target.Name}.");
+        Program.SwapPlayerPositions(user, target); // Call the method in Program.cs
+    }),
+
             
             new Token("Siren🧜‍♀️", "Skips another player's turn", 5, 3,
                 (user, target) =>
