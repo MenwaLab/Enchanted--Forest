@@ -19,7 +19,6 @@ public class Trap
     // Method to apply the effect of the trap to a player
     public void ApplyEffect(Player player)
     {
-    
         if (!Triggered)
         {
             Console.WriteLine($"{Name} activada! {Effect}");
@@ -29,6 +28,7 @@ public class Trap
                 case "T1": 
                     // Lose 1 turn for T1
                     player.SkipTurns = 1;
+                    Console.WriteLine($"{player.Name} has lost a turn (T1). They will skip their next turn.");
                     break;
                 case "T2":
                 // Send the player back to the origin (0, 0)
@@ -39,16 +39,18 @@ public class Trap
                 case "T3":
                     //Reduce speed of your token 
                     player.Token.Speed = Math.Max(1, player.Token.Speed - 1); // Reduce speed but ensure it's at least 1
-                    //player.Token.SetCooldown(1); // Simulate 3 turns of reduced speed
+                    Console.WriteLine($"{player.Name}'s speed has been reduced to {player.Token.Speed} (T3).");
                     break;
                 case "T4":
-                    Console.WriteLine("Trap 4 triggered! Aumento tu tiempo de enfriamiento. Lo siento :(");
                     player.Token.CooldownTime+=1;
+                    Console.WriteLine("Trap 4 triggered! Aumento tu tiempo de enfriamiento. Lo siento :("); 
                     break;
-            
-                     // Call the method in Program.cs
-                    }
+            }
                     Triggered = true; // Mark the trap as triggered       
-                    }
         }
+        else
+    {
+        Console.WriteLine($"Trap {Name} has already been triggered and cannot trigger again.");
+    }
+    }
 }

@@ -90,14 +90,15 @@ class Program
                     Console.WriteLine("Invalid input. Please enter 'Y' for Yes or 'N' for No:");
                     input = Console.ReadLine(); // Keep reading until valid input
                 }
+                player.HasUsedAbility = input.ToUpper() == "Y";
                 
-                if (input.ToUpper() == "Y")
+                if (player.HasUsedAbility)
                 {
                     Player target = player == players[0] ? players[1] : players[0];
                     player.Token.UseAbility(player, target);
                 }
                     //Console.WriteLine("Muevase de acuerdo a las teclas");
-                    HandleMovement(player, generatorMaze);
+                    HandleMovement(player, generatorMaze,input);
 
                 
                 player.Token.Speed = player.Token.Speed > player.Token.BaseSpeed
@@ -124,54 +125,8 @@ class Program
         }
     }
 }
-/*
-            Console.WriteLine($"{player2.Name}, it's your turn. Tu posicion es {player2.Position}");
-            if (player2.SkipTurns > 0)
-            {
-                Console.WriteLine($"{player2.Name} is skipping a turn.");
-                player2.SkipTurns--;  // Decrease the skip count
-            }
-            else
-            {
-                player2.Token.ReduceCooldown();
-                player2.CheckCooldownAndRestoreSpeed();
-                Console.WriteLine("Do you want to use your ability? (Y/N): ");
-                string? input = Console.ReadLine(); // Read and convert to uppercase to simplify checking
-                while (input == null || input.ToUpper() != "Y" && input.ToUpper() != "N")
-                {
-                    Console.WriteLine("Invalid input. Please enter 'Y' for Yes or 'N' for No:");
-                    input = Console.ReadLine(); // Keep reading until valid input
-                }
-                if (input.ToUpper() == "Y")
-                {
-                    player2.Token.UseAbility(player2, player1);
-                }
-                    HandleMovement(player2, generatorMaze);
-            }
-            // Check victory condition after Player 1's turn
-            winner = Win(player2, generatorMaze.exit);
 
-            if (winner != null)
-            {
-                Console.WriteLine($"{winner} has reached the exit and won the game!");
-                Console.WriteLine("Quieres jugar otra vez? S/N" );; // End the game
-                
-                
-                
-                
-                  
-            }
-            foreach (var player in players)
-            {
-            player.Token.Speed = player.Token.Speed > player.Token.BaseSpeed
-                ? player.Token.BaseSpeed
-                : player.Token.Speed;
-            }
-        }
-        }
-    }
-    */
-public static void HandleMovement(Player player, MazeGeneration generatorMaze)
+public static void HandleMovement(Player player, MazeGeneration generatorMaze, string input)
 {
     while (true) // Retry until the player successfully moves or changes direction
     {
@@ -199,12 +154,13 @@ public static void HandleMovement(Player player, MazeGeneration generatorMaze)
         }
 
         // Attempt to move the player
-        if (TryMovePlayer(player, dx, dy, player.Token.Speed, generatorMaze))
+        if (TryMovePlayer(player, dx, dy, player.Token.Speed, generatorMaze))  
             break; // Move successful; exit the loop
         else
             Console.WriteLine("No valid moves in that direction. Try again.");
     }
 }
+
 
 public static bool TryMovePlayer(Player player, int dx, int dy, int steps, MazeGeneration generatorMaze)
 {
@@ -267,10 +223,23 @@ public static bool TryMovePlayer(Player player, int dx, int dy, int steps, MazeG
 
         // Check for traps at the final position
         Trap? trap = generatorMaze.IsTrapAtPosition(finalX, finalY);
+        
         if (trap != null)
-        {
-            trap.ApplyEffect(player);
-        }
+{
+    Console.WriteLine($"Trap {trap.Name} found at ({finalX}, {finalY})");
+    if (player.Token.Name == "Elf" && player.Token.CurrentCooldown == 0 && player.HasUsedAbility)
+    {
+        // Elf triggers the trap but doesn't suffer the effect
+        Console.WriteLine($"Trap {trap.Name} triggered, but {player.Name}'s Elf ability nullifies its effect.");
+    }
+    else
+    {
+        trap.ApplyEffect(player);  // Only call ApplyEffect if trap is not null
+    }
+}
+else{
+    Console.WriteLine("No trap at the final position.");
+}
 
         return true; // Movement successful
     }
@@ -281,9 +250,6 @@ public static bool TryMovePlayer(Player player, int dx, int dy, int steps, MazeG
     }
 
 }
-
-
-
 
  
 // Validates if the player can move to the new position

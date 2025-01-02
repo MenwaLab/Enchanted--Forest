@@ -5,6 +5,7 @@ public class Player
     public (int x, int y) Position { get; set; }
     public int SkipTurns { get; set; } 
     private MazeGeneration maze; // Add this to store the maze reference
+    public bool HasUsedAbility { get; set; }
 
     public Player(string name, Token token, int startX, int startY, MazeGeneration maze)
     {
@@ -13,6 +14,7 @@ public class Player
         Position = (startX, startY);
         SkipTurns = 0;
         this.maze = maze; 
+        HasUsedAbility = false;
     }
 
 public bool Move(int dx, int dy)

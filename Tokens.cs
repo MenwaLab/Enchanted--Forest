@@ -6,6 +6,7 @@ public class Token
     public int BaseSpeed { get; set; }//velocidad original
     public int CooldownTime { get; set; }
     public int CurrentCooldown { get; private set; }
+    //public bool HasUsedAbility { get; set; } = false;  // Track if ability was used
 
     private Action<Player, Player> AbilityAction;
 
@@ -27,7 +28,7 @@ public class Token
             Console.WriteLine($"{Name}'s ability is on cooldown for {CurrentCooldown} more turns.");
             return;
         }
-
+        
         AbilityAction(user, target);
         CurrentCooldown = CooldownTime;
     }
@@ -60,11 +61,12 @@ public class Token
                 (user, target) => Console.WriteLine($"{user.Name}'s Elf is unaffected by traps.")),
             
             new Token("Wizard", "Reduces speed of another player for 1 turn", 2, 3,
-                (user, target) =>
-                {
-                    Console.WriteLine($"{user.Name}'s Wizard reduces {target.Name}'s speed for 1 turn.");
-                    target.Token.Speed = - 1;
-                }),
+    (user, target) =>
+    {
+        Console.WriteLine($"{user.Name}'s Wizard reduces {target.Name}'s speed for 1 turn.");
+        target.Token.Speed = Math.Max(1, target.Token.Speed - 1); // Prevent negative speed
+    }),
+
             
             new Token("Fairy", "Swaps position with the other player", 4, 2,
     (user, target) =>

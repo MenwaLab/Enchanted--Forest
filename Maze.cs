@@ -95,7 +95,7 @@ private bool HasOpenCellInRow(int row)
                 }
                 else 
                 {
-                    Trap trap = IsTrapAtPosition(i, j)!;  
+                    Trap? trap = IsTrapAtPosition(i, j);  
                     if (trap != null)
                     {
                     Console.Write(trap.Name);  
@@ -279,9 +279,4 @@ public bool IsWall(int row, int col)
     //Console.WriteLine($"Position ({row}, {col}) is {(isWall ? "a wall" : "not a wall")}.");
     return isWall;
 }
-
 }
-
-
-
-
