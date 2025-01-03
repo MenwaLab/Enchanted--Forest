@@ -11,6 +11,8 @@ public class MazeGeneration
     public (int x, int y) exit;
     public (int x, int y)? cooldownReductionTile = null;
     public (int x, int y)? speedIncreaseTile = null; 
+    private (int x, int y) player1Pos;
+    private (int x, int y) player2Pos;
 
     public MazeGeneration(int size)
     { 
@@ -84,6 +86,30 @@ private bool HasOpenCellInRow(int row)
         }
 
     }
+    // Method to set Player 1 position
+    public void SetPlayer1Position(int x, int y)
+    {
+        player1Pos = (x, y);
+    }
+
+    // Method to set Player 2 position
+    public void SetPlayer2Position(int x, int y)
+    {
+        player2Pos = (x, y);
+    }
+
+    // Method to access Player 1 position
+    public (int x, int y) GetPlayer1Position()
+    {
+        return player1Pos;
+    }
+
+    // Method to access Player 2 position
+    public (int x, int y) GetPlayer2Position()
+    {
+        return player2Pos;
+    }
+
     public void PrintMaze()
     {
         for (int i = 0; i < size; i++)
@@ -94,13 +120,13 @@ private bool HasOpenCellInRow(int row)
                 {
                     Console.Write("E");
                 }
-                else if(cooldownReductionTile.HasValue && cooldownReductionTile.Value ==(i,j))
+                else if(player1Pos.x == i && player1Pos.y == j)
                 {
-                    Console.Write("C1");
+                    Console.Write("P1");
                 }
-                else if(speedIncreaseTile.HasValue && speedIncreaseTile.Value ==(i,j))
+                else if (player2Pos.x == i && player2Pos.y == j)
                 {
-                    Console.Write("C2");
+                Console.Write("P2"); // Player 2
                 }
                 else 
                 {

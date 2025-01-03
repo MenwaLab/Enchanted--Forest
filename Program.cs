@@ -2,6 +2,7 @@
 
 class Program
 { 
+    static List<Player> players = new List<Player>();
     static void Main(string[] args)
     {
         bool playAgain=true;
@@ -43,9 +44,9 @@ class Program
         choice1--;  // Adjust for 0-based indexing
 
         var player1Position=GetRandomValidPosition(generatorMaze, generatorMaze.exit);
+        Player player1 = new Player("Player 1", tokens[choice1], player1Position.x, player1Position.y, generatorMaze);
+        generatorMaze.SetPlayer1Position(player1Position.x, player1Position.y);
 
-        //(int x1, int y1) = 
-         Player player1 = new Player("Player 1", tokens[choice1], player1Position.x, player1Position.y, generatorMaze);
 
 
         Console.WriteLine("Player 2, choose your token by entering its number: ");
@@ -59,19 +60,19 @@ class Program
 
         var player2Position = GetRandomValidPosition(generatorMaze, generatorMaze.exit);
         Player player2 = new Player("Player 2", tokens[choice2], player2Position.x, player2Position.y, generatorMaze);
+        generatorMaze.SetPlayer2Position(player2Position.x, player2Position.y);
 
         Console.WriteLine($"Player 1 chose {player1.Token.Name}");
         Console.WriteLine($"Player 2 chose {player2.Token.Name}. Empezemos el juego!!!");
 
-          List<Player> players = new List<Player> { player1, player2 };
-
-          generatorMaze.PrintMaze();
+        //List<Player> players = new List<Player> { player1, player2 };
+        players = new List<Player> { player1, player2 };
 
           while (true)
         {
             foreach(var player in players)
             {
-                //generatorMaze.PrintMaze();
+                generatorMaze.PrintMaze();
                 Console.WriteLine($"{player.Name}, it's your turn. Tu posicion es {player.Position}");
                 if (player.SkipTurns > 0)
                 {
@@ -175,8 +176,12 @@ public static void HandleMovement(Player player, MazeGeneration generatorMaze, s
         }
 
         // Attempt to move the player
-        if (TryMovePlayer(player, dx, dy, player.Token.Speed, generatorMaze))  
-            break; // Move successful; exit the loop
+        if (TryMovePlayer(player, dx, dy, player.Token.Speed, generatorMaze))
+        {
+            //generatorMaze.PrintMaze();
+            break;
+        }  
+             // Move successful; exit the loop
         else
             Console.WriteLine("No valid moves in that direction. Try again.");
     }
@@ -218,7 +223,16 @@ public static bool TryMovePlayer(Player player, int dx, int dy, int steps, MazeG
             {
                 Console.WriteLine($"Stopping at ({startX + dx * (step - 1)}, {startY + dy * (step - 1)})");
                 player.Position = (startX + dx * (step - 1), startY + dy * (step - 1)); // Update position to the last valid point
-                return true; // Move was successful up to the blocked point
+                //return true; // Move was successful up to the blocked point
+                if (player == players[0])
+                {
+                    generatorMaze.SetPlayer1Position(player.Position.x, player.Position.y); // Update Player 1's position
+                }
+                else
+                {
+                    generatorMaze.SetPlayer2Position(player.Position.x, player.Position.y); // Update Player 2's position
+                }
+                return true;
             }
             else
             {
@@ -242,6 +256,15 @@ public static bool TryMovePlayer(Player player, int dx, int dy, int steps, MazeG
         player.Position = (finalX, finalY);
         Console.WriteLine($"{player.Name} finished moving to ({finalX}, {finalY}). Speed is {player.Token.Speed}");
 
+        // Update player position in the maze after the move
+        if (player == players[0])
+        {
+            generatorMaze.SetPlayer1Position(player.Position.x, player.Position.y); // Update Player 1's position
+        }
+        else
+        {
+            generatorMaze.SetPlayer2Position(player.Position.x, player.Position.y); // Update Player 2's position
+        }
         // Check for traps at the final position
         Trap? trap = generatorMaze.IsTrapAtPosition(finalX, finalY);
         
