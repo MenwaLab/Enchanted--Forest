@@ -4,7 +4,7 @@ public class Player
     public Token Token { get; set; }
     public (int x, int y) Position { get; set; }
     public int SkipTurns { get; set; } 
-    private MazeGeneration maze; // Add this to store the maze reference
+    private MazeGeneration maze; //guardar la referencia del tablero
     public bool HasUsedAbility { get; set; }
 
     public Player(string name, Token token, int startX, int startY, MazeGeneration maze)
@@ -17,26 +17,34 @@ public class Player
         HasUsedAbility = false;
     }
 
-public bool Move(int dx, int dy)
-{
-    return Program.TryMovePlayer(this, dx, dy, Token.Speed, maze);
-}
+    public bool Move(int dx, int dy)
+    {
+        return Program.TryMovePlayer(this, dx, dy, Token.Speed, maze);
+    }
 
 
     public override string ToString()
     {
-        return $"{Name} at {Position}, Token: {Token.Name}";
+        return $"{Name} en {Position}, Ficha: {Token.Name}";
     }
 
     public void CheckCooldownAndRestoreSpeed()
-{
-    if (Token.CurrentCooldown == 0)
     {
-        // Restore speed if it was reduced
-        if(Token.Speed > Token.BaseSpeed)  // Assuming you reduced speed by 1 previously
+        if (Token.CurrentCooldown == 0)
         {
-            Token.Speed=Token.BaseSpeed;
+            // Normalizar la velocidad si fue reducida
+            if(Token.Speed > Token.BaseSpeed)  
+            {
+                Token.Speed=Token.BaseSpeed;
+            }
         }
     }
-}
+    public static void SwapPlayerPositions(Player player1, Player player2)
+    {
+    var tempPosition = player1.Position;
+    player1.Position = player2.Position;
+    player2.Position = tempPosition;
+
+    Console.WriteLine($"{player1.Name} and {player2.Name} have swapped positions.");
+    }
 }

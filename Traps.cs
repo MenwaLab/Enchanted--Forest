@@ -1,12 +1,11 @@
 public class Trap
 {
-    public int X { get; set; }  // X coordinate in the maze
-    public int Y { get; set; }  // Y coordinate in the maze
-    public bool Triggered { get; set; } // Whether the trap has been triggered
-    public string Name { get; set; } // Name for the trap (e.g., "T1", "T2", "T3")
-    public string Effect { get; set; } // Description of the trap's effect
+    public int X { get; set; }  
+    public int Y { get; set; }  
+    public bool Triggered { get; set; } 
+    public string Name { get; set; } 
+    public string Effect { get; set; } 
 
-    // Constructor to set the trap's position and effects
     public Trap(int x, int y, string name, string effect)
     {
         X = x;
@@ -16,41 +15,39 @@ public class Trap
         Effect = effect;
     }
 
-    // Method to apply the effect of the trap to a player
     public void ApplyEffect(Player player)
     {
         if (!Triggered)
         {
             Console.WriteLine($"{Name} activada! {Effect}");
-            // Apply effect based on the trap type
             switch (Name)
             {
                 case "T1": 
                     // Lose 1 turn for T1
                     player.SkipTurns = 1;
-                    Console.WriteLine($"{player.Name} has lost a turn (T1). They will skip their next turn.");
+                    Console.WriteLine($"Trampa 1 ha sido activada! {player.Name} ha perdido un turno.");
                     break;
                 case "T2":
                 // Send the player back to the origin (0, 0)
                     player.Position = (0, 0);
-                    Console.WriteLine($"{player.Name} has been sent back to the origin (0, 0)!Players position is now {player.Position}");
+                    Console.WriteLine($"Trampa 2 ha sido activada! {player.Name} ha sido enviado al origen de coordenadas (0, 0).");
                     break;
 
                 case "T3":
                     //Reduce speed of your token 
                     player.Token.Speed = Math.Max(1, player.Token.Speed - 1); // Reduce speed but ensure it's at least 1
-                    Console.WriteLine($"{player.Name}'s speed has been reduced to {player.Token.Speed} (T3).");
+                    Console.WriteLine($"Trampa 3 ha sido activada!.{player.Name} tu velocidad ha sido reducida a {player.Token.Speed}.");
                     break;
                 case "T4":
                     player.Token.CooldownTime+=1;
-                    Console.WriteLine("Trap 4 triggered! Aumento tu tiempo de enfriamiento. Lo siento :("); 
+                    Console.WriteLine($"Trampa 4 ha sido activada! {player.Name} aumentó tu tiempo de enfriamiento a {player.Token.CooldownTime}."); 
                     break;
             }
                     Triggered = true; // Mark the trap as triggered       
         }
         else
-    {
-        Console.WriteLine($"Trap {Name} has already been triggered and cannot trigger again.");
-    }
+        {
+        Console.WriteLine($"Trampa {Name} ya fue activada.");
+        }
     }
 }

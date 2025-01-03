@@ -294,14 +294,7 @@ public static string? Win(Player player, (int x, int y) exit)
     }
     return null; // No winner yet
 }
-public static void SwapPlayerPositions(Player player1, Player player2)
-{
-    var tempPosition = player1.Position;
-    player1.Position = player2.Position;
-    player2.Position = tempPosition;
 
-    Console.WriteLine($"{player1.Name} and {player2.Name} have swapped positions.");
-}
 
 public static (int x, int y) GetRandomValidPosition(MazeGeneration maze, (int x, int y) exit)
 {

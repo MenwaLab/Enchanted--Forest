@@ -6,7 +6,6 @@ public class Token
     public int BaseSpeed { get; set; }//velocidad original
     public int CooldownTime { get; set; }
     public int CurrentCooldown { get; private set; }
-    //public bool HasUsedAbility { get; set; } = false;  // Track if ability was used
 
     private Action<Player, Player> AbilityAction;
 
@@ -18,14 +17,14 @@ public class Token
         BaseSpeed = speed;
         CooldownTime = cooldownTime;
         AbilityAction = abilityAction;
-        CurrentCooldown = 0; // Start with no cooldown
+        CurrentCooldown = 0; 
     }
 
     public void UseAbility(Player user, Player target)
     {
         if (CurrentCooldown > 0)
         {
-            Console.WriteLine($"{Name}'s ability is on cooldown for {CurrentCooldown} more turns.");
+            Console.WriteLine($"{Name}, tu habilidad está en enfriamiento por {CurrentCooldown} turnos.");
             return;
         }
         
@@ -40,62 +39,51 @@ public class Token
             CurrentCooldown--;
         }
     }
-  // Add a method to directly set the cooldown (for abilities like Puppy)
+  //ver si es de utilidad pq era para puppy pero lo cambie por abuela
     public void SetCooldown(int turns)
     {
-        CurrentCooldown = Math.Max(turns, 0); // Ensure it's not set to a negative value
+        CurrentCooldown = Math.Max(turns, 0); 
     }
     public override string ToString()
     {
-        return $"{Name}: {AbilityDescription}, Speed: {Speed}, Cooldown: {CooldownTime}";
+        return $"{Name}: {AbilityDescription}, Velocidad: {Speed}, Tiempo de enfriamiento: {CooldownTime}";
     }
 }
 
-    public static class TokenFactory
+public static class TokenFactory
 {
     public static Token[] GetAvailableTokens()
     {
         return new Token[]
         {
-            new Token("Elf", "Traps don't affect it", 4, 4, 
-                (user, target) => Console.WriteLine($"{user.Name}'s Elf is unaffected by traps.")),
+            new Token("Elf", "Las trampas no te afectan", 4, 4, 
+                (user, target) => Console.WriteLine($"{user.Name}'s Elf es inmune a las trampas.")),
             
-            new Token("Wizard", "Reduces speed of another player for 1 turn", 2, 3,
-    (user, target) =>
-    {
-        Console.WriteLine($"{user.Name}'s Wizard reduces {target.Name}'s speed for 1 turn.");
-        target.Token.Speed = Math.Max(1, target.Token.Speed - 1); // Prevent negative speed
-    }),
-
+            new Token("Wizard", "Reduce la velocidad de su enemigo", 2, 3,
+                (user, target) =>
+                {Console.WriteLine($"{user.Name}'s Wizard reduce la velocidad de {target.Name}.");
+                target.Token.Speed = Math.Max(1, target.Token.Speed - 1); }),
             
-            new Token("Fairy", "Swaps position with the other player", 4, 2,
-    (user, target) =>
-    {
-        Console.WriteLine($"{user.Name}'s Fairy swaps position with {target.Name}.");
-        Program.SwapPlayerPositions(user, target); // Call the method in Program.cs
-    }),
+            new Token("Fairy", "Cambia su posición con la de su enemigo", 4, 2,
+                (user, target) =>
+                {Console.WriteLine($"{user.Name}'s Fairy alterna su posición con {target.Name}.");
+                Player.SwapPlayerPositions(user, target); }),// Call the method in Program.cs
 
-            
-            new Token("Siren🧜‍♀️", "Skips another player's turn", 5, 3,
-    (user, target) =>
-    {
-        Console.WriteLine($"{user.Name}'s Siren skips {target.Name}'s turn.");
-        target.SkipTurns = 1; // Directly set the player's SkipTurns property
-    }),
+            new Token("Siren🧜‍♀️", "Le quita un turno a su enemigo", 5, 3,
+                (user, target) =>
+                {Console.WriteLine($"{user.Name}'s Siren salta el turno de {target.Name}.");
+                target.SkipTurns = 1; }),
 
 
-            new Token("Abuela", "Increases her speed by 1 for 1 turn", 1, 2,
+            new Token("Abuela", "Aumenta su velocidad por 1", 1, 2,
                 (user, target) =>
                 {
-                    Console.WriteLine($"{user.Name}'s Abuela increases her own speed by 1 for this turn.");
+                    Console.WriteLine($"{user.Name}'s Abuela su propia velocidad por 1.");
                     user.Token.Speed += 1;
-                    user.Token.SetCooldown(1); // Ensure her ability has a cooldown
+                    user.Token.SetCooldown(1); // Ensure her ability has a cooldown. ver si funciona
                 }),
             
-            new Token("Unicorn", "Unaffected by other players' abilities", 3, 4,
-                (user, target) => Console.WriteLine($"{user.Name}'s Unicorn is unaffected by abilities."))
-
-            
-        };
+            new Token("Unicorn", "Inmune a las habilidades enemigas", 3, 4,
+                (user, target) => Console.WriteLine($"{user.Name}'s Unicorn es inmune a las habilidades de sus enemigos."))};
     }
 }
