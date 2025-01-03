@@ -4,12 +4,13 @@ using Microsoft.VisualBasic;
 
 public class MazeGeneration
 {
-    
     private Cell[,] maze;
     private int size;
     private Random rand = new Random();
     private List<Trap> traps = new List<Trap>(); 
-    public (int x, int y) exit; 
+    public (int x, int y) exit;
+    public (int x, int y)? cooldownReductionTile = null;
+    public (int x, int y)? speedIncreaseTile = null; 
 
     public MazeGeneration(int size)
     { 
@@ -27,7 +28,7 @@ public class MazeGeneration
         GenerateTheMaze(0, 0);
         SetExit();
         GenerateTraps();
-        
+        GenerateBeneficialTiles();
     }
     public int Size => size;
     private void GenerateTheMaze(int x, int y) // recursive backtracking 
@@ -92,6 +93,14 @@ private bool HasOpenCellInRow(int row)
                 if (i == exit.x && j == exit.y)
                 {
                     Console.Write("E");
+                }
+                else if(cooldownReductionTile.HasValue && cooldownReductionTile.Value ==(i,j))
+                {
+                    Console.Write("C1");
+                }
+                else if(speedIncreaseTile.HasValue && speedIncreaseTile.Value ==(i,j))
+                {
+                    Console.Write("C2");
                 }
                 else 
                 {
@@ -178,6 +187,7 @@ public Trap? IsTrapAtPosition(int i, int j)
     {
         if (trap.X == i && trap.Y == j)
         {
+            
             return trap; 
         }
     }
@@ -279,4 +289,52 @@ public bool IsWall(int row, int col)
     //Console.WriteLine($"Position ({row}, {col}) is {(isWall ? "a wall" : "not a wall")}.");
     return isWall;
 }
+private void GenerateBeneficialTiles()
+    {
+        List<(int x, int y)> validPositions = new List<(int x, int y)>();
+
+        // Find valid positions for beneficial tiles
+        for (int i = 0; i < size; i++)
+        {
+            for (int j = 0; j < size; j++)
+            {
+                if (maze[i, j].isOpen && !(i == exit.x && j == exit.y) && IsTrapAtPosition(i, j) == null)
+                {
+                    validPositions.Add((i, j));
+                }
+            }
+        }
+
+        if (validPositions.Count >= 2)
+        {
+            var validPositionsArr = validPositions.ToArray();
+            Shuffle(validPositionsArr);
+
+            // Assign beneficial tiles
+            cooldownReductionTile = validPositions[0];
+            speedIncreaseTile = validPositions[1];
+            Console.WriteLine($"Cooldown reduction tile placed at: {cooldownReductionTile}");
+            Console.WriteLine($"Speed increase tile placed at: {speedIncreaseTile}");
+        }
+        else
+        {
+            Console.WriteLine("Not enough space to place beneficial tiles.");
+        }
+    }
+    public bool IsBeneficialTile(int x, int y, out string tileType)
+    {
+        if (cooldownReductionTile.HasValue && cooldownReductionTile.Value == (x, y))
+        {
+            tileType = "Cooldown Reduction";
+            return true;
+        }
+        else if (speedIncreaseTile.HasValue && speedIncreaseTile.Value == (x, y))
+        {
+            tileType = "Speed Increase";
+            return true;
+        }
+
+        tileType = string.Empty;
+        return false;
+    }
 }

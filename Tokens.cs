@@ -6,6 +6,8 @@ public class Token
     public int BaseSpeed { get; set; }//velocidad original
     public int CooldownTime { get; set; }
     public int CurrentCooldown { get; private set; }
+    public int BaseCooldown { get; set; } // Original cooldown duration
+    
 
     private Action<Player, Player> AbilityAction;
 
@@ -16,6 +18,7 @@ public class Token
         Speed = speed;
         BaseSpeed = speed;
         CooldownTime = cooldownTime;
+        BaseCooldown = cooldownTime; 
         AbilityAction = abilityAction;
         CurrentCooldown = 0; 
     }
@@ -24,12 +27,14 @@ public class Token
     {
         if (CurrentCooldown > 0)
         {
-            Console.WriteLine($"{Name}, tu habilidad está en enfriamiento por {CurrentCooldown} turnos.");
+            Console.WriteLine($"{Name}, tu habilidad está en enfriamiento");
             return;
         }
         
         AbilityAction(user, target);
         CurrentCooldown = CooldownTime;
+        CooldownTime = BaseCooldown; // Reset cooldown
+    Console.WriteLine($"{user.Name} used their ability. Cooldown reset to {CooldownTime}.");
     }
 
     public void ReduceCooldown()
@@ -83,7 +88,30 @@ public static class TokenFactory
                     user.Token.SetCooldown(1); // Ensure her ability has a cooldown. ver si funciona
                 }),
             
-            new Token("Unicorn", "Inmune a las habilidades enemigas", 3, 4,
-                (user, target) => Console.WriteLine($"{user.Name}'s Unicorn es inmune a las habilidades de sus enemigos."))};
+            new Token("Unicorn", "Bendición de la suerte: Activa un efecto al azar", 3, 4,
+                (user, target) =>
+                {
+                    Random rand = new Random();
+                    int effect = rand.Next(1, 4); // Randomly pick between 1, 2, or 3
+
+                    switch (effect)
+                    {
+                        case 1: // Swap positions
+                            Console.WriteLine($"{user.Name}'s Unicorn swaps positions with {target.Name}.");
+                            Player.SwapPlayerPositions(user, target);
+                            break;
+
+                        case 2: // Skip the target's turn
+                            Console.WriteLine($"{user.Name}'s Unicorn skips {target.Name}'s turn.");
+                            target.SkipTurns = 1;
+                            break;
+
+                        case 3: // Increase Unicorn's speed
+                            Console.WriteLine($"{user.Name}'s Unicorn increases its own speed by 1.");
+                            user.Token.Speed += 1;
+                            break;
+                    }
+                })
+        };
     }
 }

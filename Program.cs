@@ -104,6 +104,27 @@ class Program
                 player.Token.Speed = player.Token.Speed > player.Token.BaseSpeed
                     ? player.Token.BaseSpeed
                     : player.Token.Speed;
+
+                string tileType;
+if (generatorMaze.IsBeneficialTile(player.Position.x,player.Position.y, out tileType))
+{
+    switch (tileType)
+    {
+        case "Cooldown Reduction":
+    if (player.Token.CooldownTime > 0)
+    {
+        player.Token.CooldownTime = Math.Max(0, player.Token.CooldownTime - 2);
+        Console.WriteLine($"{player.Name} reduced cooldown by 2! Current cooldown: {player.Token.CooldownTime}");
+    }
+    break;
+
+
+        case "Speed Increase":
+            player.Token.Speed += 1;
+            Console.WriteLine($"{player.Name} increased speed by 1!");
+            break;
+    }
+}
             
             
             // Check victory condition after Player 1's turn

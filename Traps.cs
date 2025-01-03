@@ -39,9 +39,10 @@ public class Trap
                     Console.WriteLine($"Trampa 3 ha sido activada!.{player.Name} tu velocidad ha sido reducida a {player.Token.Speed}.");
                     break;
                 case "T4":
-                    player.Token.CooldownTime+=1;
-                    Console.WriteLine($"Trampa 4 ha sido activada! {player.Name} aumentó tu tiempo de enfriamiento a {player.Token.CooldownTime}."); 
+                    player.Token.SetCooldown(player.Token.CurrentCooldown + 2); // Increment current cooldown
+                    Console.WriteLine($"Trampa 4 ha sido activada! {player.Name} ahora tiene {player.Token.CurrentCooldown} turnos de enfriamiento.");
                     break;
+
             }
                     Triggered = true; // Mark the trap as triggered       
         }
