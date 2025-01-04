@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Formats.Asn1;
 
 class Program
 { 
@@ -103,6 +104,7 @@ class Program
                 }
                     //Console.WriteLine("Muevase de acuerdo a las teclas");
                     HandleMovement(player, generatorMaze,input);
+                    generatorMaze.PrintMazeSpectre();
 
                 
                 player.Token.Speed = player.Token.Speed > player.Token.BaseSpeed
@@ -228,7 +230,16 @@ public static bool TryMovePlayer(Player player, int dx, int dy, int steps, MazeG
                 player.Position = (startX + dx * (step - 1), startY + dy * (step - 1)); // Update position to the last valid point
                 UpdatePlayerPositionInMaze(player, generatorMaze);
                 generatorMaze.CheckTeleportation(player);
-                //return true;
+                
+                Trap? trap = generatorMaze.IsTrapAtPosition(player.Position.x, player.Position.y);
+                if (trap != null)// && player.Token.Name != "Elf")
+                {
+                    Console.WriteLine($"Trap {trap.Name} triggered at ({player.Position.x}, {player.Position.y}) while stepping back.");
+                    trap.ApplyEffect(player);
+                }
+                return true;
+                }
+                /*
                 if (player == players[0])
                 {
                     generatorMaze.SetPlayer1Position(player.Position.x, player.Position.y); // Update Player 1's position
@@ -239,6 +250,7 @@ public static bool TryMovePlayer(Player player, int dx, int dy, int steps, MazeG
                 }
                 return true;
             }
+            */
             else
             {
                 // If the first step is blocked, stop the movement entirely
@@ -246,7 +258,6 @@ public static bool TryMovePlayer(Player player, int dx, int dy, int steps, MazeG
                 return false;
             }
         }
-
         totalStepsMoved++; // Successfully moved a step
     }
 
@@ -261,8 +272,18 @@ public static bool TryMovePlayer(Player player, int dx, int dy, int steps, MazeG
         player.Position = (finalX, finalY);
         Console.WriteLine($"{player.Name} finished moving to ({finalX}, {finalY}). Speed is {player.Token.Speed}");
         UpdatePlayerPositionInMaze(player, generatorMaze);
+        Trap? trap = generatorMaze.IsTrapAtPosition(finalX, finalY);
+        if (trap != null)
+        {
+            Console.WriteLine($"Trap {trap.Name} found at ({finalX}, {finalY})");
+                trap.ApplyEffect(player);  // Only call ApplyEffect if trap is not null
+            }
+            else{
+                Console.WriteLine("No trap at the final position.");
+            }
+            generatorMaze.CheckTeleportation(player);
         // Update player position in the maze after the move
-        if (player == players[0])
+        if (player == players[0]) //DELETED FROM HERE
         {
             generatorMaze.SetPlayer1Position(player.Position.x, player.Position.y); // Update Player 1's position
         }
@@ -270,35 +291,20 @@ public static bool TryMovePlayer(Player player, int dx, int dy, int steps, MazeG
         {
             generatorMaze.SetPlayer2Position(player.Position.x, player.Position.y); // Update Player 2's position
         }
-        // Check for traps at the final position
-        Trap? trap = generatorMaze.IsTrapAtPosition(finalX, finalY);
-        
-        if (trap != null)
-{
-    Console.WriteLine($"Trap {trap.Name} found at ({finalX}, {finalY})");
-    if (player.Token.Name == "Elf" && player.Token.CurrentCooldown == 0 && player.HasUsedAbility)
-    {
-        // Elf triggers the trap but doesn't suffer the effect
-        Console.WriteLine($"Trap {trap.Name} triggered, but {player.Name}'s Elf ability nullifies its effect.");
-    }
-    else
-    {
-        trap.ApplyEffect(player);  // Only call ApplyEffect if trap is not null
-    }
-}
-else{
-    Console.WriteLine("No trap at the final position.");
-}
-        generatorMaze.CheckTeleportation(player);
-        return true; // Movement successful
-    }
-    else
+        return true;
+        }
+        else
     {
         Console.WriteLine($"Blocked by a wall at ({finalX}, {finalY}). Cannot move there.");
         return false; // If final position is invalid, return false
     }
-
 }
+
+        
+
+
+
+
 
  
 // Validates if the player can move to the new position

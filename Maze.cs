@@ -131,9 +131,8 @@ public void PrintMazeSpectre()
 
         for (int j = 0; j < size; j++)
         {
-            string cellContent = GetCellContent(i, j);
-            cells.Add(new Markup(cellContent)); // No need to convert colors separately
- // No need to convert colors separately
+            var cellContent = GetCellContent(i, j);
+            cells.Add(new Markup(cellContent)); // Add the cell content
         }
 
         // Add the row with the correct cells
@@ -142,6 +141,7 @@ public void PrintMazeSpectre()
 
     AnsiConsole.Write(table);
 }
+
 
 
 
@@ -159,11 +159,11 @@ private string GetCellContent(int i, int j)
 {
     if (i == exit.x && j == exit.y)
     {
-        return "[bold white]E[/]"; // Exit cell
+        return "[bold white]🦄[/]"; // Exit cell
     }
     if (player1Pos.x == i && player1Pos.y == j && player2Pos.x == i && player2Pos.y == j)
     {
-        return "[bold blue]A[/]"; // Both players in same cell
+        return "[bold blue]🤼[/]"; // Both players in same cell
     }
     if (player1Pos.x == i && player1Pos.y == j)
     {
@@ -182,8 +182,8 @@ private string GetCellContent(int i, int j)
 
     // Correct way to apply background color in Spectre.Console
     return maze[i, j].isOpen 
-        ? "[green].[/]" // Open path with green background
-        : "[black]#[/]"; // Wall with black background
+        ? "[green]🐾[/]" // Open path with green background
+        : "[black]🌲[/]"; // Wall with black background
 }
 
 
