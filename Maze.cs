@@ -13,6 +13,7 @@ public class MazeGeneration
     public (int x, int y)? speedIncreaseTile = null; 
     private (int x, int y) player1Pos;
     private (int x, int y) player2Pos;
+    public (int x, int y)? randomTeleportPortal = null; // Teleports to a random valid position
 
     public MazeGeneration(int size)
     { 
@@ -119,6 +120,10 @@ private bool HasOpenCellInRow(int row)
                 if (i == exit.x && j == exit.y)
                 {
                     Console.Write("E");
+                }
+                else if (player1Pos.x == i && player1Pos.y == j && player2Pos.x == i && player2Pos.y == j)
+                {
+                    Console.Write("A"); // Print "A" if both players are in the same cell
                 }
                 else if(player1Pos.x == i && player1Pos.y == j)
                 {
@@ -363,4 +368,98 @@ private void GenerateBeneficialTiles()
         tileType = string.Empty;
         return false;
     }
+public void GenerateTeleportationPortal()
+{
+    List<(int x, int y)> validPositions = new List<(int x, int y)>();
+
+    // Find valid positions for teleportation (valid open cells)
+    for (int i = 0; i < size; i++)
+    {
+        for (int j = 0; j < size; j++)
+        {
+            // Check if the position is valid for teleportation
+            if (IsValidPositionForPortal(i, j))
+            {
+                validPositions.Add((i, j));  // Valid position, add to the list
+            }
+        }
+    }
+
+    // Check if there are valid positions to place the portal
+    if (validPositions.Count > 0)
+    {
+        var validPositionsArr = validPositions.ToArray();
+        Shuffle(validPositionsArr);  // Shuffle to randomize portal positions
+
+        // Assign the random teleport portal
+        randomTeleportPortal = validPositionsArr[0];  // Portal to a random valid position
+
+        Console.WriteLine($"Random teleport portal placed at: {randomTeleportPortal.Value}");
+    }
+    else
+    {
+        Console.WriteLine("Not enough space to place a teleportation portal.");
+    }
+}
+
+
+// Helper method to check if a position is valid for teleportation
+private bool IsValidPositionForPortal(int x, int y)
+{
+    // Check if the position is open, not a wall, not the exit, not a trap, and not a beneficial tile
+    if (maze[x, y].isOpen &&
+        !(x == exit.x && y == exit.y)  &&  // Not start position
+        IsTrapAtPosition(x, y) == null &&  // No trap
+        !IsBeneficialTile(x, y, out _))  // Not a beneficial tile
+    {
+        return true;  // Position is valid for portal
+    }
+    
+    return false;  // Position is invalid for portal
+}
+
+
+
+
+// This method checks if a player has stepped on a teleportation portal
+public void CheckTeleportation(Player player)
+{
+    // Check if the player stepped on the back-to-start portal
+    if (player.Position == randomTeleportPortal)
+    {
+        Console.WriteLine($"{player.Name} stepped on the random teleport portal! Teleporting to a random position...");
+        player.Position = GetRandomValidPosition();  // Teleport to a random valid position
+    }
+}
+
+
+public (int x, int y) GetRandomValidPosition()
+{
+    List<(int x, int y)> validPositions = new List<(int x, int y)>();
+
+    // Find all valid open positions
+    for (int i = 0; i < size; i++)
+    {
+        for (int j = 0; j < size; j++)
+        {
+            if (maze[i, j].isOpen && !(i == exit.x && j == exit.y))
+            {
+                validPositions.Add((i, j));
+            }
+        }
+    }
+
+    // Select a random position from the list of valid positions
+    if (validPositions.Count > 0)
+    {
+        Random rand = new Random();
+        int index = rand.Next(validPositions.Count);
+        return validPositions[index];
+    }
+
+    // Fallback if no valid positions
+    return (0, 0);  // Return a default value if no valid positions are found
+}
+
+
 }

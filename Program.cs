@@ -67,6 +67,9 @@ class Program
 
         //List<Player> players = new List<Player> { player1, player2 };
         players = new List<Player> { player1, player2 };
+        generatorMaze.GenerateTeleportationPortal(); 
+
+
 
           while (true)
         {
@@ -221,9 +224,11 @@ public static bool TryMovePlayer(Player player, int dx, int dy, int steps, MazeG
             // If we're not at the last step, stop and return the current valid position
             if (step > 1)
             {
-                Console.WriteLine($"Stopping at ({startX + dx * (step - 1)}, {startY + dy * (step - 1)})");
+                //Console.WriteLine($"Stopping at ({startX + dx * (step - 1)}, {startY + dy * (step - 1)})");
                 player.Position = (startX + dx * (step - 1), startY + dy * (step - 1)); // Update position to the last valid point
-                //return true; // Move was successful up to the blocked point
+                UpdatePlayerPositionInMaze(player, generatorMaze);
+                generatorMaze.CheckTeleportation(player);
+                //return true;
                 if (player == players[0])
                 {
                     generatorMaze.SetPlayer1Position(player.Position.x, player.Position.y); // Update Player 1's position
@@ -255,7 +260,7 @@ public static bool TryMovePlayer(Player player, int dx, int dy, int steps, MazeG
         // Update the player's position
         player.Position = (finalX, finalY);
         Console.WriteLine($"{player.Name} finished moving to ({finalX}, {finalY}). Speed is {player.Token.Speed}");
-
+        UpdatePlayerPositionInMaze(player, generatorMaze);
         // Update player position in the maze after the move
         if (player == players[0])
         {
@@ -284,7 +289,7 @@ public static bool TryMovePlayer(Player player, int dx, int dy, int steps, MazeG
 else{
     Console.WriteLine("No trap at the final position.");
 }
-
+        generatorMaze.CheckTeleportation(player);
         return true; // Movement successful
     }
     else
@@ -329,6 +334,17 @@ public static bool IsValidMove(int newX, int newY, MazeGeneration generatorMaze)
         
     return true;
 }
+private static void UpdatePlayerPositionInMaze(Player player, MazeGeneration generatorMaze)
+{
+    if (player == players[0])
+    {
+        generatorMaze.SetPlayer1Position(player.Position.x, player.Position.y);
+    }
+    else
+    {
+        generatorMaze.SetPlayer2Position(player.Position.x, player.Position.y);
+    }
+}
 
 public static string? Win(Player player, (int x, int y) exit)
 {
@@ -357,6 +373,21 @@ public static (int x, int y) GetRandomValidPosition(MazeGeneration maze, (int x,
         }
     }
 }
+public static void CheckTeleportation(Player player, (int x, int y) backToStartPortal, (int x, int y) randomTeleportPortal, (int x, int y) startPosition, MazeGeneration generatorMaze)
+{
+    if (player.Position == backToStartPortal)
+    {
+        Console.WriteLine($"{player.Name} stepped on the back-to-start portal! Teleporting back to start...");
+        player.Position = startPosition; // Teleport back to the start
+    }
+    else if (player.Position == randomTeleportPortal)
+    {
+        Console.WriteLine($"{player.Name} stepped on the random teleport portal! Teleporting to a random position...");
+        player.Position = GetRandomValidPosition(generatorMaze, generatorMaze.exit); // Teleport to a random valid position
+    }
+}
+
+
 
 
 }
