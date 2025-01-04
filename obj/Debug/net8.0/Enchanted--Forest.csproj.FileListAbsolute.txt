@@ -3,11 +3,14 @@ C:\Users\LENOVO\OneDrive\Desktop\Enchanted--Forest\bin\Debug\net8.0\Enchanted--F
 C:\Users\LENOVO\OneDrive\Desktop\Enchanted--Forest\bin\Debug\net8.0\Enchanted--Forest.runtimeconfig.json
 C:\Users\LENOVO\OneDrive\Desktop\Enchanted--Forest\bin\Debug\net8.0\Enchanted--Forest.dll
 C:\Users\LENOVO\OneDrive\Desktop\Enchanted--Forest\bin\Debug\net8.0\Enchanted--Forest.pdb
+C:\Users\LENOVO\OneDrive\Desktop\Enchanted--Forest\bin\Debug\net8.0\Spectre.Console.dll
+C:\Users\LENOVO\OneDrive\Desktop\Enchanted--Forest\obj\Debug\net8.0\Enchanted--Forest.csproj.AssemblyReference.cache
 C:\Users\LENOVO\OneDrive\Desktop\Enchanted--Forest\obj\Debug\net8.0\Enchanted--Forest.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\LENOVO\OneDrive\Desktop\Enchanted--Forest\obj\Debug\net8.0\Enchanted--Forest.AssemblyInfoInputs.cache
 C:\Users\LENOVO\OneDrive\Desktop\Enchanted--Forest\obj\Debug\net8.0\Enchanted--Forest.AssemblyInfo.cs
 C:\Users\LENOVO\OneDrive\Desktop\Enchanted--Forest\obj\Debug\net8.0\Enchanted--Forest.csproj.CoreCompileInputs.cache
 C:\Users\LENOVO\OneDrive\Desktop\Enchanted--Forest\obj\Debug\net8.0\Enchanted--Forest.sourcelink.json
+C:\Users\LENOVO\OneDrive\Desktop\Enchanted--Forest\obj\Debug\net8.0\Enchante.95655002.Up2Date
 C:\Users\LENOVO\OneDrive\Desktop\Enchanted--Forest\obj\Debug\net8.0\Enchanted--Forest.dll
 C:\Users\LENOVO\OneDrive\Desktop\Enchanted--Forest\obj\Debug\net8.0\refint\Enchanted--Forest.dll
 C:\Users\LENOVO\OneDrive\Desktop\Enchanted--Forest\obj\Debug\net8.0\Enchanted--Forest.pdb

@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "XupJTZDF3SQ=",
+  "dgSpecHash": "S0tP3UAywx0=",
   "success": true,
   "projectFilePath": "C:\\Users\\LENOVO\\OneDrive\\Desktop\\Enchanted--Forest\\Enchanted--Forest.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\LENOVO\\.nuget\\packages\\spectre.console\\0.49.1\\spectre.console.0.49.1.nupkg.sha512"
+  ],
   "logs": []
 }

@@ -1,6 +1,9 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.VisualBasic;
+using Spectre.Console;
+using Spectre.Console.Rendering;
+
 
 public class MazeGeneration
 {
@@ -111,12 +114,109 @@ private bool HasOpenCellInRow(int row)
         return player2Pos;
     }
 
-    public void PrintMaze()
+public void PrintMazeSpectre()
+{
+    var table = new Table();
+    table.HideHeaders();
+
+    // Define the number of columns based on the maze size
+    for (int i = 0; i < size; i++)
     {
+        table.AddColumn(""); // Add a column for each maze row
+    }
+
+    for (int i = 0; i < size; i++)
+    {
+        var cells = new List<IRenderable>();
+
+        for (int j = 0; j < size; j++)
+        {
+            string cellContent = GetCellContent(i, j);
+            cells.Add(new Markup(cellContent)); // No need to convert colors separately
+ // No need to convert colors separately
+        }
+
+        // Add the row with the correct cells
+        table.AddRow(cells.ToArray());
+    }
+
+    AnsiConsole.Write(table);
+}
+
+
+
+
+private string ConvertToSpectreColor(Color color)
+{
+    return $"bg#{color.R:X2}{color.G:X2}{color.B:X2}";
+}
+
+
+
+
+
+private string GetCellContent(int i, int j)
+{
+    if (i == exit.x && j == exit.y)
+    {
+        return "[bold white]E[/]"; // Exit cell
+    }
+    if (player1Pos.x == i && player1Pos.y == j && player2Pos.x == i && player2Pos.y == j)
+    {
+        return "[bold blue]A[/]"; // Both players in same cell
+    }
+    if (player1Pos.x == i && player1Pos.y == j)
+    {
+        return "[bold blue]P1[/]"; // Player 1
+    }
+    if (player2Pos.x == i && player2Pos.y == j)
+    {
+        return "[bold yellow]P2[/]"; // Player 2
+    }
+    
+    Trap? trap = IsTrapAtPosition(i, j);
+    if (trap != null)
+    {
+        return $"[bold red]{trap.Name}[/]";  // Trap
+    }
+
+    // Correct way to apply background color in Spectre.Console
+    return maze[i, j].isOpen 
+        ? "[green].[/]" // Open path with green background
+        : "[black]#[/]"; // Wall with black background
+}
+
+
+
+
+    private Color GetCellColor(int i, int j)
+{
+    if (i == exit.x && j == exit.y)
+    {
+        return Color.White;
+    }
+    if (player1Pos.x == i && player1Pos.y == j || player2Pos.x == i && player2Pos.y == j)
+    {
+        return Color.Blue;
+    }
+    Trap? trap = IsTrapAtPosition(i, j);
+    if (trap != null)
+    {
+        return Color.Red;
+    }
+    return maze[i, j].isOpen ? Color.Green : Color.Black;
+}
+
+/*
+    public void PrintMaze()//con Spectre
+    {
+
         for (int i = 0; i < size; i++)
         {
+           
             for (int j = 0; j < size; j++)
             {
+        
                 if (i == exit.x && j == exit.y)
                 {
                     Console.Write("E");
@@ -149,6 +249,7 @@ private bool HasOpenCellInRow(int row)
             Console.WriteLine();
         }
     }
+    */
 
     public class Cell
     {

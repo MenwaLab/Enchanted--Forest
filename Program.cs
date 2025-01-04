@@ -75,7 +75,7 @@ class Program
         {
             foreach(var player in players)
             {
-                generatorMaze.PrintMaze();
+                generatorMaze.PrintMazeSpectre();
                 Console.WriteLine($"{player.Name}, it's your turn. Tu posicion es {player.Position}");
                 if (player.SkipTurns > 0)
                 {
