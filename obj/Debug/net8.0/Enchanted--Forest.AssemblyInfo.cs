@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Enchanted--Forest")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e01d755ac7ae04e6fe9f179b20f03617fca161a7")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ca0e9b3bd9ba74833ec8c1a40e20ed08dd6439fe")]
 [assembly: System.Reflection.AssemblyProductAttribute("Enchanted--Forest")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Enchanted--Forest")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

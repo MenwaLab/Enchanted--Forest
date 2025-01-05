@@ -5,6 +5,7 @@ using Spectre.Console;
 using Spectre.Console.Rendering;
 
 
+
 public class MazeGeneration
 {
     private Cell[,] maze;
@@ -118,6 +119,8 @@ public void PrintMazeSpectre()
 {
     var table = new Table();
     table.HideHeaders();
+    table.Border(TableBorder.Rounded);
+    table.BorderColor(Color.Green1); 
 
     // Define the number of columns based on the maze size
     for (int i = 0; i < size; i++)
@@ -132,14 +135,16 @@ public void PrintMazeSpectre()
         for (int j = 0; j < size; j++)
         {
             var cellContent = GetCellContent(i, j);
-            cells.Add(new Markup(cellContent)); // Add the cell content
+            //cells.Add(new Markup(cellContent)); // Add the cell content
+            cells.Add(new Markup($"  {cellContent}  "));
         }
 
         // Add the row with the correct cells
         table.AddRow(cells.ToArray());
     }
-
+    AnsiConsole.WriteLine();
     AnsiConsole.Write(table);
+    AnsiConsole.WriteLine();
 }
 
 
@@ -186,9 +191,6 @@ private string GetCellContent(int i, int j)
         : "[black]🌲[/]"; // Wall with black background
 }
 
-
-
-
     private Color GetCellColor(int i, int j)
 {
     if (i == exit.x && j == exit.y)
@@ -207,49 +209,10 @@ private string GetCellContent(int i, int j)
     return maze[i, j].isOpen ? Color.Green : Color.Black;
 }
 
-/*
-    public void PrintMaze()//con Spectre
-    {
 
-        for (int i = 0; i < size; i++)
-        {
-           
-            for (int j = 0; j < size; j++)
-            {
-        
-                if (i == exit.x && j == exit.y)
-                {
-                    Console.Write("E");
-                }
-                else if (player1Pos.x == i && player1Pos.y == j && player2Pos.x == i && player2Pos.y == j)
-                {
-                    Console.Write("A"); // Print "A" if both players are in the same cell
-                }
-                else if(player1Pos.x == i && player1Pos.y == j)
-                {
-                    Console.Write("P1");
-                }
-                else if (player2Pos.x == i && player2Pos.y == j)
-                {
-                Console.Write("P2"); // Player 2
-                }
-                else 
-                {
-                    Trap? trap = IsTrapAtPosition(i, j);  
-                    if (trap != null)
-                    {
-                    Console.Write(trap.Name);  
-                    }
-                    else
-                    {
-                    Console.Write(maze[i, j].isOpen ? "." : "#");  
-                    }
-                }
-            }
-            Console.WriteLine();
-        }
-    }
-    */
+
+
+
 
     public class Cell
     {
