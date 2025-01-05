@@ -116,6 +116,9 @@ else
 
         players = new List<Player> { player1, player2 };
         generatorMaze.GenerateTeleportationPortal(); 
+        // After creating player1 and player2
+GameManager.InitializePlayers(player1, player2);
+
 
 
 

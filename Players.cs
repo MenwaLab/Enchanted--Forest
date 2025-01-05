@@ -17,6 +17,7 @@ public class Player
         this.maze = maze; 
         HasUsedAbility = false;
     }
+    
 
     public bool Move(int dx, int dy)
     {

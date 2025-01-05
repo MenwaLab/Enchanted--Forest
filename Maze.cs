@@ -8,6 +8,7 @@ using Spectre.Console.Rendering;
 
 public class MazeGeneration
 {
+    
     private Cell[,] maze;
     private int size;
     private Random rand = new Random();
@@ -170,13 +171,26 @@ private string GetCellContent(int i, int j)
     {
         return "[bold blue]🤼[/]"; // Both players in same cell
     }
-    if (player1Pos.x == i && player1Pos.y == j)
+  if (player1Pos.x == i && player1Pos.y == j)
+{
+    if (GameManager.Player1 != null)
     {
-        return "[bold blue]P1[/]"; // Player 1
+        return $"[bold blue]{GetTokenEmoji(GameManager.Player1.Token)}[/]"; // Player 1 with token emoji
     }
+    return "[bold blue]🤷‍♂️[/]"; // Default for Player 1 if null
+}
+
+    
+
+    // Check if Player 2 is in the current cell
     if (player2Pos.x == i && player2Pos.y == j)
     {
-        return "[bold yellow]P2[/]"; // Player 2
+        // Check if Player2 is not null before accessing Token
+        if (GameManager.Player2 != null)
+        {
+            return $"[bold yellow]{GetTokenEmoji(GameManager.Player2.Token)}[/]"; // Player 2 with token emoji
+        }
+        return "[bold yellow]🤷‍♀️[/]"; // Default for Player2 if null
     }
     
     Trap? trap = IsTrapAtPosition(i, j);
@@ -200,6 +214,27 @@ private string GetCellContent(int i, int j)
     return maze[i, j].isOpen 
         ? "[green]🐾[/]" // Open path with green background
         : "[black]🌲[/]"; // Wall with black background
+}
+private string GetTokenEmoji(Token token)
+{
+    // Return the corresponding emoji for the player's token
+    switch (token.Name)
+    {
+        case "Elf":
+            return "🧝‍♀️";
+        case "Fairy":
+            return "🧚‍♀️";
+        case "Abuela":
+            return "👵";
+        case "Dragon":
+            return "🐉";
+        case "Siren🧜‍♀️":
+            return "🧜‍♀️";
+        case "Wizard":
+            return "🧙‍♂️";
+        default:
+            return "❓"; // Fallback emoji if token not recognized
+    }
 }
 
     private Color GetCellColor(int i, int j)
