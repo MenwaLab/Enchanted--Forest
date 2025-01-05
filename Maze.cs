@@ -202,7 +202,7 @@ private string GetCellContent(int i, int j)
     {
         if (tileType == "Cooldown Reduction")
         {
-            return "[bold cyan]⭐[/]";  // Cooldown reduction tile
+            return "[bold cyan]🚪[/]";  // Cooldown reduction tile
         }
         else if (tileType == "Speed Increase")
         {
@@ -212,7 +212,7 @@ private string GetCellContent(int i, int j)
 
     // Correct way to apply background color in Spectre.Console
     return maze[i, j].isOpen 
-        ? "[green]🐾[/]" // Open path with green background
+        ? "[green].[/]" // Open path with green background
         : "[black]🌲[/]"; // Wall with black background
 }
 private string GetTokenEmoji(Token token)
@@ -220,18 +220,18 @@ private string GetTokenEmoji(Token token)
     // Return the corresponding emoji for the player's token
     switch (token.Name)
     {
-        case "Elf":
-            return "🧝‍♀️";
-        case "Fairy":
-            return "🧚‍♀️";
-        case "Abuela":
+        case "Elf🧝":
+            return "🧝";
+        case "Fairy🧚":
+            return "🧚";
+        case "Abuela👵":
             return "👵";
-        case "Dragon":
-            return "🐉";
-        case "Siren🧜‍♀️":
-            return "🧜‍♀️";
-        case "Wizard":
-            return "🧙‍♂️";
+        case "Unicorn🦄":
+            return "🦄";
+        case "Siren🧜":
+            return "🧜";
+        case "Wizard🧙":
+            return "🧙";
         default:
             return "❓"; // Fallback emoji if token not recognized
     }
@@ -284,7 +284,7 @@ private void GenerateTraps()
     string[] trapEmojis = {
         "🐍", // Snake emoji for T1
         "🔥", // Fire emoji for T2
-        "🌳", // Trunk emoji for T3
+        "🌤️", // Trunk emoji for T3
         "💥"  // Example for T4, you can change it
     };
 
