@@ -1,27 +1,55 @@
-﻿using System;
+﻿
+    
+using System;
 using System.Formats.Asn1;
+using Spectre.Console;
+using Spectre.Console.Rendering;
+using System.Globalization;
+using System.Resources;
+using System.Reflection;
 
 class Program
 { 
     static List<Player> players = new List<Player>();
+
+    static ResourceManager resourceManager = new ResourceManager("Enchanted__Forest.Resources.Strings", typeof(Program).Assembly);
+
+
     static void Main(string[] args)
     {
+        Console.WriteLine("Select language / Seleccione idioma:");
+    Console.WriteLine("1. English");
+    Console.WriteLine("2. Español");
+
+    string? languageChoice = Console.ReadLine();
+    
+    if (languageChoice == "1")
+    {
+        CultureInfo.CurrentCulture = new CultureInfo("en");
+    }
+    else if (languageChoice == "2")
+    {
+        CultureInfo.CurrentCulture = new CultureInfo("es");
+    }
+    
+    
         bool playAgain=true;
         while(playAgain==true)
         {
             playAgain=startGame();
         }
-        Console.WriteLine("Muchas gracias por jugar Enchanted Forest. Hasta la próxima! -Meyli");
+        Console.WriteLine(resourceManager.GetString("ThankYou"));
+
     }
     static bool startGame()
     {
-        Console.WriteLine("Welcome to the Maze Game!");
-        Console.WriteLine("Por favor introduzca el tamaño del laberinto con el que desea jugar!: ");
+        Console.WriteLine(resourceManager.GetString("WelcomeMessage")); // "Welcome to the Maze Game!"
+        Console.WriteLine(resourceManager.GetString("EnterMazeSize"));
         int size;
 
         while (!int.TryParse(Console.ReadLine(), out size) || size < 5)
         {
-            Console.WriteLine("Por favor introduzca un tamaño válido para su laberinto: ");
+            Console.WriteLine(resourceManager.GetString("InvalidMazeSize"));
         }
 
         // Create the maze
@@ -29,18 +57,18 @@ class Program
         
         Token[] tokens = TokenFactory.GetAvailableTokens();
 
-        Console.WriteLine("Available tokens:");
+        Console.WriteLine(resourceManager.GetString("AvailableTokens"));
         for (int i = 0; i < tokens.Length; i++)
         {
             Console.WriteLine($"{i + 1}. {tokens[i]}");
         }
 
-        Console.WriteLine("Player 1, choose your token by entering its number: ");
+        Console.WriteLine(resourceManager.GetString("Player1ChooseToken"));
         int choice1;
          
         while (!int.TryParse(Console.ReadLine(), out choice1) || choice1 < 1 || choice1 > tokens.Length)
         {
-            Console.WriteLine($"Por favor introduzca un número válido para su ficha (entre 1 y {tokens.Length}): ");
+            Console.WriteLine(resourceManager.GetString("InvalidTokenChoice")); 
         }
         choice1--;  // Adjust for 0-based indexing
 
@@ -50,12 +78,12 @@ class Program
 
 
 
-        Console.WriteLine("Player 2, choose your token by entering its number: ");
+        Console.WriteLine(resourceManager.GetString("Player2ChooseToken")); 
         int choice2;
 
         while (!int.TryParse(Console.ReadLine(), out choice2) || choice2 < 1 || choice2 > tokens.Length)
         {
-            Console.WriteLine($"Por favor introduzca un número válido para su ficha (entre 1 y {tokens.Length}): ");
+            Console.WriteLine(resourceManager.GetString("InvalidTokenChoice")); 
         }
         choice2--;
 
@@ -63,10 +91,18 @@ class Program
         Player player2 = new Player("Player 2", tokens[choice2], player2Position.x, player2Position.y, generatorMaze);
         generatorMaze.SetPlayer2Position(player2Position.x, player2Position.y);
 
-        Console.WriteLine($"Player 1 chose {player1.Token.Name}");
-        Console.WriteLine($"Player 2 chose {player2.Token.Name}. Empezemos el juego!!!");
+        string? playerChosenTokenTemplate = resourceManager.GetString("PlayerChoseToken");
+if (!string.IsNullOrEmpty(playerChosenTokenTemplate))
+{
+    Console.WriteLine(string.Format(playerChosenTokenTemplate, "Player 1", tokens[choice1].Name));
+    Console.WriteLine(string.Format(playerChosenTokenTemplate, "Player 2", tokens[choice2].Name));
+}
+else
+{
+    Console.WriteLine("Error: Resource string for 'PlayerChoseToken' not found.");
+}
 
-        //List<Player> players = new List<Player> { player1, player2 };
+
         players = new List<Player> { player1, player2 };
         generatorMaze.GenerateTeleportationPortal(); 
 
@@ -76,23 +112,36 @@ class Program
         {
             foreach(var player in players)
             {
+                //AnsiConsole.Clear();
+                System.Threading.Thread.Sleep(500); 
+
                 generatorMaze.PrintMazeSpectre();
-                Console.WriteLine($"{player.Name}, it's your turn. Tu posicion es {player.Position}");
+
+                string? playerTurnTemplate = resourceManager.GetString("PlayerTurn");
+if (!string.IsNullOrEmpty(playerTurnTemplate))
+{
+    Console.WriteLine(string.Format(playerTurnTemplate, player.Name, player.Position));
+}
+else
+{
+    Console.WriteLine("Error: Resource string for 'PlayerTurn' not found.");
+}
+
                 if (player.SkipTurns > 0)
                 {
-                    Console.WriteLine($"{player.Name} is skipping a turn.");
+                    Console.WriteLine(resourceManager.GetString("SkippingTurn"));
                     player.SkipTurns--;  // Decrease the skip count
                     continue; 
                 }
                 player.Token.ReduceCooldown();
                 player.CheckCooldownAndRestoreSpeed();
 
-                Console.WriteLine("Do you want to use your ability? (Y/N): ");
+                Console.WriteLine(resourceManager.GetString("UseAbilityPrompt")); // "Do you want to use your ability? (Y/N):"
                 string? input = Console.ReadLine();
 
                 while (input == null || input.ToUpper() != "Y" && input.ToUpper() != "N")
                 {
-                    Console.WriteLine("Invalid input. Please enter 'Y' for Yes or 'N' for No:");
+                    Console.WriteLine(resourceManager.GetString("InvalidInput"));
                     input = Console.ReadLine(); // Keep reading until valid input
                 }
                 player.HasUsedAbility = input.ToUpper() == "Y";
@@ -104,6 +153,9 @@ class Program
                 }
                     //Console.WriteLine("Muevase de acuerdo a las teclas");
                     HandleMovement(player, generatorMaze,input);
+
+                    //AnsiConsole.Clear();
+                    System.Threading.Thread.Sleep(500); 
                     generatorMaze.PrintMazeSpectre();
 
                 
@@ -137,17 +189,26 @@ if (generatorMaze.IsBeneficialTile(player.Position.x,player.Position.y, out tile
             string? winner = Win(player, generatorMaze.exit);
             if (winner != null)
             {
-                Console.WriteLine($"{winner} has reached the exit and won the game!");
-                Console.WriteLine("Quieres jugar otra vez? S/N");
+                string? victoryMessageTemplate = resourceManager.GetString("VictoryMessage");
+if (!string.IsNullOrEmpty(victoryMessageTemplate))
+{
+    Console.WriteLine(string.Format(victoryMessageTemplate, winner));
+}
+else
+{
+    Console.WriteLine("Error: Resource string for 'VictoryMessage' not found.");
+}
+ // "{Player} has reached the exit and won the game!"
+                Console.WriteLine(resourceManager.GetString("PlayAgainPrompt")); // "Do you want to play again? (Y/N):"
 
-                string? jugarOtravez=Console.ReadLine();
-                while (jugarOtravez == null || jugarOtravez.ToUpper() != "S" && jugarOtravez.ToUpper() != "N")
+                 string? playAgainInput = Console.ReadLine()?.ToUpper();
+                while (playAgainInput == null || playAgainInput.ToUpper() != "Y" && playAgainInput.ToUpper() != "N")
                 {
-                    Console.WriteLine("Invalid input. Please enter 'S' for Si or 'N' for No:");
-                    jugarOtravez = Console.ReadLine(); // Keep reading until valid input
+                    Console.WriteLine(resourceManager.GetString("InvalidInput")); // "Invalid input. Please enter 'Y' for Yes or 'N' for No:"
+                    playAgainInput = Console.ReadLine(); // Keep reading until valid input
                 }
                 
-                return jugarOtravez.ToUpper() == "S";
+                return playAgainInput == "Y";
             }
         }
     }
@@ -397,3 +458,4 @@ public static void CheckTeleportation(Player player, (int x, int y) backToStartP
 
 
 }
+

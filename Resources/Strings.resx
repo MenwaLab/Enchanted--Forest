@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <data name="GameWelcome" xml:space="preserve">
+    <value>Welcome to the Maze Game!</value>
+  </data>
+  <data name="MazeSizePrompt" xml:space="preserve">
+    <value>Please enter the maze size you want to play with:</value>
+  </data>
+  <data name="MazeSizeInvalid" xml:space="preserve">
+    <value>Please enter a valid size for the maze:</value>
+  </data>
+  <data name="AvailableTokens" xml:space="preserve">
+    <value>Available tokens:</value>
+  </data>
+  <data name="PlayerChooseToken" xml:space="preserve">
+    <value>Player {0}, choose your token by entering its number:</value>
+  </data>
+  <data name="TokenInvalid" xml:space="preserve">
+    <value>Please enter a valid number for your token (between 1 and {0}):</value>
+  </data>
+  <data name="PlayerChoseToken" xml:space="preserve">
+    <value>Player {0} chose {1}.</value>
+  </data>
+  <data name="GameStart" xml:space="preserve">
+    <value>Let the game begin!</value>
+  </data>
+  <data name="PlayerTurn" xml:space="preserve">
+    <value>{0}, it's your turn. Your position is {1}.</value>
+  </data>
+  <data name="SkippingTurn" xml:space="preserve">
+    <value>{0} is skipping a turn.</value>
+  </data>
+  <data name="UseAbilityPrompt" xml:space="preserve">
+    <value>Do you want to use your ability? (Y/N):</value>
+  </data>
+  <data name="InvalidInputYN" xml:space="preserve">
+    <value>Invalid input. Please enter 'Y' for Yes or 'N' for No:</value>
+  </data>
+  <data name="TrapTriggered" xml:space="preserve">
+    <value>Trap {0} triggered at ({1}, {2}).</value>
+  </data>
+  <data name="CooldownReduced" xml:space="preserve">
+    <value>{0} reduced cooldown by 2! Current cooldown: {1}</value>
+  </data>
+  <data name="SpeedIncreased" xml:space="preserve">
+    <value>{0} increased speed by 1!</value>
+  </data>
+  <data name="PlayerWins" xml:space="preserve">
+    <value>{0} has reached the exit and won the game!</value>
+  </data>
+  <data name="PlayAgain" xml:space="preserve">
+    <value>Do you want to play again? (S/N):</value>
+  </data>
+  <data name="InvalidInputSN" xml:space="preserve">
+    <value>Invalid input. Please enter 'S' for Yes or 'N' for No:</value>
+  </data>
+  <data name="ArrowKeyPrompt" xml:space="preserve">
+    <value>Press an arrow key to move:</value>
+  </data>
+  <data name="InvalidMove" xml:space="preserve">
+    <value>No valid moves in that direction. Try again.</value>
+  </data>
+  <data name="PlayerMoved" xml:space="preserve">
+    <value>{0} finished moving to ({1}, {2}). Speed is {3}.</value>
+  </data>
+  <data name="BlockedByWall" xml:space="preserve">
+    <value>Blocked by a wall at ({0}, {1}).</value>
+  </data>
+  <data name="NoValidMoves" xml:space="preserve">
+    <value>No valid moves in this direction. You are stuck!</value>
+  </data>
+  <data name="TrapFound" xml:space="preserve">
+    <value>Trap {0} found at ({1}, {2}).</value>
+  </data>
+  <data name="NoTrap" xml:space="preserve">
+    <value>No trap at the final position.</value>
+  </data>
+  <data name="TeleportBackToStart" xml:space="preserve">
+    <value>{0} stepped on the back-to-start portal! Teleporting back to start...</value>
+  </data>
+  <data name="TeleportRandom" xml:space="preserve">
+    <value>{0} stepped on the random teleport portal! Teleporting to a random position...</value>
+  </data>
+  <data name="ThankYou" xml:space="preserve">
+    <value>Thank you for playing Enchanted Forest. See you next time! -Meyli</value>
+  </data>
+  <data name="WelcomeMessage" xml:space="preserve">
+    <value>Welcome to the Maze Game!</value>
+</data>
+<data name="EnterMazeSize" xml:space="preserve">
+    <value>Please enter the size of the maze:</value>
+</data>
+<data name="InvalidMazeSize" xml:space="preserve">
+    <value>Please enter a valid size for the maze (minimum 5):</value>
+</data>
+<data name="Player1ChooseToken" xml:space="preserve">
+    <value>Player 1, choose your token by entering its number:</value>
+</data>
+<data name="InvalidTokenChoice" xml:space="preserve">
+    <value>Please enter a valid token number between 1 and {0}:</value>
+</data>
+<data name="Player2ChooseToken" xml:space="preserve">
+    <value>Player 2, choose your token by entering its number:</value>
+</data>
+<data name="InvalidInput" xml:space="preserve">
+    <value>Invalid input. Please enter 'Y' for Yes or 'N' for No:</value>
+</data>
+<data name="VictoryMessage" xml:space="preserve">
+    <value>{0} has reached the exit and won the game!</value>
+</data>
+
+</root>
