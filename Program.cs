@@ -23,13 +23,24 @@ class Program
 
     string? languageChoice = Console.ReadLine();
     
-    if (languageChoice == "1")
+    while (true)
     {
-        CultureInfo.CurrentCulture = new CultureInfo("en");
-    }
-    else if (languageChoice == "2")
-    {
-        CultureInfo.CurrentCulture = new CultureInfo("es");
+        languageChoice = Console.ReadLine();
+        if (languageChoice == "1")
+        {
+            CultureInfo.CurrentCulture = new CultureInfo("en");
+            break;  // Exit the loop once a valid input is received
+        }
+        else if (languageChoice == "2")
+        {
+            CultureInfo.CurrentCulture = new CultureInfo("es");
+            break;  // Exit the loop once a valid input is received
+        }
+        else
+        {
+            // If input is invalid, show an error and prompt again
+            Console.WriteLine("Invalid input. Please enter '1' for English or '2' for Español.");
+        }
     }
     
     

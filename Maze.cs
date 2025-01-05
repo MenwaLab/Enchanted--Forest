@@ -182,7 +182,7 @@ private string GetCellContent(int i, int j)
     Trap? trap = IsTrapAtPosition(i, j);
     if (trap != null)
     {
-        return $"[bold red]{trap.Name}[/]";  // Trap
+        return $"[bold red]{trap.Emoji}[/]";  // Trap
     }
     if (IsBeneficialTile(i, j, out string tileType))
     {
@@ -246,6 +246,12 @@ private void GenerateTraps()
         "Aumento tu tiempo de enfriamiento"
         
     };
+    string[] trapEmojis = {
+        "🐍", // Snake emoji for T1
+        "🔥", // Fire emoji for T2
+        "🌳", // Trunk emoji for T3
+        "💥"  // Example for T4, you can change it
+    };
 
     //Todas las posiciones validas para trampas
     List<(int x, int y)> validPositions = new List<(int x, int y)>();
@@ -275,8 +281,9 @@ private void GenerateTraps()
         {
             string trapName = "T" + (trapCount + 1); // Nombre "T1", "T2", "T3"
             string effect = trapEffects[trapCount]; // Tomar su efecto
+            string emoji = trapEmojis[trapCount];
 
-            trapsList.Add(new Trap(x, y, trapName, effect));
+            trapsList.Add(new Trap(x, y, trapName, effect,emoji));
             trapCount++;
         }
 

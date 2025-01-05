@@ -5,14 +5,16 @@ public class Trap
     public bool Triggered { get; set; } 
     public string Name { get; set; } 
     public string Effect { get; set; } 
+    public string Emoji { get; set; } 
 
-    public Trap(int x, int y, string name, string effect)
+    public Trap(int x, int y, string name, string effect, string emoji)
     {
         X = x;
         Y = y;
         Triggered = false;
         Name = name;
         Effect = effect;
+        Emoji = emoji;
     }
 
     public void ApplyEffect(Player player)
