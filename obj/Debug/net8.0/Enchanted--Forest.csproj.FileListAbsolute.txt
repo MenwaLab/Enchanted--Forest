@@ -10,7 +10,6 @@ C:\Users\LENOVO\OneDrive\Desktop\Enchanted--Forest\bin\Debug\net8.0\System.Forma
 C:\Users\LENOVO\OneDrive\Desktop\Enchanted--Forest\bin\Debug\net8.0\System.Reflection.Metadata.dll
 C:\Users\LENOVO\OneDrive\Desktop\Enchanted--Forest\bin\Debug\net8.0\System.Resources.Extensions.dll
 C:\Users\LENOVO\OneDrive\Desktop\Enchanted--Forest\obj\Debug\net8.0\Enchanted--Forest.csproj.AssemblyReference.cache
-C:\Users\LENOVO\OneDrive\Desktop\Enchanted--Forest\obj\Debug\net8.0\Enchanted__Forest.Resources.Strings.resources
 C:\Users\LENOVO\OneDrive\Desktop\Enchanted--Forest\obj\Debug\net8.0\Enchanted__Forest.Resources.Strings.es.resources
 C:\Users\LENOVO\OneDrive\Desktop\Enchanted--Forest\obj\Debug\net8.0\Enchanted--Forest.csproj.GenerateResource.cache
 C:\Users\LENOVO\OneDrive\Desktop\Enchanted--Forest\obj\Debug\net8.0\Enchanted--Forest.GeneratedMSBuildEditorConfig.editorconfig
@@ -26,3 +25,4 @@ C:\Users\LENOVO\OneDrive\Desktop\Enchanted--Forest\obj\Debug\net8.0\refint\Encha
 C:\Users\LENOVO\OneDrive\Desktop\Enchanted--Forest\obj\Debug\net8.0\Enchanted--Forest.pdb
 C:\Users\LENOVO\OneDrive\Desktop\Enchanted--Forest\obj\Debug\net8.0\Enchanted--Forest.genruntimeconfig.cache
 C:\Users\LENOVO\OneDrive\Desktop\Enchanted--Forest\obj\Debug\net8.0\ref\Enchanted--Forest.dll
+C:\Users\LENOVO\OneDrive\Desktop\Enchanted--Forest\obj\Debug\net8.0\Enchanted__Forest.Resources.Strings.resources

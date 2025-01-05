@@ -7,41 +7,48 @@ using Spectre.Console.Rendering;
 using System.Globalization;
 using System.Resources;
 using System.Reflection;
+using System.Threading;
 
 class Program
 { 
     static List<Player> players = new List<Player>();
 
-    static ResourceManager resourceManager = new ResourceManager("Enchanted__Forest.Resources.Strings", typeof(Program).Assembly);
-
+    static ResourceManager resourceManager = new ResourceManager("Enchanted__Forest.Resources.Strings",  typeof(Program).Assembly);
+    
 
     static void Main(string[] args)
     {
-        Console.WriteLine("Select language / Seleccione idioma:");
-    Console.WriteLine("1. English");
-    Console.WriteLine("2. Español");
+        Console.WriteLine("Select the language you will play in / Seleccione el idioma con el que jugará:");
+        Console.WriteLine("1. English");
+        Console.WriteLine("2. Español");
 
     string? languageChoice = Console.ReadLine();
     
     while (true)
     {
-        // Check if the input is either "1" or "2"
         if (languageChoice == "1")
         {
+            Console.WriteLine($"Language set to: {CultureInfo.CurrentCulture.Name}");
             CultureInfo.CurrentCulture = new CultureInfo("en");
-            break;  // Exit the loop once a valid input is received
+            //resourceManager = new ResourceManager("Enchanted__Forest.Resources.Strings.en",  typeof(Program).Assembly);
+            break;  
         }
-        else if (languageChoice == "2")
+        if (languageChoice=="2")
         {
+            Thread.CurrentThread.CurrentCulture = new CultureInfo("es-Es");
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo("es-Es");
             CultureInfo.CurrentCulture = new CultureInfo("es");
-            break;  // Exit the loop once a valid input is received
+            Console.WriteLine($"Language set to: {CultureInfo.CurrentCulture.Name}");
+            break;  
         }
         else
         {
             // If input is invalid, show an error and prompt again
-            Console.WriteLine("Invalid input. Please enter '1' for English or '2' for Español.");
+            Console.WriteLine("Invalid input / Entrada no válida. '1' for English o '2' para Español.");
             languageChoice = Console.ReadLine(); // Re-prompt for input
         }
+        
+
     }
     
     
@@ -85,7 +92,8 @@ class Program
         choice1--;  // Adjust for 0-based indexing
 
         var player1Position=GetRandomValidPosition(generatorMaze, generatorMaze.exit);
-        Player player1 = new Player("Player 1", tokens[choice1], player1Position.x, player1Position.y, generatorMaze);
+        
+        Player player1 = new Player("P 1", tokens[choice1], player1Position.x, player1Position.y, generatorMaze);
         generatorMaze.SetPlayer1Position(player1Position.x, player1Position.y);
 
 
@@ -100,14 +108,14 @@ class Program
         choice2--;
 
         var player2Position = GetRandomValidPosition(generatorMaze, generatorMaze.exit);
-        Player player2 = new Player("Player 2", tokens[choice2], player2Position.x, player2Position.y, generatorMaze);
+        Player player2 = new Player("P 2", tokens[choice2], player2Position.x, player2Position.y, generatorMaze);
         generatorMaze.SetPlayer2Position(player2Position.x, player2Position.y);
 
         string? playerChosenTokenTemplate = resourceManager.GetString("PlayerChoseToken");
 if (!string.IsNullOrEmpty(playerChosenTokenTemplate))
 {
-    Console.WriteLine(string.Format(playerChosenTokenTemplate, "Player 1", tokens[choice1].Name));
-    Console.WriteLine(string.Format(playerChosenTokenTemplate, "Player 2", tokens[choice2].Name));
+    Console.WriteLine(string.Format(playerChosenTokenTemplate, "P 1", tokens[choice1].Name));
+    Console.WriteLine(string.Format(playerChosenTokenTemplate, "P 2", tokens[choice2].Name));
 }
 else
 {
@@ -166,12 +174,12 @@ else
                     Player target = player == players[0] ? players[1] : players[0];
                     player.Token.UseAbility(player, target);
                 }
-                    //Console.WriteLine("Muevase de acuerdo a las teclas");
+                   
                     HandleMovement(player, generatorMaze,input);
 
-                    //AnsiConsole.Clear();
-                    System.Threading.Thread.Sleep(500); 
-                    //generatorMaze.PrintMazeSpectre();
+                    
+                    //System.Threading.Thread.Sleep(500); 
+                    
 
                 
                 player.Token.Speed = player.Token.Speed > player.Token.BaseSpeed
@@ -318,18 +326,7 @@ public static bool TryMovePlayer(Player player, int dx, int dy, int steps, MazeG
                 }
                 return true;
                 }
-                /*
-                if (player == players[0])
-                {
-                    generatorMaze.SetPlayer1Position(player.Position.x, player.Position.y); // Update Player 1's position
-                }
-                else
-                {
-                    generatorMaze.SetPlayer2Position(player.Position.x, player.Position.y); // Update Player 2's position
-                }
-                return true;
-            }
-            */
+                
             else
             {
                 // If the first step is blocked, stop the movement entirely
@@ -391,7 +388,7 @@ public static bool IsValidMove(int newX, int newY, MazeGeneration generatorMaze)
 {
     if (newX < 0 || newY < 0 || newX >= generatorMaze.Size || newY >= generatorMaze.Size)
     {
-        //Console.WriteLine($"Position ({newX}, {newY}) is outside the maze bounds.");
+        
         return false; // Out of bounds check
 
     }
@@ -412,7 +409,7 @@ public static bool IsValidMove(int newX, int newY, MazeGeneration generatorMaze)
         }
         else
         {
-            //Console.WriteLine($"Trap {trapAtPosition.Name} is not triggered yet.");
+            
             return true; // Allow movement to a trap that hasn't been triggered yet
         }
     }
