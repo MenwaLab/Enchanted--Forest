@@ -15,44 +15,38 @@ class Program
 
     static ResourceManager resourceManager = new ResourceManager("Enchanted__Forest.Resources.Strings",  typeof(Program).Assembly);
     
-
     static void Main(string[] args)
     {
         Console.WriteLine("Select the language you will play in / Seleccione el idioma con el que jugará:");
         Console.WriteLine("1. English");
         Console.WriteLine("2. Español");
 
-    string? languageChoice = Console.ReadLine();
+        string? languageChoice = Console.ReadLine();
     
-    while (true)
-    {
-        if (languageChoice == "1")
+        while (true)
         {
-            Console.WriteLine($"Language set to: {CultureInfo.CurrentCulture.Name}");
-            CultureInfo.CurrentCulture = new CultureInfo("en");
-            //resourceManager = new ResourceManager("Enchanted__Forest.Resources.Strings.en",  typeof(Program).Assembly);
-            break;  
+            if (languageChoice == "1")
+            {
+                Console.WriteLine($"Language set to: {CultureInfo.CurrentCulture.Name}");
+                CultureInfo.CurrentCulture = new CultureInfo("en");
+                break;  
+            }
+            if (languageChoice=="2")
+            {
+                Thread.CurrentThread.CurrentCulture = new CultureInfo("es-Es");
+                Thread.CurrentThread.CurrentUICulture = new CultureInfo("es-Es");
+                CultureInfo.CurrentCulture = new CultureInfo("es");
+                break;  
+            }
+            else
+            {
+                Console.WriteLine("Invalid input / Entrada no válida. '1' for English o '2' para Español.");
+                languageChoice = Console.ReadLine();
+            }
         }
-        if (languageChoice=="2")
-        {
-            Thread.CurrentThread.CurrentCulture = new CultureInfo("es-Es");
-            Thread.CurrentThread.CurrentUICulture = new CultureInfo("es-Es");
-            CultureInfo.CurrentCulture = new CultureInfo("es");
-            Console.WriteLine($"Language set to: {CultureInfo.CurrentCulture.Name}");
-            break;  
-        }
-        else
-        {
-            // If input is invalid, show an error and prompt again
-            Console.WriteLine("Invalid input / Entrada no válida. '1' for English o '2' para Español.");
-            languageChoice = Console.ReadLine(); // Re-prompt for input
-        }
-        
-
-    }
-    
     
         bool playAgain=true;
+
         while(playAgain==true)
         {
             playAgain=startGame();
@@ -62,7 +56,9 @@ class Program
     }
     static bool startGame()
     {
-        Console.WriteLine(resourceManager.GetString("WelcomeMessage")); // "Welcome to the Maze Game!"
+        Console.WriteLine("");
+        Console.WriteLine(resourceManager.GetString("WelcomeMessage")); 
+        Console.WriteLine("");
         Console.WriteLine(resourceManager.GetString("EnterMazeSize"));
         int size;
 
@@ -76,12 +72,16 @@ class Program
         
         Token[] tokens = TokenFactory.GetAvailableTokens();
 
+        Console.WriteLine("");
         Console.WriteLine(resourceManager.GetString("AvailableTokens"));
+        Console.WriteLine("");
+
         for (int i = 0; i < tokens.Length; i++)
         {
             Console.WriteLine($"{i + 1}. {tokens[i]}");
         }
 
+        Console.WriteLine("");
         Console.WriteLine(resourceManager.GetString("Player1ChooseToken"));
         int choice1;
          
@@ -95,8 +95,6 @@ class Program
         
         Player player1 = new Player("P 1", tokens[choice1], player1Position.x, player1Position.y, generatorMaze);
         generatorMaze.SetPlayer1Position(player1Position.x, player1Position.y);
-
-
 
         Console.WriteLine(resourceManager.GetString("Player2ChooseToken")); 
         int choice2;
@@ -135,9 +133,7 @@ GameManager.InitializePlayers(player1, player2);
         {
             foreach(var player in players)
             {
-                //AnsiConsole.Clear();
                 System.Threading.Thread.Sleep(500); 
-
                 generatorMaze.PrintMazeSpectre();
 
                 string? playerTurnTemplate = resourceManager.GetString("PlayerTurn");
@@ -159,6 +155,7 @@ else
                 player.Token.ReduceCooldown();
                 player.CheckCooldownAndRestoreSpeed();
 
+                Console.WriteLine();
                 Console.WriteLine(resourceManager.GetString("UseAbilityPrompt")); // "Do you want to use your ability? (Y/N):"
                 string? input = Console.ReadLine();
 
@@ -177,11 +174,6 @@ else
                    
                     HandleMovement(player, generatorMaze,input);
 
-                    
-                    //System.Threading.Thread.Sleep(500); 
-                    
-
-                
                 player.Token.Speed = player.Token.Speed > player.Token.BaseSpeed
                     ? player.Token.BaseSpeed
                     : player.Token.Speed;
@@ -195,14 +187,33 @@ if (generatorMaze.IsBeneficialTile(player.Position.x,player.Position.y, out tile
     if (player.Token.CooldownTime > 0)
     {
         player.Token.CooldownTime = Math.Max(0, player.Token.CooldownTime - 2);
-        Console.WriteLine($"{player.Name} reduced cooldown by 2! Current cooldown: {player.Token.CooldownTime}");
+        string? cooldownReducedTemplate = resourceManager.GetString("CooldownReduced");
+if (!string.IsNullOrEmpty(cooldownReducedTemplate))
+{
+    Console.WriteLine(string.Format(cooldownReducedTemplate, player.Name, player.Token.CooldownTime));
+}
+else
+{
+    Console.WriteLine("Error: Resource string for 'CooldownReduced' not found.");
+}
+
+
     }
     break;
 
 
         case "Speed Increase":
             player.Token.Speed += 1;
-            Console.WriteLine($"{player.Name} increased speed by 1!");
+            string? speedIncreasedTemplate = resourceManager.GetString("SpeedIncreased");
+if (!string.IsNullOrEmpty(speedIncreasedTemplate))
+{
+    Console.WriteLine(string.Format(speedIncreasedTemplate, player.Name));
+}
+else
+{
+    Console.WriteLine("Error: Resource string for 'SpeedIncreased' not found.");
+}
+
             break;
     }
 }
@@ -244,7 +255,8 @@ public static void HandleMovement(Player player, MazeGeneration generatorMaze, s
 {
     while (true) // Retry until the player successfully moves or changes direction
     {
-        Console.WriteLine("Press an arrow key to move:");
+        
+        Console.WriteLine(resourceManager.GetString("ArrowKeyPrompt"));
         ConsoleKeyInfo key = Console.ReadKey(true); // Get key press
 
         int dx = 0, dy = 0;
@@ -263,7 +275,7 @@ public static void HandleMovement(Player player, MazeGeneration generatorMaze, s
                 dy = 1;
                 break;
             default:
-                Console.WriteLine("Invalid key. Try again.");
+                Console.WriteLine(resourceManager.GetString("InvalidArrowKey"));
                 continue;
         }
 
@@ -275,7 +287,7 @@ public static void HandleMovement(Player player, MazeGeneration generatorMaze, s
         }  
              // Move successful; exit the loop
         else
-            Console.WriteLine("No valid moves in that direction. Try again.");
+            Console.WriteLine(resourceManager.GetString("InvalidMove"));
     }
 }
 
@@ -291,7 +303,7 @@ public static bool TryMovePlayer(Player player, int dx, int dy, int steps, MazeG
     // If no steps to take, return false
     if (steps == 0)
     {
-        Console.WriteLine("No valid moves in that direction. Please change direction.");
+        Console.WriteLine(resourceManager.GetString("InvalidMove"));
         return false;
     }
 
@@ -303,12 +315,12 @@ public static bool TryMovePlayer(Player player, int dx, int dy, int steps, MazeG
         int nextX = startX + dx * step;
         int nextY = startY + dy * step;
 
-        Console.WriteLine($"Player {player.Name} is at ({startX}, {startY}). Checking move to ({nextX}, {nextY}).");
+        
 
         // Check if the new position is within bounds and not a wall
         if (!IsValidMove(nextX, nextY, generatorMaze))
         {
-            Console.WriteLine($"Blocked by a wall at ({nextX}, {nextY}).");
+            
 
             // If we're not at the last step, stop and return the current valid position
             if (step > 1)
@@ -321,7 +333,7 @@ public static bool TryMovePlayer(Player player, int dx, int dy, int steps, MazeG
                 Trap? trap = generatorMaze.IsTrapAtPosition(player.Position.x, player.Position.y);
                 if (trap != null)// && player.Token.Name != "Elf")
                 {
-                    Console.WriteLine($"Trap {trap.Name} triggered at ({player.Position.x}, {player.Position.y}) while stepping back.");
+                    
                     trap.ApplyEffect(player);
                 }
                 return true;
@@ -330,7 +342,7 @@ public static bool TryMovePlayer(Player player, int dx, int dy, int steps, MazeG
             else
             {
                 // If the first step is blocked, stop the movement entirely
-                Console.WriteLine("No valid moves in this direction. You are stuck!");
+                //Console.WriteLine("No valid moves in this direction. You are stuck!");// TURN TO RESX
                 return false;
             }
         }
@@ -346,20 +358,18 @@ public static bool TryMovePlayer(Player player, int dx, int dy, int steps, MazeG
     {
         // Update the player's position
         player.Position = (finalX, finalY);
-        Console.WriteLine($"{player.Name} finished moving to ({finalX}, {finalY}). Speed is {player.Token.Speed}");
+        
         UpdatePlayerPositionInMaze(player, generatorMaze);
         Trap? trap = generatorMaze.IsTrapAtPosition(finalX, finalY);
         if (trap != null)
         {
-            Console.WriteLine($"Trap {trap.Name} found at ({finalX}, {finalY})");
+            //Console.WriteLine($"Trap {trap.Name} found at ({finalX}, {finalY})");// TURN TO RESX
                 trap.ApplyEffect(player);  // Only call ApplyEffect if trap is not null
             }
-            else{
-                Console.WriteLine("No trap at the final position.");
-            }
+    
             generatorMaze.CheckTeleportation(player);
         // Update player position in the maze after the move
-        if (player == players[0]) //DELETED FROM HERE
+        if (player == players[0]) 
         {
             generatorMaze.SetPlayer1Position(player.Position.x, player.Position.y); // Update Player 1's position
         }
@@ -371,7 +381,7 @@ public static bool TryMovePlayer(Player player, int dx, int dy, int steps, MazeG
         }
         else
     {
-        Console.WriteLine($"Blocked by a wall at ({finalX}, {finalY}). Cannot move there.");
+        //Console.WriteLine($"Blocked by a wall at ({finalX}, {finalY}). Cannot move there.");// TURN TO RESX
         return false; // If final position is invalid, return false
     }
 }
@@ -404,7 +414,16 @@ public static bool IsValidMove(int newX, int newY, MazeGeneration generatorMaze)
         // If the trap has been triggered, it's still considered open for movement
         if (trapAtPosition.Triggered)
         {
-            Console.WriteLine($"Trap {trapAtPosition.Name} has been triggered but the path is open for movement.");
+            string? trapAlreadyTriggeredTemplate = resourceManager.GetString("TrapAlreadyTriggered");
+if (!string.IsNullOrEmpty(trapAlreadyTriggeredTemplate))
+{
+    Console.WriteLine(string.Format(trapAlreadyTriggeredTemplate, trapAtPosition.Name));
+}
+else
+{
+    Console.WriteLine("Error: Resource string for 'TrapAlreadyTriggered' not found.");
+}
+
             return true; // Allow movement even though the trap is triggered
         }
         else
@@ -457,14 +476,18 @@ public static (int x, int y) GetRandomValidPosition(MazeGeneration maze, (int x,
 }
 public static void CheckTeleportation(Player player, (int x, int y) backToStartPortal, (int x, int y) randomTeleportPortal, (int x, int y) startPosition, MazeGeneration generatorMaze)
 {
-    if (player.Position == backToStartPortal)
+    if (player.Position == randomTeleportPortal)
     {
-        Console.WriteLine($"{player.Name} stepped on the back-to-start portal! Teleporting back to start...");
-        player.Position = startPosition; // Teleport back to the start
-    }
-    else if (player.Position == randomTeleportPortal)
-    {
-        Console.WriteLine($"{player.Name} stepped on the random teleport portal! Teleporting to a random position...");
+        string? teleportRandomTemplate = resourceManager.GetString("TeleportRandom");
+if (!string.IsNullOrEmpty(teleportRandomTemplate))
+{
+    Console.WriteLine(string.Format(teleportRandomTemplate, player.Name));
+}
+else
+{
+    Console.WriteLine("Error: Resource string for 'TeleportRandom' not found.");
+}
+
         player.Position = GetRandomValidPosition(generatorMaze, generatorMaze.exit); // Teleport to a random valid position
     }
 }

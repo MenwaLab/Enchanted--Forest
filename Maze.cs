@@ -165,7 +165,7 @@ private string GetCellContent(int i, int j)
 {
     if (i == exit.x && j == exit.y)
     {
-        return "[bold white]🦄[/]"; // Exit cell
+        return "[bold white]⭐[/]"; // Exit cell
     }
     if (player1Pos.x == i && player1Pos.y == j && player2Pos.x == i && player2Pos.y == j)
     {

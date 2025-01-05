@@ -73,33 +73,27 @@ public static class TokenFactory
     {
         return new Token[]
         {
-            new Token("Elf", "Permanently copies the ability of another token and uses it immediately", 3, 5, 
-    (user, target) =>
-    {
-        Console.WriteLine($"{user.Name}'s Elf is mimicking {target.Name}'s {target.Token.Name} ability.");
-        user.Token.MimicAbility(target.Token, user, target); // Mimic and execute the target's ability
-    }),
+            new Token("Elf🧝", "Permanently copies the ability of another token and uses it immediately", 3, 5, 
+            (user, target) =>
+            {Console.WriteLine($"{user.Name}'s Elf is mimicking {target.Name}'s {target.Token.Name} ability.");
+            user.Token.MimicAbility(target.Token, user, target); }),
 
-
-
-            
-            new Token("Wizard", "Reduce la velocidad de su enemigo", 4, 3,
+            new Token("Wizard🧙", "Reduce la velocidad de su enemigo", 4, 3,
                 (user, target) =>
                 {Console.WriteLine($"{user.Name}'s Wizard reduce la velocidad de {target.Name}.");
                 target.Token.Speed = Math.Max(1, target.Token.Speed - 1); }),
             
-            new Token("Fairy", "Cambia su posición con la de su enemigo", 7, 4,
+            new Token("Fairy🧚", "Cambia su posición con la de su enemigo", 7, 4,
                 (user, target) =>
                 {Console.WriteLine($"{user.Name}'s Fairy alterna su posición con {target.Name}.");
                 Player.SwapPlayerPositions(user, target); }),// Call the method in Program.cs
 
-            new Token("Siren🧜‍♀️", "Le quita un turno a su enemigo", 5, 3,
+            new Token("Siren🧜", "Le quita un turno a su enemigo", 5, 3,
                 (user, target) =>
                 {Console.WriteLine($"{user.Name}'s Siren salta el turno de {target.Name}.");
                 target.SkipTurns = 1; }),
 
-
-            new Token("Abuela", "Aumenta su velocidad por 1", 2, 2,
+            new Token("Abuela👵", "Aumenta su velocidad por 1", 2, 2,
                 (user, target) =>
                 {
                     Console.WriteLine($"{user.Name}'s Abuela su propia velocidad por 1.");
@@ -107,7 +101,7 @@ public static class TokenFactory
                     user.Token.SetCooldown(1); // Ensure her ability has a cooldown. ver si funciona
                 }),
             
-            new Token("Dragon", "Bendición de la suerte: Activa un efecto al azar", 6, 4,
+            new Token("Unicorn🦄", "Bendición de la suerte: Activa un efecto al azar", 6, 4,
                 (user, target) =>
                 {
                     Random rand = new Random();

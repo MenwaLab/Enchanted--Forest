@@ -1,111 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
 <root>
-  <data name="GameWelcome" xml:space="preserve">
-    <value>¡Bienvenido al Juego del Laberinto!</value>
+<data name="ThankYou" xml:space="preserve">
+    <value>¡Gracias por jugar al 'Laberinto del Bosque Encantado'. ¡Espero que se hayan divertido!. ¡Hasta la próxima!. -Meylí</value>
   </data>
-  <data name="MazeSizePrompt" xml:space="preserve">
-    <value>Por favor ingresa el tamaño del laberinto con el que deseas jugar:</value>
+  <data name="WelcomeMessage" xml:space="preserve">
+    <value>Bienvenido al juego: ¨Laberinto del Bosque Encantado¨. 
+    
+    Había una vez un hermoso, mágico y pacífico bosque en Fairylandia
+    (another land name) pero una malvada entidad ha hechizado este poblado, convirtiéndolo en un oscuro y tenebroso laberinto con trampas  
+    dispuestas a dañarte y evitar tu escape. Por lo que la misión de ambos es encontrar la salida (una radiante estrella esperando por ustedes), 
+    pero tengan mucho cuidado porque en el camino no solo se enfretarán a trampas malévolas, sino también tendrán que competir entre ustedes. 
+    Aunque los dos comiencen esta aventura, solo uno sobrevivirá. Pero no todo está perdido, porque la Reina y el Rey estarán dentro del laberinto
+    con ustedes y los ayudarán cada vez que los visiten. !Oh, casi olvidaba!. Hay una zona en este bosque diferente a las demás porque el hechizo
+    la hizo invisible y si caen en ella serán transportados a un lugar aleatorio dentro del bosque, así que tengan cuidado. Sin más dilación,
+    mucha suerte a ambos y que comience el juego!</value>
+</data>
+<data name="EnterMazeSize" xml:space="preserve">
+    <value>Por favor, ingrese el tamaño del laberinto con el que jugará 
+    (solo números mayores que 7 están permitidos y note que con los meyores que 15 el laberinto puede imprimirse en líneas diferentes)</value>
+</data>
+<data name="InvalidMazeSize" xml:space="preserve">
+    <value>Por favor, inserta un tamaño válido para el laberinto (mínimo 7):</value>
+</data>
+<data name="AvailableTokens" xml:space="preserve">
+    <value>A continuación se encuentran los personajes que están atrapados en el laberinto, y cada uno tiene una habilidad, velocidad (número de casillas que la ficha puede desplazarse) y tiempo de enfriamiento (cantidad de turnos que impide el uso de su habilidad):</value>
   </data>
-  <data name="MazeSizeInvalid" xml:space="preserve">
-    <value>Por favor ingresa un tamaño válido para el laberinto:</value>
-  </data>
-  <data name="AvailableTokens" xml:space="preserve">
-    <value>Tokens disponibles:</value>
-  </data>
-  <data name="PlayerChooseToken" xml:space="preserve">
-    <value>Jugador {0}, elige tu token ingresando su número:</value>
-  </data>
-  <data name="TokenInvalid" xml:space="preserve">
-    <value>Por favor ingresa un número válido para tu token (entre 1 y {0}):</value>
-  </data>
+  <data name="Player1ChooseToken" xml:space="preserve">
+    <value>Jugador 1, por favor, elija su ficha ingresando su número:</value>
+</data>
+<data name="InvalidTokenChoice" xml:space="preserve">
+    <value>Por favor, ingresa un número válido para tu ficha (entre 1 y 6):</value>
+</data>
   <data name="PlayerChoseToken" xml:space="preserve">
-    <value>El jugador {0} eligió el token {1}.</value>
-  </data>
-  <data name="GameStart" xml:space="preserve">
-    <value>¡Que comience el juego!</value>
+    <value>El jugador {0} eligió el la ficha {1}.</value>
   </data>
   <data name="PlayerTurn" xml:space="preserve">
     <value>{0}, es tu turno. Tu posición es {1}.</value>
   </data>
   <data name="SkippingTurn" xml:space="preserve">
-    <value>El jugador {0} está pasando su turno.</value>
+    <value>El jugador {0} no juega este turno.</value>
   </data>
   <data name="UseAbilityPrompt" xml:space="preserve">
-    <value>¿Quieres usar tu habilidad? (S/N):</value>
+    <value>¿Quieres usar tu habilidad? (Inserte 1 para Sí, 0 para No):</value>
   </data>
   <data name="InvalidInputYN" xml:space="preserve">
-    <value>Entrada inválida. Por favor ingresa 'S' para Sí o 'N' para No:</value>
+    <value>Entrada inválida. Por favor ingresa '1' para Sí o '0' para No:</value>
   </data>
-  <data name="TrapTriggered" xml:space="preserve">
-    <value>Trampa {0} activada en ({1}, {2}).</value>
-  </data>
+
   <data name="CooldownReduced" xml:space="preserve">
     <value>{0} redujo el tiempo de recarga en 2! Tiempo de recarga actual: {1}</value>
   </data>
   <data name="SpeedIncreased" xml:space="preserve">
     <value>{0} aumentó su velocidad en 1!</value>
   </data>
-  <data name="PlayerWins" xml:space="preserve">
-    <value>¡El jugador {0} ha llegado a la salida y ganó el juego!</value>
+
+
+  <data name="VictoryMessage" xml:space="preserve">
+    <value>¡El jugador {0} ha encontrado la salida del laberintó! !Ganaste el juego, felicidades!</value>
   </data>
   <data name="PlayAgain" xml:space="preserve">
-    <value>¿Quieres jugar de nuevo? (S/N):</value>
+    <value>¿Quieres jugar de nuevo? (Inserte 1 para Sí, 0 para No):</value>
   </data>
-  <data name="InvalidInputSN" xml:space="preserve">
-    <value>Entrada inválida. Por favor ingresa 'S' para Sí o 'N' para No:</value>
-  </data>
+  <data name="InvalidInput" xml:space="preserve">
+    <value>Entrada inválida. Por favor, ingresa '1' para Sí o '0' para No:</value>
+</data>
   <data name="ArrowKeyPrompt" xml:space="preserve">
     <value>Presiona una tecla de flecha para moverte:</value>
   </data>
-  <data name="InvalidMove" xml:space="preserve">
-    <value>No hay movimientos válidos en esa dirección. Intenta nuevamente.</value>
+  <data name="InvalidArrowKey" xml:space="preserve">
+    <value>Por favor, presiona una tecla válida para moverte:</value>
   </data>
+
+  <data name="InvalidMove" xml:space="preserve">
+    <value>No hay movimientos válidos en esa dirección. Por favor, cambie de dirección.</value>
+  </data>
+  <data name="TrapAlreadyTriggered" xml:space="preserve">
+    <value>Trampa {0} ya ha sido activada.</value>
+</data>
+<data name="TeleportRandom" xml:space="preserve">
+    <value>¡El jugador {0} cayó en el portal de teletransportación! Transportándolo a una posición aleatoria...</value>
+  </data>
+
+
+
+
+
+
+  <data name="TrapTriggered" xml:space="preserve">
+    <value>Trampa {0} activada en ({1}, {2}).</value>
+  </data>
+  
+ 
+  
+  
   <data name="PlayerMoved" xml:space="preserve">
     <value>El jugador {0} terminó de moverse a ({1}, {2}). Su velocidad es {3}.</value>
   </data>
-  <data name="BlockedByWall" xml:space="preserve">
-    <value>Bloqueado por una pared en ({0}, {1}).</value>
-  </data>
-  <data name="NoValidMoves" xml:space="preserve">
-    <value>No hay movimientos válidos en esta dirección. ¡Estás atrapado!</value>
-  </data>
+ 
+  
   <data name="TrapFound" xml:space="preserve">
     <value>Trampa {0} encontrada en ({1}, {2}).</value>
   </data>
-  <data name="NoTrap" xml:space="preserve">
-    <value>No hay trampa en la posición final.</value>
-  </data>
-  <data name="TeleportBackToStart" xml:space="preserve">
-    <value>¡El jugador {0} pisó el portal de vuelta al inicio! Teletransportándose de vuelta al inicio...</value>
-  </data>
-  <data name="TeleportRandom" xml:space="preserve">
-    <value>¡El jugador {0} pisó el portal de teletransportación aleatoria! Teletransportándose a una posición aleatoria...</value>
-  </data>
-  <data name="ThankYou" xml:space="preserve">
-    <value>¡Gracias por jugar al Laberinto Encantado! ¡Hasta la próxima! -Meyli</value>
-  </data>
-  <data name="WelcomeMessage" xml:space="preserve">
-    <value>¡Bienvenido al Juego del Laberinto!</value>
-</data>
-<data name="EnterMazeSize" xml:space="preserve">
-    <value>Por favor ingresa el tamaño del laberinto:</value>
-</data>
-<data name="InvalidMazeSize" xml:space="preserve">
-    <value>Por favor ingresa un tamaño válido para el laberinto (mínimo 5):</value>
-</data>
-<data name="Player1ChooseToken" xml:space="preserve">
-    <value>Jugador 1, elige tu token ingresando su número:</value>
-</data>
-<data name="InvalidTokenChoice" xml:space="preserve">
-    <value>Por favor ingresa un número válido para tu token (entre 1 y {0}):</value>
-</data>
-<data name="Player2ChooseToken" xml:space="preserve">
-    <value>Jugador 2, elige tu token ingresando su número:</value>
-</data>
-<data name="InvalidInput" xml:space="preserve">
-    <value>Entrada inválida. Por favor ingresa 'S' para Sí o 'N' para No:</value>
-</data>
-<data name="VictoryMessage" xml:space="preserve">
-    <value>¡El jugador {0} ha llegado a la salida y ganó el juego!</value>
-</data>
+
 </root>

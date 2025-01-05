@@ -1,28 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <root>
-  <data name="GameWelcome" xml:space="preserve">
-    <value>Welcome to the Maze Game!</value>
+<data name="ThankYou" xml:space="preserve">
+    <value>Thank you for playing 'Enchanted Forest's Maze'. Hope you had fun! See you next time! -Meyli</value>
   </data>
-  <data name="MazeSizePrompt" xml:space="preserve">
-    <value>Please enter the maze size you want to play with:</value>
-  </data>
-  <data name="MazeSizeInvalid" xml:space="preserve">
-    <value>Please enter a valid size for the maze:</value>
-  </data>
+  <data name="WelcomeMessage" xml:space="preserve">
+    <value>Welcome to the game: 'Enchanted Forest's Maze'! 
+    
+    Once upon a time there was a beautiful, magical and safe forest in Fairylandia
+    (another land name) but an evil dark entity has cursed this town and turned this forest into a dark and frightening 
+    maze with traps intended to harm you and prevent you from ever escaping. So your mission is to find the exit (a star shining brightly 
+    waiting for you), however; be careful because on your path not only will you find malicious traps but you also need to compete with the
+    other player. Even though two of you will start this adventure, only one will survive. Not all is doomed, because the queen and king are
+    inside the maze with you both and they will help whenever you visit them. Oh I almost forgot! Theres an area in this forest unlike the others
+    because the curse has made it invisible and if you land on it you will be teleported to somehwere random in the forest, so watch your step. 
+    Without further ado, good luck to you both and let the games begin! </value>
+</data>
+<data name="EnterMazeSize" xml:space="preserve">
+    <value>Please enter the size of the maze you would like to play with 
+    (note that only numbers starting from 7 are allowed and above 15 the maze maze may print in seperate lines)</value>
+</data>
+<data name="InvalidMazeSize" xml:space="preserve">
+    <value>Please enter a valid size for the maze (minimum 7):</value>
+</data> 
   <data name="AvailableTokens" xml:space="preserve">
-    <value>Available tokens:</value>
+    <value>These are the citizens trapped in the maze, each one has a distinct ability, speed(number of cells the token can move) and cooldown time (number of turns where the token can´t use their ability):</value>
   </data>
-  <data name="PlayerChooseToken" xml:space="preserve">
-    <value>Player {0}, choose your token by entering its number:</value>
-  </data>
-  <data name="TokenInvalid" xml:space="preserve">
-    <value>Please enter a valid number for your token (between 1 and {0}):</value>
-  </data>
-  <data name="PlayerChoseToken" xml:space="preserve">
+  <data name="Player1ChooseToken" xml:space="preserve">
+    <value>Player 1, please choose your token by entering its number:</value>
+</data>
+<data name="InvalidTokenChoice" xml:space="preserve">
+    <value>Please enter a valid token number(between 1 and 6):</value>
+</data>
+<data name="Player2ChooseToken" xml:space="preserve">
+    <value>Player 2, please choose your token by entering its number:</value>
+</data>
+<data name="PlayerChoseToken" xml:space="preserve">
     <value>Player {0} chose {1}.</value>
-  </data>
-  <data name="GameStart" xml:space="preserve">
-    <value>Let the game begin!</value>
   </data>
   <data name="PlayerTurn" xml:space="preserve">
     <value>{0}, it's your turn. Your position is {1}.</value>
@@ -31,13 +44,10 @@
     <value>{0} is skipping a turn.</value>
   </data>
   <data name="UseAbilityPrompt" xml:space="preserve">
-    <value>Do you want to use your ability? (Y/N):</value>
+    <value>Do you want to use your ability? (Insert 1 for Yes, 0 for No):</value>
   </data>
   <data name="InvalidInputYN" xml:space="preserve">
-    <value>Invalid input. Please enter 'Y' for Yes or 'N' for No:</value>
-  </data>
-  <data name="TrapTriggered" xml:space="preserve">
-    <value>Trap {0} triggered at ({1}, {2}).</value>
+    <value>Invalid input. Please enter '1' for Yes or '0' for No:</value>
   </data>
   <data name="CooldownReduced" xml:space="preserve">
     <value>{0} reduced cooldown by 2! Current cooldown: {1}</value>
@@ -45,67 +55,69 @@
   <data name="SpeedIncreased" xml:space="preserve">
     <value>{0} increased speed by 1!</value>
   </data>
-  <data name="PlayerWins" xml:space="preserve">
-    <value>{0} has reached the exit and won the game!</value>
+  <data name="VictoryMessage" xml:space="preserve">
+    <value>{0} has reached the shininig star and escaped the maze! Congratulations you survived and won the game!</value>
   </data>
   <data name="PlayAgain" xml:space="preserve">
-    <value>Do you want to play again? (S/N):</value>
+    <value>Do you want to play again? (Insert 1 for Yes, 0 for No):</value>
   </data>
-  <data name="InvalidInputSN" xml:space="preserve">
-    <value>Invalid input. Please enter 'S' for Yes or 'N' for No:</value>
+  <data name="InvalidInput" xml:space="preserve">
+    <value>Invalid input. Please enter '1' for Yes or '0' for No:</value>
   </data>
   <data name="ArrowKeyPrompt" xml:space="preserve">
     <value>Press an arrow key to move:</value>
   </data>
-  <data name="InvalidMove" xml:space="preserve">
-    <value>No valid moves in that direction. Try again.</value>
+  <data name="InvalidArrowKey" xml:space="preserve">
+    <value>Please press a valid arrow key to move:</value>
   </data>
-  <data name="PlayerMoved" xml:space="preserve">
-    <value>{0} finished moving to ({1}, {2}). Speed is {3}.</value>
+   <data name="InvalidMove" xml:space="preserve">
+    <value>No valid moves in that direction. Please try again.</value>
   </data>
-  <data name="BlockedByWall" xml:space="preserve">
-    <value>Blocked by a wall at ({0}, {1}).</value>
-  </data>
-  <data name="NoValidMoves" xml:space="preserve">
-    <value>No valid moves in this direction. You are stuck!</value>
-  </data>
-  <data name="TrapFound" xml:space="preserve">
-    <value>Trap {0} found at ({1}, {2}).</value>
-  </data>
-  <data name="NoTrap" xml:space="preserve">
-    <value>No trap at the final position.</value>
-  </data>
-  <data name="TeleportBackToStart" xml:space="preserve">
-    <value>{0} stepped on the back-to-start portal! Teleporting back to start...</value>
-  </data>
+  <data name="TrapAlreadyTriggered" xml:space="preserve">
+    <value>Trap {0} has already been triggered.</value>
+</data>
   <data name="TeleportRandom" xml:space="preserve">
     <value>{0} stepped on the random teleport portal! Teleporting to a random position...</value>
   </data>
-  <data name="ThankYou" xml:space="preserve">
-    <value>Thank you for playing Enchanted Forest. See you next time! -Meyli</value>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <data name="TrapTriggered" xml:space="preserve">
+    <value>Trap {0} triggered at ({1}, {2}).</value>
   </data>
-  <data name="WelcomeMessage" xml:space="preserve">
-    <value>Welcome to the Maze Game!</value>
-</data>
-<data name="EnterMazeSize" xml:space="preserve">
-    <value>Please enter the size of the maze:</value>
-</data>
-<data name="InvalidMazeSize" xml:space="preserve">
-    <value>Please enter a valid size for the maze (minimum 5):</value>
-</data>
-<data name="Player1ChooseToken" xml:space="preserve">
-    <value>Player 1, choose your token by entering its number:</value>
-</data>
-<data name="InvalidTokenChoice" xml:space="preserve">
-    <value>Please enter a valid token number between 1 and {0}:</value>
-</data>
-<data name="Player2ChooseToken" xml:space="preserve">
-    <value>Player 2, choose your token by entering its number:</value>
-</data>
-<data name="InvalidInput" xml:space="preserve">
-    <value>Invalid input. Please enter 'Y' for Yes or 'N' for No:</value>
-</data>
-<data name="VictoryMessage" xml:space="preserve">
-    <value>{0} has reached the exit and won the game!</value>
-</data>
+  
+  
+  
+ 
+  <data name="PlayerMoved" xml:space="preserve">
+    <value>{0} finished moving to ({1}, {2}). Speed is {3}.</value>
+  </data>
+  
+  
+  <data name="TrapFound" xml:space="preserve">
+    <value>Trap {0} found at ({1}, {2}).</value>
+  </data>
+ 
+  
+  
+  
+  
+
+
+
+
+
+
+
 </root>
