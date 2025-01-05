@@ -84,4 +84,28 @@
   <data name="ThankYou" xml:space="preserve">
     <value>¡Gracias por jugar al Laberinto Encantado! ¡Hasta la próxima! -Meyli</value>
   </data>
+  <data name="WelcomeMessage" xml:space="preserve">
+    <value>¡Bienvenido al Juego del Laberinto!</value>
+</data>
+<data name="EnterMazeSize" xml:space="preserve">
+    <value>Por favor ingresa el tamaño del laberinto:</value>
+</data>
+<data name="InvalidMazeSize" xml:space="preserve">
+    <value>Por favor ingresa un tamaño válido para el laberinto (mínimo 5):</value>
+</data>
+<data name="Player1ChooseToken" xml:space="preserve">
+    <value>Jugador 1, elige tu token ingresando su número:</value>
+</data>
+<data name="InvalidTokenChoice" xml:space="preserve">
+    <value>Por favor ingresa un número válido para tu token (entre 1 y {0}):</value>
+</data>
+<data name="Player2ChooseToken" xml:space="preserve">
+    <value>Jugador 2, elige tu token ingresando su número:</value>
+</data>
+<data name="InvalidInput" xml:space="preserve">
+    <value>Entrada inválida. Por favor ingresa 'S' para Sí o 'N' para No:</value>
+</data>
+<data name="VictoryMessage" xml:space="preserve">
+    <value>¡El jugador {0} ha llegado a la salida y ganó el juego!</value>
+</data>
 </root>

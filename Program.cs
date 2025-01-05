@@ -156,7 +156,7 @@ else
 
                     //AnsiConsole.Clear();
                     System.Threading.Thread.Sleep(500); 
-                    generatorMaze.PrintMazeSpectre();
+                    //generatorMaze.PrintMazeSpectre();
 
                 
                 player.Token.Speed = player.Token.Speed > player.Token.BaseSpeed
@@ -199,7 +199,8 @@ else
     Console.WriteLine("Error: Resource string for 'VictoryMessage' not found.");
 }
  // "{Player} has reached the exit and won the game!"
-                Console.WriteLine(resourceManager.GetString("PlayAgainPrompt")); // "Do you want to play again? (Y/N):"
+                Console.WriteLine(resourceManager.GetString("PlayAgain"));
+ // "Do you want to play again? (Y/N):"
 
                  string? playAgainInput = Console.ReadLine()?.ToUpper();
                 while (playAgainInput == null || playAgainInput.ToUpper() != "Y" && playAgainInput.ToUpper() != "N")
@@ -244,7 +245,7 @@ public static void HandleMovement(Player player, MazeGeneration generatorMaze, s
         // Attempt to move the player
         if (TryMovePlayer(player, dx, dy, player.Token.Speed, generatorMaze))
         {
-            //generatorMaze.PrintMaze();
+            
             break;
         }  
              // Move successful; exit the loop

@@ -108,5 +108,4 @@
 <data name="VictoryMessage" xml:space="preserve">
     <value>{0} has reached the exit and won the game!</value>
 </data>
-
 </root>
