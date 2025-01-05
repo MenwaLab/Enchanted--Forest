@@ -184,6 +184,17 @@ private string GetCellContent(int i, int j)
     {
         return $"[bold red]{trap.Name}[/]";  // Trap
     }
+    if (IsBeneficialTile(i, j, out string tileType))
+    {
+        if (tileType == "Cooldown Reduction")
+        {
+            return "[bold cyan]⭐[/]";  // Cooldown reduction tile
+        }
+        else if (tileType == "Speed Increase")
+        {
+            return "[bold red]❤️[/]";  // Speed increase tile
+        }
+    }         
 
     // Correct way to apply background color in Spectre.Console
     return maze[i, j].isOpen 

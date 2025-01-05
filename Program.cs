@@ -203,13 +203,15 @@ else
  // "Do you want to play again? (Y/N):"
 
                  string? playAgainInput = Console.ReadLine()?.ToUpper();
-                while (playAgainInput == null || playAgainInput.ToUpper() != "Y" && playAgainInput.ToUpper() != "N")
-                {
-                    Console.WriteLine(resourceManager.GetString("InvalidInput")); // "Invalid input. Please enter 'Y' for Yes or 'N' for No:"
-                    playAgainInput = Console.ReadLine(); // Keep reading until valid input
-                }
-                
-                return playAgainInput == "Y";
+while (playAgainInput != "Y" && playAgainInput != "N")
+{
+    Console.WriteLine(resourceManager.GetString("InvalidInput")); // "Invalid input. Please enter 'Y' for Yes or 'N' for No:"
+    playAgainInput = Console.ReadLine()?.ToUpper(); // Keep reading until valid input
+}
+
+// Play again if 'Y', otherwise stop the game
+return playAgainInput == "Y";
+
             }
         }
     }
