@@ -25,7 +25,7 @@ class Program
     
     while (true)
     {
-        languageChoice = Console.ReadLine();
+        // Check if the input is either "1" or "2"
         if (languageChoice == "1")
         {
             CultureInfo.CurrentCulture = new CultureInfo("en");
@@ -40,6 +40,7 @@ class Program
         {
             // If input is invalid, show an error and prompt again
             Console.WriteLine("Invalid input. Please enter '1' for English or '2' for Español.");
+            languageChoice = Console.ReadLine(); // Re-prompt for input
         }
     }
     
