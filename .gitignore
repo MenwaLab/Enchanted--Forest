@@ -1,0 +1,18 @@
+# Ignore build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Dd]ist/
+[Dd]istPublic/
+
+# Ignore user-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Ignore dependency folders
+/packages/
+
+# Ignore IDE-specific files
+.vscode/
+.idea/
