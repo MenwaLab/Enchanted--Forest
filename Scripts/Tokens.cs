@@ -71,14 +71,12 @@ public class Token
     }
     public override string ToString()
     {
-        return $"{Name}: {AbilityDescription}, Velocidad: {Speed}, Tiempo de enfriamiento: {CooldownTime}";
+        return $"{Name}: {AbilityDescription}, Velocidad / Speed: {Speed}, Tiempo de enfriamiento / Cooldown time : {CooldownTime}";
     }
     public void MimicAbility(Token targetToken, Player user, Player target)
 {
     // Copy the ability and description
     AbilityAction = targetToken.AbilityAction;
-    //AbilityDescription = $"Mimics: {targetToken.AbilityDescription}";
-
 
     // Immediately execute the mimicked ability
     AbilityAction(user, target);
@@ -90,9 +88,10 @@ public static class TokenFactory
     public static Token[] GetAvailableTokens()
     {
         ResourceManager resourceManager6 = new ResourceManager("Enchanted__Forest.Resources.Strings", typeof(Trap).Assembly);
+
         return new Token[]
         {
-            new Token("Elf🧝", "Permanently copies the ability of another token and uses it immediately", 3, 5, 
+            new Token("Elf🧝", resourceManager6.GetString("ElfDescription") ?? "Default description for Elf", 3, 5, 
             (user, target) =>
             {string? elfMimicAbility = resourceManager6.GetString("ElfMimicAbility");
         if (!string.IsNullOrEmpty(elfMimicAbility))
@@ -105,7 +104,7 @@ public static class TokenFactory
         }
             user.Token.MimicAbility(target.Token, user, target); }),
 
-            new Token("Wizard🧙", "Reduce la velocidad de su enemigo", 4, 3,
+            new Token("Wizard🧙", resourceManager6.GetString("WizardDescription") ?? "Default description for Wizard", 4, 3,
                 (user, target) =>
                 {string? wizardReduceSpeed = resourceManager6.GetString("WizardReduceSpeed");
         if (!string.IsNullOrEmpty(wizardReduceSpeed))
@@ -118,7 +117,7 @@ public static class TokenFactory
         }
                 target.Token.Speed = Math.Max(1, target.Token.Speed - 1); }),
             
-            new Token("Fairy🧚", "Cambia su posición con la de su enemigo", 7, 4,
+            new Token("Fairy🧚", resourceManager6.GetString("FairyDescription") ?? "Default description for Fairy", 7, 4,
                 (user, target) =>
                 {string? fairySwapPosition = resourceManager6.GetString("FairySwapPosition");
         if (!string.IsNullOrEmpty(fairySwapPosition))
@@ -131,7 +130,7 @@ public static class TokenFactory
         }
                 Player.SwapPlayerPositions(user, target); }),// Call the method in Program.cs
 
-            new Token("Siren🧜", "Le quita un turno a su enemigo", 5, 3,
+            new Token("Siren🧜", resourceManager6.GetString("SirenDescription") ?? "Default description for Siren", 5, 3,
                 (user, target) =>
                 {string? sirenSkipTurn = resourceManager6.GetString("SirenSkipTurn");
         if (!string.IsNullOrEmpty(sirenSkipTurn))
@@ -144,7 +143,7 @@ public static class TokenFactory
         }
                 target.SkipTurns = 1; }),
 
-            new Token("Abuela👵", "Aumenta su velocidad por 1", 2, 2,
+            new Token("Abuela👵", resourceManager6.GetString("GrandmaDescription") ?? "Default description for Grandma", 2, 2, 
                 (user, target) =>
                 {
                     string? abuelaIncreaseSpeed = resourceManager6.GetString("AbuelaIncreaseSpeed");
@@ -160,7 +159,7 @@ public static class TokenFactory
                     user.Token.SetCooldown(1); // Ensure her ability has a cooldown. ver si funciona
                 }),
             
-            new Token("Unicorn🦄", "Bendición de la suerte: Activa un efecto al azar", 6, 4,
+            new Token("Unicorn🦄", resourceManager6.GetString("UnicornDescription") ?? "Default description for Unicorn", 6, 4,
                 (user, target) =>
                 {
                     Random rand = new Random();

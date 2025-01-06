@@ -283,7 +283,7 @@ private void GenerateTraps()
     string[] trapEmojis = {
         "🔥", // Snake emoji for T1
         "🕳️", // Fire emoji for T2
-        "🪵", // Trunk emoji for T3
+        "🐝", // Trunk emoji for T3
         "🦇"  // 
     };
 
