@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using Microsoft.VisualBasic;
 using Spectre.Console;
 using Spectre.Console.Rendering;
-
+using System.Resources;
 
 
 public class MazeGeneration
 {
+    static ResourceManager resourceManager4 = new ResourceManager("Enchanted__Forest.Resources.Strings", typeof(Trap).Assembly);
     
     private Cell[,] maze;
     private int size;
@@ -68,7 +69,6 @@ public class MazeGeneration
     {
         int col = rand.Next(size);
         maze[size - 1, col].isOpen = true;
-        Console.WriteLine($"Opened a random cell in the last row at column: {col}");
     }
 }
 
@@ -210,7 +210,6 @@ private string GetCellContent(int i, int j)
         }
     }         
 
-    // Correct way to apply background color in Spectre.Console
     return maze[i, j].isOpen 
         ? "[green].[/]" // Open path with green background
         : "[black]🌲[/]"; // Wall with black background
@@ -326,7 +325,6 @@ private void GenerateTraps()
             break;
     }
     traps = trapsList;  // Asignar la lista de trampas al objeto MazeGeneration 
-    Console.WriteLine($"Placed {trapCount} traps in the maze.");
 }
 
 public Trap? IsTrapAtPosition(int i, int j)
@@ -352,7 +350,6 @@ private void SetExit()
         if (maze[exitRow, col].isOpen && IsExitReachable(exitRow, col))
         {
             exit = (exitRow, col);
-            //Console.WriteLine($"Exit position set at: ({exitRow}, {col})");
             return;
         }
     }
@@ -366,7 +363,6 @@ private void SetExit()
             if (IsExitReachable(exitRow, col))
             {
                 exit = (exitRow, col);
-                Console.WriteLine($"Fallback exit position set at: ({exitRow}, {col})");
                 return;
             }
 
@@ -379,7 +375,6 @@ private void SetExit()
     int randomCol = rand.Next(size);
     maze[exitRow, randomCol].isOpen = true;
     exit = (exitRow, randomCol);
-    Console.WriteLine($"Random fallback exit set at: ({exitRow}, {randomCol})");
 }
 
 public bool IsExitReachable(int exitRow, int exitCol) //Algortimo de Lee
@@ -428,13 +423,20 @@ public bool IsWall(int row, int col)
     // Check for out-of-bounds
     if (row < 0 || row >= maze.GetLength(0) || col < 0 || col >= maze.GetLength(1))
     {
-        Console.WriteLine($"Position ({row}, {col}) is outside the maze bounds.");
+        string? outOfBoundsMessage = resourceManager4.GetString("OutOfBoundsMessage");
+        if (!string.IsNullOrEmpty(outOfBoundsMessage))
+        {
+            Console.WriteLine(string.Format(outOfBoundsMessage, row, col));
+        }
+        else
+        {
+            Console.WriteLine("Error: Resource string for 'OutOfBoundsMessage' not found.");
+        }
         return true; // Treat out-of-bounds as walls
     }
 
     // Check if the cell is a wall
     bool isWall = !maze[row, col].isOpen; // Correct indexing: [row][col]
-    //Console.WriteLine($"Position ({row}, {col}) is {(isWall ? "a wall" : "not a wall")}.");
     return isWall;
 }
 private void GenerateBeneficialTiles()
@@ -461,12 +463,6 @@ private void GenerateBeneficialTiles()
             // Assign beneficial tiles
             cooldownReductionTile = validPositions[0];
             speedIncreaseTile = validPositions[1];
-            Console.WriteLine($"Cooldown reduction tile placed at: {cooldownReductionTile}");
-            Console.WriteLine($"Speed increase tile placed at: {speedIncreaseTile}");
-        }
-        else
-        {
-            Console.WriteLine("Not enough space to place beneficial tiles.");
         }
     }
     public bool IsBeneficialTile(int x, int y, out string tileType)
@@ -510,12 +506,6 @@ public void GenerateTeleportationPortal()
 
         // Assign the random teleport portal
         randomTeleportPortal = validPositionsArr[0];  // Portal to a random valid position
-
-        Console.WriteLine($"Random teleport portal placed at: {randomTeleportPortal.Value}");
-    }
-    else
-    {
-        Console.WriteLine("Not enough space to place a teleportation portal.");
     }
 }
 
@@ -544,7 +534,16 @@ public void CheckTeleportation(Player player)
     // Check if the player stepped on the back-to-start portal
     if (player.Position == randomTeleportPortal)
     {
-        Console.WriteLine($"{player.Name} stepped on the random teleport portal! Teleporting to a random position...");
+        string? teleportMessage = resourceManager4.GetString("TeleportRandom");
+if (!string.IsNullOrEmpty(teleportMessage))
+{
+    Console.WriteLine(string.Format(teleportMessage, player.Name));
+}
+else
+{
+    Console.WriteLine("Error: Resource string for 'TeleportRandom' not found.");
+}
+
         player.Position = GetRandomValidPosition();  // Teleport to a random valid position
     }
 }

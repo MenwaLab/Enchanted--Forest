@@ -87,10 +87,13 @@
 <data name="Trap4Activated" xml:space="preserve">
     <value>!Trampa 4 activated!. {0} ahora tiene {1} turnos de enfriamiento.</value>
 </data>
-
 <data name="PlayerSwappedPositions" xml:space="preserve">
     <value>{0} y {1} han intercambiado posiciones.</value>
 </data>
+<data name="OutOfBoundsMessage" xml:space="preserve">
+    <value>Posición ({0}, {1}) se encuentra fuera del laberinto.</value>
+</data>
+
 
 
 
