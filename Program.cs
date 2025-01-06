@@ -441,16 +441,7 @@ public static bool IsValidMove(int newX, int newY, MazeGeneration generatorMaze)
         // If the trap has been triggered, it's still considered open for movement
         if (trapAtPosition.Triggered)
         {
-            string? trapAlreadyTriggeredTemplate = resourceManager.GetString("TrapAlreadyTriggered");
-if (!string.IsNullOrEmpty(trapAlreadyTriggeredTemplate))
-{
-    Console.WriteLine(string.Format(trapAlreadyTriggeredTemplate, trapAtPosition.Name));
-}
-else
-{
-    Console.WriteLine("Error: Resource string for 'TrapAlreadyTriggered' not found.");
-}
-
+            Console.WriteLine(resourceManager.GetString("TrapAlreadyTriggered"));
             return true; // Allow movement even though the trap is triggered
         }
         else

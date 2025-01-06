@@ -202,11 +202,11 @@ private string GetCellContent(int i, int j)
     {
         if (tileType == "Cooldown Reduction")
         {
-            return "[bold cyan]🚪[/]";  // Cooldown reduction tile
+            return "[bold cyan]🫅[/]";  // Cooldown reduction tile
         }
         else if (tileType == "Speed Increase")
         {
-            return "[bold red]❤️[/]";  // Speed increase tile
+            return "[bold red]👸[/]";  // Speed increase tile
         }
     }         
 
@@ -281,10 +281,10 @@ private void GenerateTraps()
         
     };
     string[] trapEmojis = {
-        "🐍", // Snake emoji for T1
-        "🔥", // Fire emoji for T2
-        "🌤️", // Trunk emoji for T3
-        "💥"  // Example for T4, you can change it
+        "🔥", // Snake emoji for T1
+        "🕳️", // Fire emoji for T2
+        "🪵", // Trunk emoji for T3
+        "🦇"  // 
     };
 
     //Todas las posiciones validas para trampas
@@ -576,6 +576,4 @@ public (int x, int y) GetRandomValidPosition()
     // Fallback if no valid positions
     return (0, 0);  // Return a default value if no valid positions are found
 }
-
-
 }

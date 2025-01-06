@@ -46,10 +46,10 @@
     <value>Entrada inválida. Por favor ingresa 1 para Sí o 0 para No:</value>
   </data>
   <data name="CooldownReduced" xml:space="preserve">
-    <value>{0} redujo su tiempo de enfriamient en 2! Tiempo de enfriamiento actual: {1}</value>
+    <value>{0} está visitando al Rey y él le redujo su tiempo de enfriamient en 2! Tiempo de enfriamiento actual: {1}</value>
   </data>
   <data name="SpeedIncreased" xml:space="preserve">
-    <value>{0} aumentó su velocidad en 1!</value>
+    <value>{0} está visitando a la reina y ella le aumentó su velocidad en 1!</value>
   </data>
   <data name="VictoryMessage" xml:space="preserve">
     <value>¡El jugador {0} ha encontrado la salida del laberintó! !Ganaste el juego, felicidades!</value>
@@ -70,22 +70,22 @@
     <value>No hay movimientos válidos en esa dirección. Por favor, cambie de dirección.</value>
   </data>
   <data name="TrapAlreadyTriggered" xml:space="preserve">
-    <value>Trampa {0} ya ha sido activada.</value>
+    <value>Trampa ya ha sido activada.</value>
 </data>
 <data name="TeleportRandom" xml:space="preserve">
     <value>¡El jugador {0} cayó en el portal de teletransportación! Transportándolo a una posición aleatoria...</value>
   </data>
   <data name="Trap1Activated" xml:space="preserve">
-    <value>!Trampa 1 activada!. {0} ha perdido un turn.</value>
+    <value> !{0} ha caído en una trampa! Perderás un turno intentanto apagar el fuego.</value>
 </data>
 <data name="Trap2Activated" xml:space="preserve">
-    <value>!Trampa 2 activada!. {0} ha sido enviado al origen de coordenadas (0, 0).</value>
+    <value>!{0} ha caído en una trampa! Este hoyo te ha enviado al origen de coordenadas (0, 0).</value>
 </data>
 <data name="Trap3Activated" xml:space="preserve">
-    <value>!Trampa 3 activada!. {0}, tu velocidad ha sido reducida a {1}.</value>
+    <value>!{0} ha caído en una trampa! Te has tropezado con un tronco y te dañaste el tobillo por tanto tu velocidad ha sido reducida a {1}.</value>
 </data>
 <data name="Trap4Activated" xml:space="preserve">
-    <value>!Trampa 4 activated!. {0} ahora tiene {1} turnos de enfriamiento.</value>
+    <value>! {0} ha caído en una trampa! Te has encontrado con el murciélago de la entidad malvada, él te aumenta tu tiempo de enfriamiento a {1}.</value>
 </data>
 <data name="PlayerSwappedPositions" xml:space="preserve">
     <value>{0} y {1} han intercambiado posiciones.</value>
@@ -93,6 +93,41 @@
 <data name="OutOfBoundsMessage" xml:space="preserve">
     <value>Posición ({0}, {1}) se encuentra fuera del laberinto.</value>
 </data>
+
+<data name="ElfMimicAbility" xml:space="preserve">
+    <value>La ficha Duende del jugador{0} está copiando la habilidad de la ficha {2} del jugador {1}.</value>
+</data>
+<data name="WizardReduceSpeed" xml:space="preserve">
+    <value>La ficha Mago del jugador {0} reduce la velocidad del jugador {1}.</value>
+</data>
+<data name="FairySwapPosition" xml:space="preserve">
+    <value>EL Hada del jugador {0} cambia de posición con el jugador {1}.</value>
+</data>
+<data name="SirenSkipTurn" xml:space="preserve">
+    <value>La Sirena del jugador {0} le quita el turno al jugador {1}.</value>
+</data>
+<data name="AbuelaIncreaseSpeed" xml:space="preserve">
+    <value>La ficha Abuela del jugador {0} aumenta su velocidad por 1.</value>
+</data>
+<data name="UnicornBlessing" xml:space="preserve">
+    <value>El Unicornio del jugador {0} aumenta su velocidad por 1.</value>
+</data>
+<data name="UnicornSwapPosition" xml:space="preserve">
+    <value>El unicornio del jugador {0} cambia de posición con el jugador {1}.</value>
+</data>
+<data name="UnicornSkipTurn" xml:space="preserve">
+    <value>El Unicornio del jugador {0} le quita el turno al jugador {1}.</value>
+</data>
+<data name="UnicornIncreaseSpeed" xml:space="preserve">
+    <value>El Unicornio del jugador {0} aumenta su velocidad por 1.</value>
+</data>
+<data name="AbilityInCooldown" xml:space="preserve">
+    <value>{0}, tu habilidad está en enfriamiento.</value>
+</data>
+<data name="AbilityUsed" xml:space="preserve">
+    <value>{0} usó su habilidad. Tiempo de enfriamiento: {1}.</value>
+</data>
+
 
 
 

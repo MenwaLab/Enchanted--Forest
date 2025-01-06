@@ -75,22 +75,22 @@ Without further ado, good luck to you both, and let the games begin!
     <value>No valid moves in that direction. Please try again.</value>
   </data>
   <data name="TrapAlreadyTriggered" xml:space="preserve">
-    <value>Trap {0} has already been triggered.</value>
+    <value>Trap has already been triggered.</value>
 </data>
   <data name="TeleportRandom" xml:space="preserve">
     <value>{0} stepped on the random teleport portal! Teleporting to a random position...</value>
   </data>
   <data name="Trap1Activated" xml:space="preserve">
-    <value>Trap 1 activated! {0} has lost a turn.</value>
+    <value>{0} has fallen into a trap! You will lose a turn trying to put out the fire.</value>
 </data>
 <data name="Trap2Activated" xml:space="preserve">
-    <value>Trap 2 activated! {0} has been sent back to the origin (0, 0).</value>
+    <value>{0} has fallen into a trap! This hole has sent you to the origin (0, 0).</value>
 </data>
 <data name="Trap3Activated" xml:space="preserve">
-    <value>Trap 3 activated! {0}, your speed has been reduced to {1}.</value>
+    <value>{0} has fallen into a trap! You tripped over a log and injured your ankle, so your speed has been reduced to {1}.</value>
 </data>
 <data name="Trap4Activated" xml:space="preserve">
-    <value>Trap 4 activated! {0} now has {1} cooldown turns.</value>
+    <value>{0} has fallen into a trap! You've encountered the bat of the evil entity, it increases your cooldown time to {1}.</value>
 </data>
 <data name="PlayerSwappedPositions" xml:space="preserve">
     <value>{0} and {1} have swapped positions.</value>
@@ -98,6 +98,41 @@ Without further ado, good luck to you both, and let the games begin!
 <data name="OutOfBoundsMessage" xml:space="preserve">
     <value>Position ({0}, {1}) is outside the maze bounds.</value>
 </data>
+
+<data name="ElfMimicAbility" xml:space="preserve">
+    <value>{0}'s Elf is mimicking {1}'s {2} ability.</value>
+</data>
+<data name="WizardReduceSpeed" xml:space="preserve">
+    <value>{0}'s Wizard reduces {1}'s speed.</value>
+</data>
+<data name="FairySwapPosition" xml:space="preserve">
+    <value>{0}'s Fairy swaps position with {1}.</value>
+</data>
+<data name="SirenSkipTurn" xml:space="preserve">
+    <value>{0}'s Siren skips {1}'s turn.</value>
+</data>
+<data name="AbuelaIncreaseSpeed" xml:space="preserve">
+    <value>{0}'s Abuela increases their speed by 1.</value>
+</data>
+<data name="UnicornBlessing" xml:space="preserve">
+    <value>{0}'s Unicorn increases its own speed by 1.</value>
+</data>
+<data name="UnicornSwapPosition" xml:space="preserve">
+    <value>{0}'s Unicorn swaps position with {1}.</value>
+</data>
+<data name="UnicornSkipTurn" xml:space="preserve">
+    <value>{0}'s Unicorn skips {1}'s turn.</value>
+</data>
+<data name="UnicornIncreaseSpeed" xml:space="preserve">
+    <value>{0}'s Unicorn increases its own speed by 1.</value>
+</data>
+<data name="AbilityInCooldown" xml:space="preserve">
+    <value>{0}, your ability is on cooldown.</value>
+</data>
+<data name="AbilityUsed" xml:space="preserve">
+    <value>{0} used their ability. Cooldown reset to {1}.</value>
+</data>
+
 
 
 

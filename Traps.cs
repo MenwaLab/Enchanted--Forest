@@ -24,7 +24,6 @@ public class Trap
     {
         if (!Triggered)
         {
-            //Console.WriteLine($"{Name} activada! {Effect}");
             switch (Name)
             {
                 case "T1": 
@@ -83,7 +82,5 @@ public class Trap
             }
                     Triggered = true; // Mark the trap as triggered       
         }
-
-        //else{Console.WriteLine(string.Format(resourceManager2.GetString("TrapAlreadyActivated"), Name));}
     }
 }

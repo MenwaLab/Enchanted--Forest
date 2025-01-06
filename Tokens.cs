@@ -1,5 +1,8 @@
+using System.Resources;
+
 public class Token
 {
+    static ResourceManager resourceManager5 = new ResourceManager("Enchanted__Forest.Resources.Strings", typeof(Trap).Assembly);
     public string Name { get; set; }
     public string AbilityDescription { get; set; }
     public int Speed { get; set; } //velocidad actual
@@ -27,7 +30,15 @@ public class Token
     {
         if (CurrentCooldown > 0)
         {
-            Console.WriteLine($"{Name}, tu habilidad está en enfriamiento");
+            string? abilityInCooldown = resourceManager5.GetString("AbilityInCooldown");
+        if (!string.IsNullOrEmpty(abilityInCooldown))
+        {
+            Console.WriteLine(string.Format(abilityInCooldown, Name));
+        }
+        else
+        {
+            Console.WriteLine("Error: Resource string for 'AbilityInCooldown' not found.");
+        }
             return;
         }
         
@@ -35,7 +46,15 @@ public class Token
 
         CurrentCooldown = CooldownTime;
         CooldownTime = BaseCooldown; // Reset cooldown
-        Console.WriteLine($"{user.Name} used their ability. Cooldown reset to {CooldownTime}.");
+        string? abilityUsedMessage = resourceManager5.GetString("AbilityUsed");
+    if (!string.IsNullOrEmpty(abilityUsedMessage))
+    {
+        Console.WriteLine(string.Format(abilityUsedMessage, user.Name, CooldownTime));
+    }
+    else
+    {
+        Console.WriteLine("Error: Resource string for 'AbilityUsed' not found.");
+    }
     }
 
     public void ReduceCooldown()
@@ -58,9 +77,8 @@ public class Token
 {
     // Copy the ability and description
     AbilityAction = targetToken.AbilityAction;
-    AbilityDescription = $"Mimics: {targetToken.AbilityDescription}";
+    //AbilityDescription = $"Mimics: {targetToken.AbilityDescription}";
 
-    Console.WriteLine($"{user.Name}'s Elf has permanently mimicked {targetToken.Name}'s ability: {AbilityDescription}.");
 
     // Immediately execute the mimicked ability
     AbilityAction(user, target);
@@ -71,32 +89,73 @@ public static class TokenFactory
 {
     public static Token[] GetAvailableTokens()
     {
+        ResourceManager resourceManager6 = new ResourceManager("Enchanted__Forest.Resources.Strings", typeof(Trap).Assembly);
         return new Token[]
         {
             new Token("Elf🧝", "Permanently copies the ability of another token and uses it immediately", 3, 5, 
             (user, target) =>
-            {Console.WriteLine($"{user.Name}'s Elf is mimicking {target.Name}'s {target.Token.Name} ability.");
+            {string? elfMimicAbility = resourceManager6.GetString("ElfMimicAbility");
+        if (!string.IsNullOrEmpty(elfMimicAbility))
+        {
+            Console.WriteLine(string.Format(elfMimicAbility, user.Name, target.Name, target.Token.Name));
+        }
+        else
+        {
+            Console.WriteLine("Error: Resource string for 'ElfMimicAbility' not found.");
+        }
             user.Token.MimicAbility(target.Token, user, target); }),
 
             new Token("Wizard🧙", "Reduce la velocidad de su enemigo", 4, 3,
                 (user, target) =>
-                {Console.WriteLine($"{user.Name}'s Wizard reduce la velocidad de {target.Name}.");
+                {string? wizardReduceSpeed = resourceManager6.GetString("WizardReduceSpeed");
+        if (!string.IsNullOrEmpty(wizardReduceSpeed))
+        {
+            Console.WriteLine(string.Format(wizardReduceSpeed, user.Name, target.Name));
+        }
+        else
+        {
+            Console.WriteLine("Error: Resource string for 'WizardReduceSpeed' not found.");
+        }
                 target.Token.Speed = Math.Max(1, target.Token.Speed - 1); }),
             
             new Token("Fairy🧚", "Cambia su posición con la de su enemigo", 7, 4,
                 (user, target) =>
-                {Console.WriteLine($"{user.Name}'s Fairy alterna su posición con {target.Name}.");
+                {string? fairySwapPosition = resourceManager6.GetString("FairySwapPosition");
+        if (!string.IsNullOrEmpty(fairySwapPosition))
+        {
+            Console.WriteLine(string.Format(fairySwapPosition, user.Name, target.Name));
+        }
+        else
+        {
+            Console.WriteLine("Error: Resource string for 'FairySwapPosition' not found.");
+        }
                 Player.SwapPlayerPositions(user, target); }),// Call the method in Program.cs
 
             new Token("Siren🧜", "Le quita un turno a su enemigo", 5, 3,
                 (user, target) =>
-                {Console.WriteLine($"{user.Name}'s Siren salta el turno de {target.Name}.");
+                {string? sirenSkipTurn = resourceManager6.GetString("SirenSkipTurn");
+        if (!string.IsNullOrEmpty(sirenSkipTurn))
+        {
+            Console.WriteLine(string.Format(sirenSkipTurn, user.Name, target.Name));
+        }
+        else
+        {
+            Console.WriteLine("Error: Resource string for 'SirenSkipTurn' not found.");
+        }
                 target.SkipTurns = 1; }),
 
             new Token("Abuela👵", "Aumenta su velocidad por 1", 2, 2,
                 (user, target) =>
                 {
-                    Console.WriteLine($"{user.Name}'s Abuela su propia velocidad por 1.");
+                    string? abuelaIncreaseSpeed = resourceManager6.GetString("AbuelaIncreaseSpeed");
+        if (!string.IsNullOrEmpty(abuelaIncreaseSpeed))
+        {
+            Console.WriteLine(string.Format(abuelaIncreaseSpeed, user.Name));
+        }
+        else
+        {
+            Console.WriteLine("Error: Resource string for 'AbuelaIncreaseSpeed' not found.");
+        }
                     user.Token.Speed += 1;
                     user.Token.SetCooldown(1); // Ensure her ability has a cooldown. ver si funciona
                 }),
@@ -106,21 +165,33 @@ public static class TokenFactory
                 {
                     Random rand = new Random();
                     int effect = rand.Next(1, 4); // Randomly pick between 1, 2, or 3
+                    string? unicornMessage = string.Empty;
 
                     switch (effect)
                     {
-                        case 1: // Swap positions
-                            Console.WriteLine($"{user.Name}'s Dragon swaps positions with {target.Name}.");
+                        case 1: // Swap positionsunicornMessage = resourceManager.GetString("UnicornSwapPosition");
+                if (!string.IsNullOrEmpty(unicornMessage))
+                {
+                    Console.WriteLine(string.Format(unicornMessage, user.Name, target.Name));
+                }Console.WriteLine($"{user.Name}'s Dragon swaps positions with {target.Name}.");
                             Player.SwapPlayerPositions(user, target);
                             break;
 
                         case 2: // Skip the target's turn
-                            Console.WriteLine($"{user.Name}'s Unicorn skips {target.Name}'s turn.");
+                            unicornMessage = resourceManager6.GetString("UnicornSkipTurn");
+                if (!string.IsNullOrEmpty(unicornMessage))
+                {
+                    Console.WriteLine(string.Format(unicornMessage, user.Name, target.Name));
+                }
                             target.SkipTurns = 1;
                             break;
 
                         case 3: // Increase Unicorn's speed
-                            Console.WriteLine($"{user.Name}'s Unicorn increases its own speed by 1.");
+                            unicornMessage = resourceManager6.GetString("UnicornIncreaseSpeed");
+                if (!string.IsNullOrEmpty(unicornMessage))
+                {
+                    Console.WriteLine(string.Format(unicornMessage, user.Name));
+                }
                             user.Token.Speed += 1;
                             break;
                     }
