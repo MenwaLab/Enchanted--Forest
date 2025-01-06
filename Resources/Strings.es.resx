@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <root>
 <data name="ThankYou" xml:space="preserve">
-    <value>¡Gracias por jugar al 'Laberinto del Bosque Encantado'. ¡Espero que se hayan divertido!. ¡Hasta la próxima!. -Meylí</value>
+    <value>¡Gracias por jugar al Laberinto del Bosque Encantado. ¡Espero que se hayan divertido!. ¡Hasta la próxima!. -Meylí</value>
   </data>
   <data name="WelcomeMessage" xml:space="preserve">
     <value>Bienvenido al juego: ¨Laberinto del Bosque Encantado¨. 
     
-    Había una vez un hermoso, mágico y pacífico bosque en Fairylandia
-    (another land name) pero una malvada entidad ha hechizado este poblado, convirtiéndolo en un oscuro y tenebroso laberinto con trampas  
+    Había una vez un hermoso, mágico y pacífico bosque en Sylvaria pero una malvada entidad ha hechizado este poblado, convirtiéndolo en un oscuro y tenebroso laberinto con trampas  
     dispuestas a dañarte y evitar tu escape. Por lo que la misión de ambos es encontrar la salida (una radiante estrella esperando por ustedes), 
     pero tengan mucho cuidado porque en el camino no solo se enfretarán a trampas malévolas, sino también tendrán que competir entre ustedes. 
     Aunque los dos comiencen esta aventura, solo uno sobrevivirá. Pero no todo está perdido, porque la Reina y el Rey estarán dentro del laberinto
@@ -44,17 +43,14 @@
     <value>¿Quieres usar tu habilidad? (Inserte 1 para Sí, 0 para No):</value>
   </data>
   <data name="InvalidInputYN" xml:space="preserve">
-    <value>Entrada inválida. Por favor ingresa '1' para Sí o '0' para No:</value>
+    <value>Entrada inválida. Por favor ingresa 1 para Sí o 0 para No:</value>
   </data>
-
   <data name="CooldownReduced" xml:space="preserve">
-    <value>{0} redujo el tiempo de recarga en 2! Tiempo de recarga actual: {1}</value>
+    <value>{0} redujo su tiempo de enfriamient en 2! Tiempo de enfriamiento actual: {1}</value>
   </data>
   <data name="SpeedIncreased" xml:space="preserve">
     <value>{0} aumentó su velocidad en 1!</value>
   </data>
-
-
   <data name="VictoryMessage" xml:space="preserve">
     <value>¡El jugador {0} ha encontrado la salida del laberintó! !Ganaste el juego, felicidades!</value>
   </data>
@@ -62,15 +58,14 @@
     <value>¿Quieres jugar de nuevo? (Inserte 1 para Sí, 0 para No):</value>
   </data>
   <data name="InvalidInput" xml:space="preserve">
-    <value>Entrada inválida. Por favor, ingresa '1' para Sí o '0' para No:</value>
+    <value>Entrada inválida. Por favor, ingresa 1 para Sí o 0 para No:</value>
 </data>
   <data name="ArrowKeyPrompt" xml:space="preserve">
-    <value>Presiona una tecla de flecha para moverte:</value>
+    <value>Presiona una tecla de dirección para moverte:</value>
   </data>
   <data name="InvalidArrowKey" xml:space="preserve">
     <value>Por favor, presiona una tecla válida para moverte:</value>
   </data>
-
   <data name="InvalidMove" xml:space="preserve">
     <value>No hay movimientos válidos en esa dirección. Por favor, cambie de dirección.</value>
   </data>
@@ -80,26 +75,19 @@
 <data name="TeleportRandom" xml:space="preserve">
     <value>¡El jugador {0} cayó en el portal de teletransportación! Transportándolo a una posición aleatoria...</value>
   </data>
+  <data name="Trap1Activated" xml:space="preserve">
+    <value>!Trampa 1 activada!. {0} ha perdido un turn.</value>
+</data>
+<data name="Trap2Activated" xml:space="preserve">
+    <value>!Trampa 2 activada!. {0} ha sido enviado al origen de coordenadas (0, 0).</value>
+</data>
+<data name="Trap3Activated" xml:space="preserve">
+    <value>!Trampa 3 activada!. {0}, tu velocidad ha sido reducida a {1}.</value>
+</data>
+<data name="Trap4Activated" xml:space="preserve">
+    <value>!Trampa 4 activated!. {0} ahora tiene {1} turnos de enfriamiento.</value>
+</data>
 
 
-
-
-
-
-  <data name="TrapTriggered" xml:space="preserve">
-    <value>Trampa {0} activada en ({1}, {2}).</value>
-  </data>
-  
- 
-  
-  
-  <data name="PlayerMoved" xml:space="preserve">
-    <value>El jugador {0} terminó de moverse a ({1}, {2}). Su velocidad es {3}.</value>
-  </data>
- 
-  
-  <data name="TrapFound" xml:space="preserve">
-    <value>Trampa {0} encontrada en ({1}, {2}).</value>
-  </data>
 
 </root>

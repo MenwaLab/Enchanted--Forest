@@ -57,7 +57,7 @@ class Program
     static bool startGame()
     {
         Console.WriteLine("");
-        Console.WriteLine(resourceManager.GetString("WelcomeMessage")); 
+        Console.WriteLine(resourceManager.GetString("WelcomeMessage"));
         Console.WriteLine("");
         Console.WriteLine(resourceManager.GetString("EnterMazeSize"));
         int size;
@@ -156,21 +156,39 @@ else
                 player.CheckCooldownAndRestoreSpeed();
 
                 Console.WriteLine();
+                //
                 Console.WriteLine(resourceManager.GetString("UseAbilityPrompt")); // "Do you want to use your ability? (Y/N):"
                 string? input = Console.ReadLine();
 
-                while (input == null || input.ToUpper() != "Y" && input.ToUpper() != "N")
+                while (true)
                 {
-                    Console.WriteLine(resourceManager.GetString("InvalidInput"));
-                    input = Console.ReadLine(); // Keep reading until valid input
-                }
-                player.HasUsedAbility = input.ToUpper() == "Y";
-                
-                if (player.HasUsedAbility)
-                {
-                    Player target = player == players[0] ? players[1] : players[0];
-                    player.Token.UseAbility(player, target);
-                }
+    if (input == "1")
+    {
+                    player.HasUsedAbility = true;
+        Player target = player == players[0] ? players[1] : players[0];
+        player.Token.UseAbility(player, target);
+        break;
+    }
+    else if (input == "0")
+    {
+        player.HasUsedAbility = false;
+        break;
+    }
+    else
+    {
+        Console.WriteLine(resourceManager.GetString("InvalidInput")); // "Invalid input. Please enter 1 for Yes or 0 for No."
+        input = Console.ReadLine();
+    }
+                //
+                //Console.WriteLine(resourceManager.GetString("UseAbilityPrompt")); // "Do you want to use your ability? (1 for Yes, 0 for No):"
+
+
+
+
+
+        
+}
+
                    
                     HandleMovement(player, generatorMaze,input);
 
@@ -236,15 +254,24 @@ else
                 Console.WriteLine(resourceManager.GetString("PlayAgain"));
  // "Do you want to play again? (Y/N):"
 
-                 string? playAgainInput = Console.ReadLine()?.ToUpper();
-while (playAgainInput != "Y" && playAgainInput != "N")
-{
-    Console.WriteLine(resourceManager.GetString("InvalidInput")); // "Invalid input. Please enter 'Y' for Yes or 'N' for No:"
-    playAgainInput = Console.ReadLine()?.ToUpper(); // Keep reading until valid input
-}
+                 string? playAgainInput = Console.ReadLine();
 
-// Play again if 'Y', otherwise stop the game
-return playAgainInput == "Y";
+while (true)
+{
+    if (playAgainInput == "1")
+    {
+        return true; // Play again
+    }
+    else if (playAgainInput == "0")
+    {
+        return false; // Don't play again
+    }
+    else
+    {
+        Console.WriteLine(resourceManager.GetString("InvalidInput")); // "Invalid input. Please enter 1 for Yes or 0 for No."
+        playAgainInput = Console.ReadLine();
+    }
+}
 
             }
         }
