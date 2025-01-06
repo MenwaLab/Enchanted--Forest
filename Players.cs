@@ -1,6 +1,7 @@
-
+using System.Resources;
 public class Player
 {
+    static ResourceManager resourceManager3 = new ResourceManager("Enchanted__Forest.Resources.Strings", typeof(Player).Assembly);
     public string Name { get; set; }
     public Token Token { get; set; }
     public (int x, int y) Position { get; set; }
@@ -47,6 +48,14 @@ public class Player
     player1.Position = player2.Position;
     player2.Position = tempPosition;
 
-    Console.WriteLine($"{player1.Name} and {player2.Name} have swapped positions.");
+    string? swappedPositionsMessage = resourceManager3.GetString("PlayerSwappedPositions");
+        if (!string.IsNullOrEmpty(swappedPositionsMessage))
+        {
+            Console.WriteLine(string.Format(swappedPositionsMessage, player1.Name, player2.Name));
+        }
+        else
+        {
+            Console.WriteLine("Error: Resource string for 'PlayerSwappedPositions' not found.");
+        }
     }
 }

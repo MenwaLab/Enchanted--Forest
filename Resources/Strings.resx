@@ -93,6 +93,10 @@ Without further ado, good luck to you both, and let the games begin!
     <value>Trap 4 activated! {0} now has {1} cooldown turns.</value>
 </data>
 
+<data name="PlayerSwappedPositions" xml:space="preserve">
+    <value>{0} and {1} have swapped positions.</value>
+</data>
+
 
  
   
