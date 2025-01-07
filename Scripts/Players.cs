@@ -19,12 +19,10 @@ public class Player
         HasUsedAbility = false;
     }
     
-
     public bool Move(int dx, int dy)
     {
         return Program.TryMovePlayer(this, dx, dy, Token.Speed, maze);
     }
-
 
     public override string ToString()
     {
@@ -35,8 +33,7 @@ public class Player
     {
         if (Token.CurrentCooldown == 0)
         {
-            // Normalizar la velocidad si fue reducida
-            if(Token.Speed > Token.BaseSpeed)  
+            if(Token.Speed > Token.BaseSpeed)  //Normalizar la velocidad si fue reducida
             {
                 Token.Speed=Token.BaseSpeed;
             }
@@ -44,18 +41,14 @@ public class Player
     }
     public static void SwapPlayerPositions(Player player1, Player player2)
     {
-    var tempPosition = player1.Position;
-    player1.Position = player2.Position;
-    player2.Position = tempPosition;
+        var tempPosition = player1.Position;
+        player1.Position = player2.Position;
+        player2.Position = tempPosition;
 
-    string? swappedPositionsMessage = resourceManager3.GetString("PlayerSwappedPositions");
+        string? swappedPositionsMessage = resourceManager3.GetString("PlayerSwappedPositions");
         if (!string.IsNullOrEmpty(swappedPositionsMessage))
         {
             Console.WriteLine(string.Format(swappedPositionsMessage, player1.Name, player2.Name));
-        }
-        else
-        {
-            Console.WriteLine("Error: Resource string for 'PlayerSwappedPositions' not found.");
         }
     }
 }

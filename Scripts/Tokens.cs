@@ -9,7 +9,7 @@ public class Token
     public int BaseSpeed { get; set; }//velocidad original
     public int CooldownTime { get; set; }
     public int CurrentCooldown { get; private set; }
-    public int BaseCooldown { get; set; } // Original cooldown duration
+    public int BaseCooldown { get; set; } // Original tiempo de enfriamiento 
     
 
     private Action<Player, Player> AbilityAction;
@@ -31,30 +31,23 @@ public class Token
         if (CurrentCooldown > 0)
         {
             string? abilityInCooldown = resourceManager5.GetString("AbilityInCooldown");
-        if (!string.IsNullOrEmpty(abilityInCooldown))
-        {
-            Console.WriteLine(string.Format(abilityInCooldown, Name));
-        }
-        else
-        {
-            Console.WriteLine("Error: Resource string for 'AbilityInCooldown' not found.");
-        }
+            if (!string.IsNullOrEmpty(abilityInCooldown))
+            {
+                Console.WriteLine(string.Format(abilityInCooldown, Name));
+            }
             return;
         }
         
         AbilityAction(user, target);
 
         CurrentCooldown = CooldownTime;
-        CooldownTime = BaseCooldown; // Reset cooldown
+        CooldownTime = BaseCooldown; 
+
         string? abilityUsedMessage = resourceManager5.GetString("AbilityUsed");
-    if (!string.IsNullOrEmpty(abilityUsedMessage))
-    {
-        Console.WriteLine(string.Format(abilityUsedMessage, user.Name, CooldownTime));
-    }
-    else
-    {
-        Console.WriteLine("Error: Resource string for 'AbilityUsed' not found.");
-    }
+        if (!string.IsNullOrEmpty(abilityUsedMessage))
+        {
+            Console.WriteLine(string.Format(abilityUsedMessage, user.Name, CooldownTime));
+        }
     }
 
     public void ReduceCooldown()
@@ -64,7 +57,7 @@ public class Token
             CurrentCooldown--;
         }
     }
-  //ver si es de utilidad pq era para puppy pero lo cambie por abuela
+  
     public void SetCooldown(int turns)
     {
         CurrentCooldown = Math.Max(turns, 0); 
@@ -74,13 +67,11 @@ public class Token
         return $"{Name}: {AbilityDescription}, Velocidad / Speed: {Speed}, Tiempo de enfriamiento / Cooldown time : {CooldownTime}";
     }
     public void MimicAbility(Token targetToken, Player user, Player target)
-{
-    // Copy the ability and description
-    AbilityAction = targetToken.AbilityAction;
+    {
+        AbilityAction = targetToken.AbilityAction; // Copia la habilidad
 
-    // Immediately execute the mimicked ability
-    AbilityAction(user, target);
-}
+        AbilityAction(user, target); //ejecuta esa habilidad
+    }
 }
 
 public static class TokenFactory
@@ -92,105 +83,87 @@ public static class TokenFactory
         return new Token[]
         {
             new Token("Elf🧝", resourceManager6.GetString("ElfDescription") ?? "Default description for Elf", 3, 5, 
-            (user, target) =>
-            {string? elfMimicAbility = resourceManager6.GetString("ElfMimicAbility");
-        if (!string.IsNullOrEmpty(elfMimicAbility))
-        {
-            Console.WriteLine(string.Format(elfMimicAbility, user.Name, target.Name, target.Token.Name));
-        }
-        else
-        {
-            Console.WriteLine("Error: Resource string for 'ElfMimicAbility' not found.");
-        }
+            (user, target) =>{
+                
+            string? elfMimicAbility = resourceManager6.GetString("ElfMimicAbility");
+            if (!string.IsNullOrEmpty(elfMimicAbility))
+            {
+                Console.WriteLine(string.Format(elfMimicAbility, user.Name, target.Name, target.Token.Name));
+            }
             user.Token.MimicAbility(target.Token, user, target); }),
 
             new Token("Wizard🧙", resourceManager6.GetString("WizardDescription") ?? "Default description for Wizard", 4, 3,
-                (user, target) =>
-                {string? wizardReduceSpeed = resourceManager6.GetString("WizardReduceSpeed");
-        if (!string.IsNullOrEmpty(wizardReduceSpeed))
-        {
-            Console.WriteLine(string.Format(wizardReduceSpeed, user.Name, target.Name));
-        }
-        else
-        {
-            Console.WriteLine("Error: Resource string for 'WizardReduceSpeed' not found.");
-        }
+                (user, target) =>{
+                    
+                string? wizardReduceSpeed = resourceManager6.GetString("WizardReduceSpeed");
+                if (!string.IsNullOrEmpty(wizardReduceSpeed))
+                {
+                    Console.WriteLine(string.Format(wizardReduceSpeed, user.Name, target.Name));
+                }
                 target.Token.Speed = Math.Max(1, target.Token.Speed - 1); }),
             
             new Token("Fairy🧚", resourceManager6.GetString("FairyDescription") ?? "Default description for Fairy", 7, 4,
-                (user, target) =>
-                {string? fairySwapPosition = resourceManager6.GetString("FairySwapPosition");
-        if (!string.IsNullOrEmpty(fairySwapPosition))
-        {
-            Console.WriteLine(string.Format(fairySwapPosition, user.Name, target.Name));
-        }
-        else
-        {
-            Console.WriteLine("Error: Resource string for 'FairySwapPosition' not found.");
-        }
-                Player.SwapPlayerPositions(user, target); }),// Call the method in Program.cs
+                (user, target) =>{
+                    
+                string? fairySwapPosition = resourceManager6.GetString("FairySwapPosition");
+                if (!string.IsNullOrEmpty(fairySwapPosition))
+                {
+                    Console.WriteLine(string.Format(fairySwapPosition, user.Name, target.Name));
+                }
+                Player.SwapPlayerPositions(user, target); }),
 
             new Token("Siren🧜", resourceManager6.GetString("SirenDescription") ?? "Default description for Siren", 5, 3,
-                (user, target) =>
-                {string? sirenSkipTurn = resourceManager6.GetString("SirenSkipTurn");
-        if (!string.IsNullOrEmpty(sirenSkipTurn))
-        {
-            Console.WriteLine(string.Format(sirenSkipTurn, user.Name, target.Name));
-        }
-        else
-        {
-            Console.WriteLine("Error: Resource string for 'SirenSkipTurn' not found.");
-        }
+                (user, target) =>{
+                string? sirenSkipTurn = resourceManager6.GetString("SirenSkipTurn");
+                if (!string.IsNullOrEmpty(sirenSkipTurn))
+                {
+                    Console.WriteLine(string.Format(sirenSkipTurn, user.Name, target.Name));
+                }
                 target.SkipTurns = 1; }),
 
             new Token("Abuela👵", resourceManager6.GetString("GrandmaDescription") ?? "Default description for Grandma", 2, 2, 
-                (user, target) =>
+                (user, target) =>{
+                string? abuelaIncreaseSpeed = resourceManager6.GetString("AbuelaIncreaseSpeed");
+                if (!string.IsNullOrEmpty(abuelaIncreaseSpeed))
                 {
-                    string? abuelaIncreaseSpeed = resourceManager6.GetString("AbuelaIncreaseSpeed");
-        if (!string.IsNullOrEmpty(abuelaIncreaseSpeed))
-        {
-            Console.WriteLine(string.Format(abuelaIncreaseSpeed, user.Name));
-        }
-        else
-        {
-            Console.WriteLine("Error: Resource string for 'AbuelaIncreaseSpeed' not found.");
-        }
-                    user.Token.Speed += 1;
-                    user.Token.SetCooldown(1); // Ensure her ability has a cooldown. ver si funciona
-                }),
+                    Console.WriteLine(string.Format(abuelaIncreaseSpeed, user.Name));
+                }
+                user.Token.Speed += 1;
+                user.Token.SetCooldown(1);}),
             
             new Token("Unicorn🦄", resourceManager6.GetString("UnicornDescription") ?? "Default description for Unicorn", 6, 4,
-                (user, target) =>
-                {
-                    Random rand = new Random();
-                    int effect = rand.Next(1, 4); // Randomly pick between 1, 2, or 3
-                    string? unicornMessage = string.Empty;
+                (user, target) =>{
+                Random rand = new Random();
+                int effect = rand.Next(1, 4); // Aleatoriamente escoje entre 1, 2, o 3
+                string? unicornMessage = string.Empty;
 
                     switch (effect)
                     {
-                        case 1: // Swap positionsunicornMessage = resourceManager.GetString("UnicornSwapPosition");
-                if (!string.IsNullOrEmpty(unicornMessage))
-                {
-                    Console.WriteLine(string.Format(unicornMessage, user.Name, target.Name));
-                }Console.WriteLine($"{user.Name}'s Dragon swaps positions with {target.Name}.");
+                        case 1: // Swap posiciones
+                            unicornMessage = resourceManager6.GetString("UnicornSwapPosition");
+                            if (!string.IsNullOrEmpty(unicornMessage))
+                            {
+                                Console.WriteLine(string.Format(unicornMessage, user.Name, target.Name));
+                            }
+                            Console.WriteLine($"{user.Name}'s Unicorn swaps positions with {target.Name}.");
                             Player.SwapPlayerPositions(user, target);
                             break;
 
-                        case 2: // Skip the target's turn
+                        case 2: //Salta el turno del otro jugador
                             unicornMessage = resourceManager6.GetString("UnicornSkipTurn");
-                if (!string.IsNullOrEmpty(unicornMessage))
-                {
-                    Console.WriteLine(string.Format(unicornMessage, user.Name, target.Name));
-                }
+                            if (!string.IsNullOrEmpty(unicornMessage))
+                            {
+                                Console.WriteLine(string.Format(unicornMessage, user.Name, target.Name));
+                            }
                             target.SkipTurns = 1;
                             break;
 
-                        case 3: // Increase Unicorn's speed
+                        case 3: //Aumenta su propia velocidad
                             unicornMessage = resourceManager6.GetString("UnicornIncreaseSpeed");
-                if (!string.IsNullOrEmpty(unicornMessage))
-                {
-                    Console.WriteLine(string.Format(unicornMessage, user.Name));
-                }
+                            if (!string.IsNullOrEmpty(unicornMessage))
+                            {
+                                Console.WriteLine(string.Format(unicornMessage, user.Name));
+                            }
                             user.Token.Speed += 1;
                             break;
                     }

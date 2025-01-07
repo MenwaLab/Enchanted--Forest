@@ -1,5 +1,4 @@
 using System.Resources;
-
 public class Trap
 {
     static ResourceManager resourceManager2 = new ResourceManager("Enchanted__Forest.Resources.Strings", typeof(Trap).Assembly);
@@ -26,44 +25,28 @@ public class Trap
         {
             switch (Name)
             {
-                case "T1": 
-                    // Lose 1 turn for T1
+                case "T1": // Sakta un turno a quien lo activò 
                     player.SkipTurns = 1;
                     string? trap1Activated = resourceManager2.GetString("Trap1Activated");
-            if (!string.IsNullOrEmpty(trap1Activated))
-            {
-                Console.WriteLine(string.Format(trap1Activated, player.Name));
-            }
-            else
-            {
-                Console.WriteLine("Error: Resource string for 'Trap1Activated' not found.");
-            }
+                    if (!string.IsNullOrEmpty(trap1Activated))
+                    {
+                        Console.WriteLine(string.Format(trap1Activated, player.Name));
+                    }
                     break;
-                case "T2":
-                // Send the player back to the origin (0, 0)
+                case "T2": // Manda al jugador al (0, 0)
                     player.Position = (0, 0);
                     string? trap2Activated = resourceManager2.GetString("Trap2Activated");
                     if (!string.IsNullOrEmpty(trap2Activated))
                     {
                         Console.WriteLine(string.Format(trap2Activated, player.Name));
                     }
-                    else
-                    {
-                        Console.WriteLine("Error: Resource string for 'Trap2Activated' not found.");
-                    }
                     break;
-
-                case "T3":
-                    //Reduce speed of your token 
-                    player.Token.Speed = Math.Max(1, player.Token.Speed - 1); // Reduce speed but ensure it's at least 1
+                case "T3": //Reduce la velocidad de la ficha
+                    player.Token.Speed = Math.Max(1, player.Token.Speed - 1); //Asegura que la velocidad es al menos 1 para que no muera
                     string? trap3Activated = resourceManager2.GetString("Trap3Activated");
                     if (!string.IsNullOrEmpty(trap3Activated))
                     {
                         Console.WriteLine(string.Format(trap3Activated, player.Name, player.Token.Speed));
-                    }
-                    else
-                    {
-                        Console.WriteLine("Error: Resource string for 'Trap3Activated' not found.");
                     }
                     break;
                 case "T4":
@@ -73,12 +56,7 @@ public class Trap
                     {
                         Console.WriteLine(string.Format(trap4Activated, player.Name, player.Token.CurrentCooldown));
                     }
-                    else
-                    {
-                        Console.WriteLine("Error: Resource string for 'Trap4Activated' not found.");
-                    }
                     break;
-
             }
                     Triggered = true; // Mark the trap as triggered       
         }

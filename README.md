@@ -48,9 +48,9 @@ Good luck, and may the best player win!
 4. Run the project.
 
 ## 🔧 Built With 🔧 
-• C#
-• Spectre.Console
-• .NET Resource Management
+- C#
+- Spectre.Console
+- .NET Resource Management
 
 ## 🙏 Recognition 🙏
 This project is an assignment from my university: University of Havana. It is the first project in my first semester as a Computer Science major. The game idea, design and development was an exciting introduction to programming concepts, different frameworks, and creativity.

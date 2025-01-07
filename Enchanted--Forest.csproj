@@ -17,6 +17,7 @@
   <None Update="Resources\Strings.resx">
     <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
   </None>
+  
   <None Update="Resources\Strings.es.resx">
     <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
   </None>
