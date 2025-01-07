@@ -35,7 +35,6 @@ public class MazeGeneration
         GenerateTraps();
         GenerateBeneficialTiles();
     }
-    
     private void GenerateTheMaze(int x, int y) // recursive backtracking 
     {
         var directions = new (int dx, int dy)[]
@@ -65,7 +64,6 @@ public class MazeGeneration
             maze[size - 1, col].isOpen = true;
         }
     }
-
     private bool HasOpenCellInRow(int row)
     {
         for (int col = 0; col < size; col++)
@@ -75,7 +73,6 @@ public class MazeGeneration
         }
         return false;
     }
-
     private void Shuffle((int dx, int dy)[] directions) //Fisher-Yates shuffle,In-Place Shuffling, cada elemento es cambiado una vez
     {
         for (int i = directions.Length - 1; i > 0; i--)
@@ -89,17 +86,14 @@ public class MazeGeneration
     {
         player1Pos = (x, y);
     }
-
     public void SetPlayer2Position(int x, int y)
     {
         player2Pos = (x, y);
     }
-
     public (int x, int y) GetPlayer1Position()
     {
         return player1Pos;
     }
-
     public (int x, int y) GetPlayer2Position()
     {
         return player2Pos;
@@ -112,7 +106,6 @@ public class MazeGeneration
             isOpen=shouldBeOpen;
         }
     }
-
     private void GenerateTraps()
     {
         int trapCount = 0; 
@@ -166,7 +159,6 @@ public class MazeGeneration
         }
         traps = trapsList;  // Asignar la lista de trampas al objeto MazeGeneration 
     }
-
     public Trap? IsTrapAtPosition(int i, int j)
     {
         foreach (var trap in traps)
@@ -179,7 +171,6 @@ public class MazeGeneration
         }
         return null; 
     }
-
     private void SetExit()
     {
         int exitRow = size - 1;
@@ -210,7 +201,6 @@ public class MazeGeneration
         maze[exitRow, randomCol].isOpen = true;
         exit = (exitRow, randomCol);
     }
-
 public bool IsExitReachable(int exitRow, int exitCol) //Algortimo de Lee
 {
         bool[,] visited=new bool[size,size];
@@ -249,12 +239,10 @@ public bool IsExitReachable(int exitRow, int exitCol) //Algortimo de Lee
         while(change);
         return false; //salida no es alcanzable
     }
-
     public static bool ValidPosition(int size,int row,int col)
     {
         return row >= 0 && row < size && col >= 0 && col < size;
-    }
-    
+    }    
     public bool IsWall(int row, int col)
     {
         if (row < 0 || row >= maze.GetLength(0) || col < 0 || col >= maze.GetLength(1))// Chequear si esta fuera del laberinto
@@ -332,7 +320,6 @@ public bool IsExitReachable(int exitRow, int exitCol) //Algortimo de Lee
             randomTeleportPortal = validPositionsArr[0];  
         }
     }
-
     private bool IsValidPositionForPortal(int x, int y) //chequea si una posicion es valida para teleportation
     {
         if (maze[x, y].isOpen && !(x == exit.x && y == exit.y)  && IsTrapAtPosition(x, y) == null && !IsBeneficialTile(x, y, out _)) // Cheqyea si una posicion no es una pared, la salida, no es una trampa o casilla beneficiosa 
@@ -354,7 +341,6 @@ public bool IsExitReachable(int exitRow, int exitCol) //Algortimo de Lee
             player.Position = GetRandomValidPosition();  // Teleport to a random valid position
         }
     }
-
     public (int x, int y) GetRandomValidPosition()
     {
         List<(int x, int y)> validPositions = new List<(int x, int y)>();

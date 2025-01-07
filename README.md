@@ -53,7 +53,7 @@ Good luck, and may the best player win!
 - .NET Resource Management
 
 ## 🙏 Recognition 🙏
-This project is an assignment from my university: University of Havana. It is the first project in my first semester as a Computer Science major. The game idea, design and development was an exciting introduction to programming concepts, different frameworks, and creativity.
+Special thanks to my professors and teacher assistants at The University of Havana for their support. This project marks the first programming assignment in my first semester as a Computer Science major. The game idea, design and development was an exciting introduction to programming concepts, different frameworks, and creativity.
 
 ## 📩 Contact Info 📩
 - Author: Meylí
