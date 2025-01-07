@@ -108,7 +108,8 @@ class Program
             foreach(var player in players)
             {
                 System.Threading.Thread.Sleep(500); 
-                generatorMaze.PrintMazeSpectre();
+                MazePrinter mazePrinter = new MazePrinter(generatorMaze);
+                mazePrinter.PrintMazeSpectre();
 
                 string? playerTurnTemplate = resourceManager.GetString("PlayerTurn");
                 if (!string.IsNullOrEmpty(playerTurnTemplate))
