@@ -1,5 +1,6 @@
 ﻿using System.Globalization;
 using System.Resources;
+using Spectre.Console;
 class Program
 { 
     static List<Player> players = new List<Player>();
@@ -163,6 +164,14 @@ class Program
                 if (winner != null)
                 {
                     string? victoryMessageTemplate = resourceManager.GetString("VictoryMessage");
+                    var starburst = new FigletText("✨")
+        .Centered()
+        .Color(Color.Yellow);
+
+    AnsiConsole.Write(starburst);
+    AnsiConsole.MarkupLine("[yellow bold]✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨[/]");
+    AnsiConsole.MarkupLine("[yellow bold]✨✨✨✨✨   🎉🎉🎉🎉🎉🎉  ✨✨✨✨✨[/]");
+    AnsiConsole.MarkupLine("[yellow bold]✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨[/]");
                     if (!string.IsNullOrEmpty(victoryMessageTemplate))
                     {
                         Console.WriteLine(string.Format(victoryMessageTemplate, winner));

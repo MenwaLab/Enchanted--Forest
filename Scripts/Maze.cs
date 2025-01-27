@@ -22,15 +22,20 @@ public class MazeGeneration
         this.size = size;
         this.maze = new Cell[size,size];
 
-        for(int i=0; i< size;i++)
+        do
         {
-            for(int j=0; j<size;j++)
+
+            for(int i=0; i< size;i++)
             {
-                maze[i,j]=new Cell(false); // Todo paredes
+                for(int j=0; j<size;j++)
+                {
+                    maze[i,j]=new Cell(false); // Todo paredes
+                }
             }
-        }
         
-        GenerateTheMaze(0, 0);
+            GenerateTheMaze(0, 0);
+        }while(!IsMazeFullyReachable());
+
         SetExit();
         GenerateTraps();
         GenerateBeneficialTiles();
@@ -82,6 +87,74 @@ public class MazeGeneration
         }
 
     }
+    public bool IsMazeFullyReachable()
+{
+    int[,] distances = new int[size, size];
+    int[] dx = { -1, 1, 0, 0 };
+    int[] dy = { 0, 0, -1, 1 };
+
+    // Initialize the distance grid
+    for (int x = 0; x < size; x++)
+    {
+        for (int y = 0; y < size; y++)
+        {
+            distances[x, y] = maze[x, y].isOpen ? -1 : -10;
+        }
+    }
+
+    // Start from the top-left corner
+    if (maze[0, 0].isOpen)
+    {
+        distances[0, 0] = 0;
+    }
+
+    // Propagate distances using Lee's algorithm
+    bool modified;
+    int currentDistance = 0;
+
+    do
+    {
+        modified = false;
+
+        for (int x = 0; x < size; x++)
+        {
+            for (int y = 0; y < size; y++)
+            {
+                if (distances[x, y] == currentDistance)
+                {
+                    for (int d = 0; d < 4; d++)
+                    {
+                        int nx = x + dx[d];
+                        int ny = y + dy[d];
+
+                        if (nx >= 0 && nx < size && ny >= 0 && ny < size && distances[nx, ny] == -1)
+                        {
+                            distances[nx, ny] = currentDistance + 1;
+                            modified = true;
+                        }
+                    }
+                }
+            }
+        }
+
+        currentDistance++;
+    } while (modified);
+
+    // Check if there are any unreachable cells
+    for (int x = 0; x < size; x++)
+    {
+        for (int y = 0; y < size; y++)
+        {
+            if (distances[x, y] == -1)
+            {
+                return false; // Found an unreachable cell
+            }
+        }
+    }
+
+    return true; // All cells are reachable
+}
+
     public void SetPlayer1Position(int x, int y)
     {
         player1Pos = (x, y);
