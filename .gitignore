@@ -8,7 +8,7 @@
 bin/
 obj/
 
-# Ignorar archivos esècíficos del usuario
+# Ignorar archivos específicos del usuario
 *.user
 *.suo
 *.userosscache
