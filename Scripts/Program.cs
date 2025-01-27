@@ -28,6 +28,7 @@ class Program
         {
             Console.WriteLine(resourceManager.GetString("InvalidMazeSize"));
         }
+        size = Math.Clamp(size, 7, 15);
 
         MazeGeneration generatorMaze = new MazeGeneration(size);
         Token[] tokens = TokenFactory.GetAvailableTokens();
