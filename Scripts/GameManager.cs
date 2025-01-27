@@ -10,7 +10,7 @@ public static class GameManager
         Player1 = player1;
         Player2 = player2;
     }
-    public static void HandleMovement(Player player, MazeGeneration generatorMaze, string input)
+    public static void HandleMovement(Player player, MazeCreation generatorMaze, string input)
     {
         while (true) // Seguir intentando hasta que el jugador se mueva o cambie de dirección
         {
@@ -48,7 +48,7 @@ public static class GameManager
                 Console.WriteLine(resourceManager.GetString("InvalidMove"));
         }
     }
-    public static bool IsValidMove(int newX, int newY, MazeGeneration generatorMaze)
+    public static bool IsValidMove(int newX, int newY, MazeCreation generatorMaze)
     {
         if (newX< 0 || newY< 0 || newX >= generatorMaze.Size || newY >= generatorMaze.Size)
         {   
@@ -86,7 +86,7 @@ public static class GameManager
         }
         return null; //Todavía no hay un ganador
     }
-     public static (int x, int y) GetRandomValidPosition(MazeGeneration maze, (int x, int y) exit)
+     public static (int x, int y) GetRandomValidPosition(MazeCreation maze, (int x, int y) exit)
     {
         Random random = new Random();
         int size = maze.Size;
@@ -102,7 +102,7 @@ public static class GameManager
             }
         }
     }
-    public static void CheckTeleportation(Player player, (int x, int y) backToStartPortal, (int x, int y) randomTeleportPortal, (int x, int y) startPosition, MazeGeneration generatorMaze)
+    public static void CheckTeleportation(Player player, (int x, int y) backToStartPortal, (int x, int y) randomTeleportPortal, (int x, int y) startPosition, MazeCreation generatorMaze)
     {
         if (player.Position == randomTeleportPortal)
         {
@@ -115,7 +115,7 @@ public static class GameManager
             {
                 Console.WriteLine("Error: Resource string for 'TeleportRandom' not found.");
             }
-            player.Position = GetRandomValidPosition(generatorMaze, generatorMaze.exit); // Teleport to a random valid position
+            player.Position = GetRandomValidPosition(generatorMaze, generatorMaze.exit); 
         }
     }
 }

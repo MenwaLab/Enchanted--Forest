@@ -1,7 +1,7 @@
 using Spectre.Console;
 using Spectre.Console.Rendering;
 using System.Resources;
-public class MazeGeneration
+public class MazeCreation
 {
     static ResourceManager resourceManager4 = new ResourceManager("Enchanted__Forest.Resources.Strings", typeof(Trap).Assembly);
     
@@ -17,7 +17,7 @@ public class MazeGeneration
     public (int x, int y)? randomTeleportPortal = null; 
     public int Size => size;
 
-    public MazeGeneration(int size)
+    public MazeCreation(int size)
     { 
         this.size = size;
         this.maze = new Cell[size,size];
@@ -33,14 +33,14 @@ public class MazeGeneration
                 }
             }
         
-            GenerateTheMaze(0, 0);
+            GenerateMaze(0, 0);
         }while(!IsMazeFullyReachable());
 
         SetExit();
         GenerateTraps();
         GenerateBeneficialTiles();
     }
-    private void GenerateTheMaze(int x, int y) // recursive backtracking 
+    private void GenerateMaze(int x, int y) // recursive backtracking 
     {
         var directions = new (int dx, int dy)[]
         {
@@ -59,7 +59,7 @@ public class MazeGeneration
             if (nx >= 0 && nx < size && ny >= 0 && ny < size && !maze[nx, ny].isOpen)
             {
                 maze[x + dx, y + dy].isOpen = true;  //Quitar la pared entre las celdas 
-                GenerateTheMaze(nx, ny); // Recursivamente 
+                GenerateMaze(nx, ny); // Recursivamente 
             }
         }
 

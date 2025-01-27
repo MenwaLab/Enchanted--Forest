@@ -158,7 +158,7 @@ public static class TokenFactory
                             target.SkipTurns = 1;
                             break;
 
-                        case 3: //Aumenta su propia velocidad
+                        case 3: 
                             unicornMessage = resourceManager6.GetString("UnicornIncreaseSpeed");
                             if (!string.IsNullOrEmpty(unicornMessage))
                             {

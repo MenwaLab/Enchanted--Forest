@@ -4,9 +4,9 @@ using System.Collections.Generic;
 
 public class MazePrinter
 {
-    private MazeGeneration maze;
+    private MazeCreation maze;
 
-    public MazePrinter(MazeGeneration maze)
+    public MazePrinter(MazeCreation maze)
     {
         this.maze = maze;
     }
@@ -109,7 +109,7 @@ public class MazePrinter
             case "Wizard🧙":
                 return "🧙";
             default:
-                return "❓"; // Fallback emoji if token not recognized
+                return "❓"; 
         }
     }
 

@@ -6,10 +6,10 @@ public class Player
     public Token Token { get; set; }
     public (int x, int y) Position { get; set; }
     public int SkipTurns { get; set; } 
-    private MazeGeneration maze; //guardar la referencia del tablero
+    private MazeCreation maze; //guarda la referencia del tablero
     public bool HasUsedAbility { get; set; }
 
-    public Player(string name, Token token, int startX, int startY, MazeGeneration maze)
+    public Player(string name, Token token, int startX, int startY, MazeCreation maze)
     {
         Name = name;
         Token = token;

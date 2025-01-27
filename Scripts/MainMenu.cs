@@ -34,7 +34,7 @@ public static class MainMenu
                     .PageSize(4)
                     .AddChoices(new[] { playOption, changeLanguageOption, exitOption })
             );
-            
+
             if (selectedOption == playOption)
             {
                 AnsiConsole.MarkupLine("[green]" + resourceManager.GetString("StartingGame") + "[/]");

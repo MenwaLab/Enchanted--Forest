@@ -29,7 +29,7 @@ class Program
         }
         size = Math.Clamp(size, 7, 15);
 
-        MazeGeneration generatorMaze = new MazeGeneration(size);
+        MazeCreation generatorMaze = new MazeCreation(size);
 
         Token[] tokens = TokenFactory.GetAvailableTokens();
 
@@ -201,7 +201,7 @@ class Program
             }
         }
     }
-    private static void UpdatePlayerPosition(Player player, MazeGeneration generatorMaze)
+    private static void UpdatePlayerPosition(Player player, MazeCreation generatorMaze)
     {
         if (player == players[0])
         {
@@ -212,7 +212,7 @@ class Program
             generatorMaze.SetPlayer2Position(player.Position.x, player.Position.y);
         }
     }
-    public static bool TryMovePlayer(Player player, int dx, int dy, int steps, MazeGeneration generatorMaze)
+    public static bool TryMovePlayer(Player player, int dx, int dy, int steps, MazeCreation generatorMaze)
     {
         int startX = player.Position.x;
         int startY= player.Position.y;
