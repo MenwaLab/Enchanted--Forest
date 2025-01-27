@@ -13,7 +13,7 @@
   <value>Iniciando el juego...</value>
 </data>
 <data name="ExitingGame" xml:space="preserve">
-  <value>Saliendo del juego. ¡Adiós!</value>
+  <value>Saliendo del juego. ¡Hasta la próxima! -Meylí</value>
 </data>
 <data name="LanguageChanged" xml:space="preserve">
   <value>Idioma cambiado a</value>
@@ -36,7 +36,7 @@
 </data>
 <data name="EnterMazeSize" xml:space="preserve">
     <value>Por favor, ingrese el tamaño del laberinto con el que jugará 
-    (solo números mayores que 7 están permitidos y note que con los mayores que 15 el laberinto puede imprimirse en líneas diferentes)</value>
+    (solo números mayores que 7 están permitidos)</value>
 </data>
 <data name="InvalidMazeSize" xml:space="preserve">
     <value>Por favor, inserta un tamaño válido para el laberinto (mínimo 7):</value>

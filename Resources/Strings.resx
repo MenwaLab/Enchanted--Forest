@@ -13,7 +13,7 @@
   <value>Starting the game...</value>
 </data>
 <data name="ExitingGame" xml:space="preserve">
-  <value>Exiting the game. Goodbye!</value>
+  <value>Exiting the game. Bye!</value>
 </data>
 <data name="LanguageChanged" xml:space="preserve">
   <value>Language changed to</value>
@@ -39,7 +39,7 @@ Without further ado, good luck to you both, and let the games begin!
 
 <data name="EnterMazeSize" xml:space="preserve">
     <value>Please enter the size of the maze you would like to play with 
-(note that only numbers starting from 7 are allowed and above 15 the maze maze may print in seperate lines)</value>
+(note that only numbers starting from 7 are allowed)</value>
 </data>
 <data name="InvalidMazeSize" xml:space="preserve">
     <value>Please enter a valid size for the maze (minimum 7):</value>

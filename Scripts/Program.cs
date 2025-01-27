@@ -1,5 +1,4 @@
-﻿using System.Globalization;
-using System.Resources;
+﻿using System.Resources;
 using Spectre.Console;
 class Program
 { 
@@ -9,13 +8,12 @@ class Program
     {
         MainMenu.ShowMenu();
     
-        bool playAgain=startGame(); //true;
+        bool playAgain=startGame(); 
         while(playAgain)
         {
             playAgain=startGame();
         }
         Console.WriteLine(resourceManager.GetString("ThankYou"));
-        
     }
     static bool startGame()
     {
@@ -32,6 +30,7 @@ class Program
         size = Math.Clamp(size, 7, 15);
 
         MazeGeneration generatorMaze = new MazeGeneration(size);
+
         Token[] tokens = TokenFactory.GetAvailableTokens();
 
         Console.WriteLine("");
@@ -85,7 +84,7 @@ class Program
         {
             foreach(var player in players)
             {
-                System.Threading.Thread.Sleep(500); 
+                Thread.Sleep(500); 
                 MazePrinter mazePrinter = new MazePrinter(generatorMaze);
                 mazePrinter.PrintMazeSpectre();
 
@@ -165,13 +164,14 @@ class Program
                 {
                     string? victoryMessageTemplate = resourceManager.GetString("VictoryMessage");
                     var starburst = new FigletText("✨")
-        .Centered()
-        .Color(Color.Yellow);
+                        .Centered()
+                        .Color(Color.Yellow);
 
-    AnsiConsole.Write(starburst);
-    AnsiConsole.MarkupLine("[yellow bold]✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨[/]");
-    AnsiConsole.MarkupLine("[yellow bold]✨✨✨✨✨   🎉🎉🎉🎉🎉🎉  ✨✨✨✨✨[/]");
-    AnsiConsole.MarkupLine("[yellow bold]✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨[/]");
+                    AnsiConsole.Write(starburst);
+                    AnsiConsole.MarkupLine("[yellow bold]✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨[/]");
+                    AnsiConsole.MarkupLine("[yellow bold]✨✨✨✨✨   🎉🎉🎉🎉🎉🎉  ✨✨✨✨✨[/]");
+                    AnsiConsole.MarkupLine("[yellow bold]✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨[/]");
+
                     if (!string.IsNullOrEmpty(victoryMessageTemplate))
                     {
                         Console.WriteLine(string.Format(victoryMessageTemplate, winner));
@@ -201,7 +201,7 @@ class Program
             }
         }
     }
-    private static void UpdatePlayerPositionInMaze(Player player, MazeGeneration generatorMaze)
+    private static void UpdatePlayerPosition(Player player, MazeGeneration generatorMaze)
     {
         if (player == players[0])
         {
@@ -238,7 +238,7 @@ class Program
                 if (step > 1) 
                 {
                     player.Position = (startX + dx * (step - 1), startY + dy * (step - 1)); //Actualizar la posición del jugador a la última válida
-                    UpdatePlayerPositionInMaze(player, generatorMaze);
+                    UpdatePlayerPosition(player, generatorMaze);
                     generatorMaze.CheckTeleportation(player);
                     
                     Trap? trap = generatorMaze.IsTrapAtPosition(player.Position.x, player.Position.y);
@@ -262,7 +262,7 @@ class Program
         {
             player.Position = (finalX, finalY);
             
-            UpdatePlayerPositionInMaze(player, generatorMaze);
+            UpdatePlayerPosition(player, generatorMaze);
             Trap? trap = generatorMaze.IsTrapAtPosition(finalX, finalY);
             if (trap != null)
             {
