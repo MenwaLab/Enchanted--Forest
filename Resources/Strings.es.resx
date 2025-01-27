@@ -1,5 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <root>
+<data name="Play" xml:space="preserve">
+  <value>Jugar</value>
+</data>
+<data name="ChangeLanguage" xml:space="preserve">
+  <value>Cambiar idioma</value>
+</data>
+<data name="Exit" xml:space="preserve">
+  <value>Salir</value>
+</data>
+<data name="StartingGame" xml:space="preserve">
+  <value>Iniciando el juego...</value>
+</data>
+<data name="ExitingGame" xml:space="preserve">
+  <value>Saliendo del juego. ¡Adiós!</value>
+</data>
+<data name="LanguageChanged" xml:space="preserve">
+  <value>Idioma cambiado a</value>
+</data>
+
+
 <data name="ThankYou" xml:space="preserve">
     <value>¡Gracias por jugar al Laberinto del Bosque Encantado. ¡Espero que se hayan divertido!. ¡Hasta la próxima!. -Meylí</value>
   </data>

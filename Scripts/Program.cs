@@ -6,39 +6,15 @@ class Program
     static ResourceManager resourceManager = new ResourceManager("Enchanted__Forest.Resources.Strings",  typeof(Program).Assembly);
     static void Main(string[] args)
     {
-        Console.WriteLine("Select the language you will play in / Seleccione el idioma con el que jugará:");
-        Console.WriteLine("1. English");
-        Console.WriteLine("2. Español");
-
-        string? languageChoice = Console.ReadLine();
+        MainMenu.ShowMenu();
     
-        while (true)
-        {
-            if (languageChoice == "1")
-            {
-                CultureInfo.CurrentCulture = new CultureInfo("en");
-                break;  
-            }
-            if (languageChoice=="2")
-            {
-                Thread.CurrentThread.CurrentCulture = new CultureInfo("es-Es");
-                Thread.CurrentThread.CurrentUICulture = new CultureInfo("es-Es");
-                CultureInfo.CurrentCulture = new CultureInfo("es");
-                break;  
-            }
-            else
-            {
-                Console.WriteLine("Invalid input / Entrada no válida. '1' for English o '2' para Español.");
-                languageChoice = Console.ReadLine();
-            }
-        }
-    
-        bool playAgain=true;
-        while(playAgain==true)
+        bool playAgain=startGame(); //true;
+        while(playAgain)
         {
             playAgain=startGame();
         }
         Console.WriteLine(resourceManager.GetString("ThankYou"));
+        
     }
     static bool startGame()
     {
