@@ -47,7 +47,7 @@ Good luck, and may the best player win!
 2. Install .NET SDK if it's not already installed. You can download it from the official Microsoft website. This project uses .NET 8.0.
 3. Install the Spectre.Console library for the terminal interface. Run the following command in your terminal "dotnet add package Spectre.Console --version 0.49.1"
 4. For language switching features ensure that you have the .NET Resources package for resource management: "dotnet add package System.Resources.Extensions --version 9.0.0"
-5. Open the project in your preferred IDE.
+5. Open the project in your preferred IDE (Integrated Development Environment).
 6. Run the project.
 
 ## 🔧 Built With 🔧 
