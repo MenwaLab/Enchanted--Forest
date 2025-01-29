@@ -40,7 +40,7 @@ Good luck, and may the best player win!
 
 • All the information about a specific token:
 
-![Game Screenshot] (Assets/elfDescription.png)
+![Game Screenshot](Assets/elfDescription.png)
 
 • Generated maze based on user´s desired size:
 
