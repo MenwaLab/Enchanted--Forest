@@ -30,13 +30,17 @@ Good luck, and may the best player win!
 8. After a win, choose whether to play again. The game will restart with the same language as before.
 
 ## 📸 Pictures 📸
-• Language of the game depending on the user input:
+•Main Menu:
 
-![Game Screenshot](Assets/image.png)
+![Game Screenshot](Assets/mainMenu.png)
 
 • List of all tokens available together with their descriptions:
 
-![Game Screenshot](Assets/screenshot3.png)
+![Game Screenshot](Assets/Screenshot3.png)
+
+• All the information about a specific token:
+
+![Game Screenshot] (Assets/elfDescription.png)
 
 • Generated maze based on user´s desired size:
 

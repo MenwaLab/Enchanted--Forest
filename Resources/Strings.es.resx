@@ -136,10 +136,10 @@
 </data>
 
 <data name="ElfMimicAbility" xml:space="preserve">
-    <value>La ficha Duende del jugador{0} está copiando la habilidad de la ficha {2} del jugador {1}.</value>
+    <value>La ficha del jugador {0} está copiando la habilidad de la ficha {2} del jugador {1}.</value>
 </data>
 <data name="WizardReduceSpeed" xml:space="preserve">
-    <value>La ficha Mago del jugador {0} reduce la velocidad del jugador {1}.</value>
+    <value>La ficha del jugador {0} reduce la velocidad del jugador {1}.</value>
 </data>
 <data name="FairySwapPosition" xml:space="preserve">
     <value>EL Hada del jugador {0} cambia de posición con el jugador {1}.</value>
