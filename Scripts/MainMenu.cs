@@ -124,5 +124,5 @@ public static class MainMenu
             Console.ReadKey(true);
         }
     }
-    }
+}
 
