@@ -36,7 +36,7 @@ Good luck, and may the best player win!
 
 • List of all tokens available together with their descriptions:
 
-![Game Screenshot](Assets/Screenshot3.png)
+![Game Screenshot](Assets/Screenshot3.png) 
 
 • All the information about a specific token:
 
