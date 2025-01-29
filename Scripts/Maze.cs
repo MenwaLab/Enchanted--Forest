@@ -1,5 +1,3 @@
-using Spectre.Console;
-using Spectre.Console.Rendering;
 using System.Resources;
 public class MazeCreation
 {
@@ -20,11 +18,10 @@ public class MazeCreation
     public MazeCreation(int size)
     { 
         this.size = size;
-        this.maze = new Cell[size,size];
-
+        maze = new Cell[size,size];
+        
         do
         {
-
             for(int i=0; i< size;i++)
             {
                 for(int j=0; j<size;j++)
@@ -34,18 +31,15 @@ public class MazeCreation
             }
         
             GenerateMaze(0, 0);
-        }while(!IsMazeFullyReachable());
+        }while(!IsMazeReachable());
 
         SetExit();
-        GenerateTraps();
-        GenerateBeneficialTiles();
+        GeneratesTraps();
+        BeneficialTilesGeneration();
     }
     private void GenerateMaze(int x, int y) // recursive backtracking 
     {
-        var directions = new (int dx, int dy)[]
-        {
-            (1, 0), (-1, 0), (0, 1), (0, -1)
-        };
+        var directions = new (int dx, int dy)[]{(1, 0), (-1, 0), (0, 1), (0, -1)};
 
         Shuffle(directions); //asegura aleatoriedad
         
@@ -59,17 +53,17 @@ public class MazeCreation
             if (nx >= 0 && nx < size && ny >= 0 && ny < size && !maze[nx, ny].isOpen)
             {
                 maze[x + dx, y + dy].isOpen = true;  //Quitar la pared entre las celdas 
-                GenerateMaze(nx, ny); // Recursivamente 
+                GenerateMaze(nx, ny); 
             }
         }
 
-        if (!HasOpenCellInRow(size - 1))  //Asegurar por lo menos una celda abierta en la ultima fila
+        if (!HasOpenCell(size - 1))  //Asegurar por lo menos una celda abierta en la ultima fila para la salida
         {
             int col = rand.Next(size);
             maze[size - 1, col].isOpen = true;
         }
     }
-    private bool HasOpenCellInRow(int row)
+    private bool HasOpenCell(int row)
     {
         for (int col = 0; col < size; col++)
         {
@@ -87,75 +81,70 @@ public class MazeCreation
         }
 
     }
-    public bool IsMazeFullyReachable()
-{
-    int[,] distances = new int[size, size];
-    int[] dx = { -1, 1, 0, 0 };
-    int[] dy = { 0, 0, -1, 1 };
-
-    // Initialize the distance grid
-    for (int x = 0; x < size; x++)
+    public bool IsMazeReachable() //Asegurar que cada casilla sea alcanzable
     {
-        for (int y = 0; y < size; y++)
-        {
-            distances[x, y] = maze[x, y].isOpen ? -1 : -10;
-        }
-    }
-
-    // Start from the top-left corner
-    if (maze[0, 0].isOpen)
-    {
-        distances[0, 0] = 0;
-    }
-
-    // Propagate distances using Lee's algorithm
-    bool modified;
-    int currentDistance = 0;
-
-    do
-    {
-        modified = false;
+        int[,] distances = new int[size, size];
+        int[] dx = { -1, 1, 0, 0 };
+        int[] dy = { 0, 0, -1, 1 };
 
         for (int x = 0; x < size; x++)
         {
             for (int y = 0; y < size; y++)
             {
-                if (distances[x, y] == currentDistance)
-                {
-                    for (int d = 0; d < 4; d++)
-                    {
-                        int nx = x + dx[d];
-                        int ny = y + dy[d];
+                distances[x, y] = maze[x, y].isOpen ? -1 : -10;
+            }
+        }
 
-                        if (nx >= 0 && nx < size && ny >= 0 && ny < size && distances[nx, ny] == -1)
+        if (maze[0, 0].isOpen)
+        {
+            distances[0, 0] = 0;
+        }
+
+        bool modified;
+        int currentDistance = 0;
+
+        do
+        {
+            modified = false;
+            for (int x = 0; x < size; x++)
+            {
+                for (int y = 0; y < size; y++)
+                {
+                    if (distances[x, y] == currentDistance)
+                    {
+                        for (int d = 0; d < 4; d++)
                         {
-                            distances[nx, ny] = currentDistance + 1;
-                            modified = true;
+                            int nx = x + dx[d];
+                            int ny = y + dy[d];
+
+                            if (nx >= 0 && nx < size && ny >= 0 && ny < size && distances[nx, ny] == -1)
+                            {
+                                distances[nx, ny] = currentDistance + 1;
+                                modified = true;
+                            }
                         }
                     }
                 }
             }
-        }
 
-        currentDistance++;
-    } while (modified);
+            currentDistance++;
+        } while (modified);
 
-    // Check if there are any unreachable cells
-    for (int x = 0; x < size; x++)
-    {
-        for (int y = 0; y < size; y++)
+        for (int x = 0; x < size; x++)
         {
-            if (distances[x, y] == -1)
+            for (int y = 0; y < size; y++)
             {
-                return false; // Found an unreachable cell
+                if (distances[x, y] == -1)
+                {
+                    return false; // Encontró una celda inalcanzable
+                }
             }
         }
+
+        return true; // Todas las casillas son alcanzables
     }
 
-    return true; // All cells are reachable
-}
-
-    public void SetPlayer1Position(int x, int y)
+    public void SetPlayer1Position(int x, int y) 
     {
         player1Pos = (x, y);
     }
@@ -179,7 +168,7 @@ public class MazeCreation
             isOpen=shouldBeOpen;
         }
     }
-    private void GenerateTraps()
+    private void GeneratesTraps()
     {
         int trapCount = 0; 
         int totalTraps = 4; 
@@ -205,9 +194,9 @@ public class MazeCreation
         {
             for (int j = 0; j < size; j++)
             {
-                if (maze[i, j].isOpen&& !(i == 0 && j == 0)&& !(i == exit.x && j == exit.y))//Una posicion valida es un pasillo que no sea la salida
+                if (maze[i, j].isOpen && !(i == 0 && j == 0)&& !(i == exit.x && j == exit.y))//Una posicion valida es un pasillo que no sea la salida
                 {
-                    validPositions.Add((i, j));
+                    validPositions.Add((i, j)); //(i,j) IGUAL exit HERE
                 }
             }
         }
@@ -236,7 +225,7 @@ public class MazeCreation
     {
         foreach (var trap in traps)
         {
-            if (trap.X == i && trap.Y == j)
+            if (trap.X == i && trap.Y == j) // HERE 
             {
                 
                 return trap; 
@@ -244,36 +233,7 @@ public class MazeCreation
         }
         return null; 
     }
-    private void SetExit()
-    {
-        int exitRow = size - 1;
 
-        for (int col = 0; col < size; col++)// Ver si hay una casilla abierta alcanzable en la ultima fila
-        {
-            if (maze[exitRow, col].isOpen && IsExitReachable(exitRow, col))
-            {
-                exit = (exitRow, col);
-                return;
-            }
-        }
-
-        for (int col = 0; col < size; col++) // Fallback:abrir una casilla aleatoria en la ultima fila y asegurar que sea alcanzable
-        {
-            if (maze[exitRow, col].isOpen || !maze[exitRow, col].isOpen)
-            {
-                maze[exitRow, col].isOpen = true; 
-                if (IsExitReachable(exitRow, col))
-                {
-                    exit = (exitRow, col);
-                    return;
-                }
-                maze[exitRow, col].isOpen = false; //si no es alcanzable, cerrarla 
-            }
-        }
-        int randomCol = rand.Next(size);  //como ultima instancia abrir una celda aleatoria como salida
-        maze[exitRow, randomCol].isOpen = true;
-        exit = (exitRow, randomCol);
-    }
 public bool IsExitReachable(int exitRow, int exitCol) //Algortimo de Lee
 {
         bool[,] visited=new bool[size,size];
@@ -312,6 +272,36 @@ public bool IsExitReachable(int exitRow, int exitCol) //Algortimo de Lee
         while(change);
         return false; //salida no es alcanzable
     }
+    private void SetExit()
+    {
+        int exitRow = size - 1;
+
+        for (int col = 0; col < size; col++)// Ver si hay una casilla abierta alcanzable en la ultima fila
+        {
+            if (maze[exitRow, col].isOpen && IsExitReachable(exitRow, col))
+            {
+                exit = (exitRow, col);
+                return;
+            }
+        }
+
+        for (int col = 0; col < size; col++) //abrir una casilla aleatoria en la ultima fila y asegurar que sea alcanzable
+        {
+            if (maze[exitRow, col].isOpen || !maze[exitRow, col].isOpen)
+            {
+                maze[exitRow, col].isOpen = true; 
+                if (IsExitReachable(exitRow, col))
+                {
+                    exit = (exitRow, col);
+                    return;
+                }
+                maze[exitRow, col].isOpen = false; //si no es alcanzable, cerrarla 
+            }
+        }
+        int randomCol = rand.Next(size);  //como ultima instancia abrir una celda aleatoria como salida
+        maze[exitRow, randomCol].isOpen = true;
+        exit = (exitRow, randomCol);
+    }
     public static bool ValidPosition(int size,int row,int col)
     {
         return row >= 0 && row < size && col >= 0 && col < size;
@@ -325,13 +315,13 @@ public bool IsExitReachable(int exitRow, int exitCol) //Algortimo de Lee
             {
                 Console.WriteLine(string.Format(outOfBoundsMessage, row, col));
             }
-            return true; //Fuera del laberinto son como paredes
+            return true; 
         }
 
         bool isWall = !maze[row, col].isOpen; 
         return isWall;
     }
-    private void GenerateBeneficialTiles()
+    private void BeneficialTilesGeneration()
     {
         List<(int x, int y)> validPositions = new List<(int x, int y)>();
             
@@ -339,7 +329,7 @@ public bool IsExitReachable(int exitRow, int exitCol) //Algortimo de Lee
         {
             for (int j = 0; j < size; j++)
             {
-                if (maze[i, j].isOpen && !(i == exit.x && j == exit.y) && IsTrapAtPosition(i, j) == null)
+                if (maze[i, j].isOpen && !(i == exit.x && j == exit.y) && IsTrapAtPosition(i, j) == null) // HERE
                 {
                     validPositions.Add((i, j));
                 }
@@ -351,8 +341,10 @@ public bool IsExitReachable(int exitRow, int exitCol) //Algortimo de Lee
             var validPositionsArr = validPositions.ToArray();
             Shuffle(validPositionsArr);
 
-            cooldownReductionTile = validPositions[0]; // Assignar las casillas beneficiosas
-            speedIncreaseTile = validPositions[1];
+            Random random=new Random();
+            
+            cooldownReductionTile = validPositions[random.Next(size-1)]; // Assignar las casillas beneficiosas
+            speedIncreaseTile = validPositions[random.Next(size-1)];
         }
     }
     public bool IsBeneficialTile(int x, int y, out string tileType)
@@ -393,17 +385,16 @@ public bool IsExitReachable(int exitRow, int exitCol) //Algortimo de Lee
             randomTeleportPortal = validPositionsArr[0];  
         }
     }
-    private bool IsValidPositionForPortal(int x, int y) //chequea si una posicion es valida para teleportation
+    private bool IsValidPositionForPortal(int x, int y) //chequea si una posicion es valida para colocar el portal de teleportation
     {
-        if (maze[x, y].isOpen && !(x == exit.x && y == exit.y)  && IsTrapAtPosition(x, y) == null && !IsBeneficialTile(x, y, out _)) // Cheqyea si una posicion no es una pared, la salida, no es una trampa o casilla beneficiosa 
+        if (maze[x, y].isOpen && !(x == exit.x && y == exit.y)  && IsTrapAtPosition(x, y) == null && !IsBeneficialTile(x, y, out _)) // Chequea si una posicion no es una pared, la salida, no es una trampa o casilla beneficiosa 
         {
-            return true;  
+            return true;  // HERE
         }
         return false;  
     }
     public void CheckTeleportation(Player player)
     {
-
         if (player.Position == randomTeleportPortal)
         {
             string? teleportMessage = resourceManager4.GetString("TeleportRandom");
@@ -411,7 +402,7 @@ public bool IsExitReachable(int exitRow, int exitCol) //Algortimo de Lee
             {
                 Console.WriteLine(string.Format(teleportMessage, player.Name));
             }
-            player.Position = GetRandomValidPosition();  // Teleport to a random valid position
+            player.Position = GetRandomValidPosition();  
         }
     }
     public (int x, int y) GetRandomValidPosition()

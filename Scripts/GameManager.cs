@@ -10,7 +10,7 @@ public static class GameManager
         Player1 = player1;
         Player2 = player2;
     }
-    public static void HandleMovement(Player player, MazeCreation generatorMaze, string input)
+    public static void HandlesMovement(Player player, MazeCreation generatorMaze, string input)
     {
         while (true) // Seguir intentando hasta que el jugador se mueva o cambie de dirección
         {
@@ -38,7 +38,7 @@ public static class GameManager
                     continue;
             }
 
-            if (Program.TryMovePlayer(player, dx, dy, player.Token.Speed, generatorMaze))
+            if (Program.TryMove(player, dx, dy, player.Token.Speed, generatorMaze))
             {
                 
                 break; // Se movió exitosamente, sal del ciclo
@@ -96,13 +96,13 @@ public static class GameManager
             int x = random.Next(0, size);
             int y = random.Next(0, size);
 
-            if (!maze.IsWall(x, y) && maze.IsTrapAtPosition(x, y) == null && (x, y) != exit) // Asefurar que no sea una pared, haya una trampa o la salida
+            if (!maze.IsWall(x, y) && maze.IsTrapAtPosition(x, y) == null && (x, y) != exit) // Asegurar que no sea una pared, haya una trampa o la salida
             {
                 return (x, y);
             }
         }
     }
-    public static void CheckTeleportation(Player player, (int x, int y) backToStartPortal, (int x, int y) randomTeleportPortal, (int x, int y) startPosition, MazeCreation generatorMaze)
+    public static void CheckTheTeleportation(Player player, (int x, int y) randomTeleportPortal, MazeCreation generatorMaze)
     {
         if (player.Position == randomTeleportPortal)
         {

@@ -26,14 +26,13 @@
 <data name="WelcomeMessage" xml:space="preserve">
   <value>Welcome to the game: Enchanted Forest´s Maze!
 
-Once upon a time, there was a beautiful, magical, and safe forest in Sylvaria. But an evil dark entity has cursed this town, 
-turning the forest into a dark and frightening maze filled with traps designed to harm you and prevent your escape.Your 
-mission is to find the exit (a star shining brightly, waiting for you). However, be careful because on your path, you will 
-not only encounter malicious traps but also need to compete with the other player. Even though both of you will start this 
-adventure, only one will survive. Not all is doomed because the queen and king are inside the maze and will help whenever 
-you visit them. Oh, I almost forgot! There's an area in this forest unlike the others; the curse has made it invisible. If 
-you land on it, you will be teleported to a random location in the forest, so watch your step.
-Without further ado, good luck to you both, and let the games begin!
+  Once upon a time, there was a beautiful, magical, and safe forest in Sylvaria. But an evil dark entity has cursed this town, turning the 
+  forest into a dark and frightening maze filled with traps designed to harm you and prevent your escape.Your mission is to find the exit 
+  (a star shining brightly, waiting for you). However, be careful because on your path, you will not only encounter malicious traps but 
+  also need to compete with the other player. Even though both of you will start this adventure, only one will survive. Not all is doomed 
+  because the queen and king are inside the maze and will help whenever you visit them. Oh, I almost forgot! There's an area in this forest 
+  unlike the others; the curse has made it invisible. If you land on it, you will be teleported to a random location in the forest, 
+  so watch your step. Without further ado, good luck to you both, and let the games begin!
   </value>
 </data>
 
@@ -101,16 +100,16 @@ Without further ado, good luck to you both, and let the games begin!
   <data name="TeleportRandom" xml:space="preserve">
     <value>{0} stepped on the random teleport portal! Teleporting to a random position...</value>
   </data>
-  <data name="Trap1Activated" xml:space="preserve">
+  <data name="Trap1Triggered" xml:space="preserve">
     <value>{0} has fallen into a trap! You will lose a turn trying to put out the fire.</value>
 </data>
-<data name="Trap2Activated" xml:space="preserve">
+<data name="Trap2Triggered" xml:space="preserve">
     <value>{0} has fallen into a trap! This hole has sent you to the origin (0, 0).</value>
 </data>
-<data name="Trap3Activated" xml:space="preserve">
+<data name="Trap3Triggered" xml:space="preserve">
     <value>{0} has fallen into a trap! You have been stung by a bee and youre in pain, so your speed has been reduced to {1}.</value>
 </data>
-<data name="Trap4Activated" xml:space="preserve">
+<data name="Trap4Triggered" xml:space="preserve">
     <value>{0} has fallen into a trap! You've encountered the bat of the evil entity, it increases your cooldown time to {1}.</value>
 </data>
 <data name="PlayerSwappedPositions" xml:space="preserve">

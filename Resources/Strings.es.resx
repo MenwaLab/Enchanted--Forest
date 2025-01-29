@@ -51,7 +51,7 @@
     <value>Por favor, ingresa un número válido para tu ficha (entre 1 y 6):</value>
 </data>
   <data name="PlayerChoseToken" xml:space="preserve">
-    <value>El jugador {0} eligió el la ficha {1}.</value>
+    <value>El jugador {0} eligió la ficha {1}.</value>
   </data>
   <data name="PlayerTurn" xml:space="preserve">
     <value>{0}, es tu turno. Tu posición es {1}.</value>
@@ -95,16 +95,16 @@
 <data name="TeleportRandom" xml:space="preserve">
     <value>¡El jugador {0} cayó en el portal de teletransportación! Transportándolo a una posición aleatoria...</value>
   </data>
-  <data name="Trap1Activated" xml:space="preserve">
+  <data name="Trap1Triggered" xml:space="preserve">
     <value> !{0} ha caído en una trampa! Perderás un turno intentanto apagar el fuego.</value>
 </data>
-<data name="Trap2Activated" xml:space="preserve">
+<data name="Trap2Triggered" xml:space="preserve">
     <value>!{0} ha caído en una trampa! Este hoyo te ha enviado al origen de coordenadas (0, 0).</value>
 </data>
-<data name="Trap3Activated" xml:space="preserve">
+<data name="Trap3Triggered" xml:space="preserve">
     <value>!{0} ha caído en una trampa! Te ha picado una abeja y estás adolorido por tanto tu velocidad ha sido reducida a {1}.</value>
 </data>
-<data name="Trap4Activated" xml:space="preserve">
+<data name="Trap4Triggered" xml:space="preserve">
     <value>! {0} ha caído en una trampa! Te has encontrado con el murciélago de la entidad malvada, él te aumenta tu tiempo de enfriamiento a {1}.</value>
 </data>
 <data name="PlayerSwappedPositions" xml:space="preserve">

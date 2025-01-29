@@ -5,13 +5,11 @@ using System.Resources;
 public static class MainMenu
 {
     private static ResourceManager resourceManager = new ResourceManager("Enchanted__Forest.Resources.Strings", typeof(MainMenu).Assembly);
-    
 
     public static void ShowMenu()
     {
         while (true) // Mantener el menú hasta que se seleccione "Salir"
         {
-            // Título del juego
             var title = new FigletText("Enchanted Forest")
                 .Centered()
                 .Color(Color.Green);
@@ -38,7 +36,7 @@ public static class MainMenu
             if (selectedOption == playOption)
             {
                 AnsiConsole.MarkupLine("[green]" + resourceManager.GetString("StartingGame") + "[/]");
-                return; // Salir del menú para continuar el juego
+                return; 
             }
             else if (selectedOption == changeLanguageOption)
             {
@@ -71,6 +69,6 @@ public static class MainMenu
             Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-US");
         }
 
-        AnsiConsole.MarkupLine($"[blue]{resourceManager.GetString("LanguageChanged")}: {language}[/]");
+        AnsiConsole.MarkupLine($"[green]{resourceManager.GetString("LanguageChanged")}: {language}[/]");
     }
 }

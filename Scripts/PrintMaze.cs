@@ -1,6 +1,5 @@
 using Spectre.Console;
 using Spectre.Console.Rendering;
-using System.Collections.Generic;
 
 public class MazePrinter
 {
@@ -10,7 +9,7 @@ public class MazePrinter
     {
         this.maze = maze;
     }
-    public void PrintMazeSpectre()
+    public void PrintMazeWithSpectre()
     {
         var table = new Table();
         table.HideHeaders();
@@ -22,13 +21,13 @@ public class MazePrinter
             table.AddColumn(""); //una columna por cada fila del tablero
         }
 
-        for (int i = 0; i < maze.Size; i++)
+        for (int i = 0; i < maze.Size; i++) 
         {
             var cells = new List<IRenderable>();
 
             for (int j = 0; j < maze.Size; j++)
             {
-                var cellContent = GetCellContent(i, j);
+                var cellContent = GetInteriorOfCell(i, j);
                 cells.Add(new Markup($"  {cellContent}  "));
             }
             table.AddRow(cells.ToArray());
@@ -38,52 +37,52 @@ public class MazePrinter
         AnsiConsole.WriteLine();
     }
 
-    private string GetCellContent(int i, int j)
+    private string GetInteriorOfCell(int i, int j)
     {
         var exit = maze.exit;
         var player1Pos = maze.GetPlayer1Position();
         var player2Pos = maze.GetPlayer2Position();
 
-        if (i == maze.exit.x && j == maze.exit.y)
+        if (i == maze.exit.x && j == maze.exit.y) //maze.exit==(i,j)
         {
             return "[bold white]⭐[/]"; 
         }
-        if (player1Pos.x == i && player1Pos.y == j && player2Pos.x == i && player2Pos.y == j)
+        if (player1Pos.x == i && player1Pos.y == j && player2Pos.x == i && player2Pos.y == j) //player1Pos==(i,j) && player2Pos==(i,j)
         {
-            return "[bold blue]🤼[/]"; // Both players in same cell
+            return "[bold blue]🤼[/]"; // Cuando las dos fichas están en la misma casilla
         }
-        if (player1Pos.x == i && player1Pos.y == j)
+        if (player1Pos.x == i && player1Pos.y == j)//  (player1Pos==(i,j)) )
         {
             if (GameManager.Player1 != null)
             {
-                return $"[bold blue]{GetTokenEmoji(GameManager.Player1.Token)}[/]"; // Player 1 with token emoji
+                return $"[bold blue]{GetTokenEmoji(GameManager.Player1.Token)}[/]"; 
             }
-            return "[bold blue]🤷‍♂️[/]"; // Default for Player 1 if null
+            return "[bold blue]🤷‍♂️[/]"; // Default si es nulo
         }
 
-        if (player2Pos.x == i && player2Pos.y == j)
+        if (player2Pos.x == i && player2Pos.y == j) //player2Pos==(i,j)
         {
             if (GameManager.Player2 != null)
             {
-                return $"[bold yellow]{GetTokenEmoji(GameManager.Player2.Token)}[/]"; // Player 2 with token emoji
+                return $"[bold yellow]{GetTokenEmoji(GameManager.Player2.Token)}[/]"; 
             }
-            return "[bold yellow]🤷‍♀️[/]"; // Default for Player2 if null
+            return "[bold yellow]🤷‍♀️[/]"; 
         }
         
         Trap? trap = maze.IsTrapAtPosition(i, j);
         if (trap != null)
         {
-            return $"[bold red]{trap.Emoji}[/]";  // Trap
+            return $"[bold red]{trap.Emoji}[/]";  
         }
         if (maze.IsBeneficialTile(i, j, out string tileType))
         {
             if (tileType == "Cooldown Reduction")
             {
-                return "[bold cyan]🫅[/]";  // Cooldown reduction tile
+                return "[bold cyan]🫅[/]";  
             }
             else if (tileType == "Speed Increase")
             {
-                return "[bold red]👸[/]";  // Speed increase tile
+                return "[bold red]👸[/]";  
             }
         }         
 
@@ -109,34 +108,7 @@ public class MazePrinter
             case "Wizard🧙":
                 return "🧙";
             default:
-                return "❓"; 
+                return "❓";  //default en caso de que sea nulo
         }
-    }
-
-    private Color GetCellColor(int i, int j)
-    {
-        var exit = maze.exit;
-        var player1Pos = maze.GetPlayer1Position();
-        var player2Pos = maze.GetPlayer2Position();
-
-        if (i == exit.x && j == exit.y)
-        {
-            return Color.White;
-        }
-        if (player1Pos.x == i && player1Pos.y == j || player2Pos.x == i && player2Pos.y == j)
-        {
-            return Color.Blue;
-        }
-
-        Trap? trap = maze.IsTrapAtPosition(i, j);
-        if (trap != null)
-        {
-            return Color.Red;
-        }
-        return maze.IsWall(i, j) ? Color.Black : Color.Green;
-    }
-    private string ConvertToSpectreColor(Color color)
-    {
-        return $"bg#{color.R:X2}{color.G:X2}{color.B:X2}";
     }
 }

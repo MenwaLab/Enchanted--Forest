@@ -2,34 +2,35 @@ using System.Resources;
 public class Player
 {
     static ResourceManager resourceManager3 = new ResourceManager("Enchanted__Forest.Resources.Strings", typeof(Player).Assembly);
-    public string Name { get; set; }
-    public Token Token { get; set; }
-    public (int x, int y) Position { get; set; }
-    public int SkipTurns { get; set; } 
+    public string Name {get; set;}
+    public Token Token {get; set;}
+    public bool HasUsedAbility {get; set;}
+    public (int x, int y) Position {get; set;}
+    public int SkipTurns {get; set;} 
     private MazeCreation maze; //guarda la referencia del tablero
-    public bool HasUsedAbility { get; set; }
+    
 
     public Player(string name, Token token, int startX, int startY, MazeCreation maze)
     {
         Name = name;
         Token = token;
+        HasUsedAbility = false;
         Position = (startX, startY);
         SkipTurns = 0;
         this.maze = maze; 
-        HasUsedAbility = false;
     }
-    
+    /*
     public bool Move(int dx, int dy)
     {
-        return Program.TryMovePlayer(this, dx, dy, Token.Speed, maze);
+        return Program.TryMove(this, dx, dy, Token.Speed, maze);
     }
 
     public override string ToString()
     {
         return $"{Name} en {Position}, Ficha: {Token.Name}";
     }
-
-    public void CheckCooldownAndRestoreSpeed()
+    */
+    public void CheckCooldownAndRestoreSpeed() 
     {
         if (Token.CurrentCooldown == 0)
         {
@@ -39,7 +40,7 @@ public class Player
             }
         }
     }
-    public static void SwapPlayerPositions(Player player1, Player player2)
+    public static void SwapPositions(Player player1, Player player2)
     {
         var tempPosition = player1.Position;
         player1.Position = player2.Position;

@@ -3,32 +3,31 @@ using System.Resources;
 public class Token
 {
     static ResourceManager resourceManager5 = new ResourceManager("Enchanted__Forest.Resources.Strings", typeof(Trap).Assembly);
-    public string Name { get; set; }
-    public string AbilityDescription { get; set; }
-    public int Speed { get; set; } //velocidad actual
-    public int BaseSpeed { get; set; }//velocidad original
-    public int CooldownTime { get; set; }
-    public int CurrentCooldown { get; private set; }
-    public int BaseCooldown { get; set; } // Original tiempo de enfriamiento 
+    public string Name {get; set;}
+    public string DescriptionOfAbility {get; set;}
+    public int BaseSpeed {get; set;}//velocidad original de la ficha
+    public int Speed {get; set;} //velocidad actual
+    public int BaseCooldown {get; set;} // Tiempo de enfriamiento original 
+    public int CooldownTime {get; set;}
+    public int CurrentCooldown {get; private set;}
     
-
     private Action<Player, Player> AbilityAction;
 
     public Token(string name, string abilityDescription, int speed, int cooldownTime, Action<Player, Player> abilityAction)
     {
         Name = name;
-        AbilityDescription = abilityDescription;
-        Speed = speed;
-        BaseSpeed = speed;
-        CooldownTime = cooldownTime;
-        BaseCooldown = cooldownTime; 
+        DescriptionOfAbility = abilityDescription;
         AbilityAction = abilityAction;
+        BaseSpeed = speed;
+        Speed = speed;
+        BaseCooldown = cooldownTime; 
+        CooldownTime = cooldownTime;
         CurrentCooldown = 0; 
     }
 
-    public void UseAbility(Player user, Player target)
+    public void Ability(Player user, Player target)
     {
-        if (CurrentCooldown > 0)
+        if (CurrentCooldown > 0) //no puede usar habilidad
         {
             string? abilityInCooldown = resourceManager5.GetString("AbilityInCooldown");
             if (!string.IsNullOrEmpty(abilityInCooldown))
@@ -39,18 +38,17 @@ public class Token
         }
         
         AbilityAction(user, target);
-
         CurrentCooldown = CooldownTime;
         CooldownTime = BaseCooldown; 
 
-        string? abilityUsedMessage = resourceManager5.GetString("AbilityUsed");
-        if (!string.IsNullOrEmpty(abilityUsedMessage))
+        string?abilityUsed = resourceManager5.GetString("AbilityUsed");
+        if (!string.IsNullOrEmpty(abilityUsed))
         {
-            Console.WriteLine(string.Format(abilityUsedMessage, user.Name, CooldownTime));
+            Console.WriteLine(string.Format(abilityUsed, user.Name, CooldownTime));
         }
     }
 
-    public void ReduceCooldown()
+    public void DecreaseCooldown()
     {
         if (CurrentCooldown > 0)
         {
@@ -60,28 +58,27 @@ public class Token
   
     public void SetCooldown(int turns)
     {
-        CurrentCooldown = Math.Max(turns, 0); 
+        CurrentCooldown = Math.Max(turns, 0); //tiempo de enfriamiento no pude ser negativo
     }
     public override string ToString()
     {
-        return $"{Name}: {AbilityDescription}, Velocidad / Speed: {Speed}, Tiempo de enfriamiento / Cooldown time : {CooldownTime}";
+        return $"{Name}: {DescriptionOfAbility}, Velocidad /Speed: {Speed}, Tiempo de enfriamiento /Cooldown: {CooldownTime}"; //para mostrar a los jugadores en el menu
     }
-    public void MimicAbility(Token targetToken, Player user, Player target)
+    public void CopyAbility(Token targetToken, Player user, Player target)
     {
         AbilityAction = targetToken.AbilityAction; // Copia la habilidad
-
         AbilityAction(user, target); //ejecuta esa habilidad
     }
 }
 
-public static class TokenFactory
+public static class TokenCreation
 {
-    public static Token[] GetAvailableTokens()
+    public static Token[] GetTokens()
     {
         ResourceManager resourceManager6 = new ResourceManager("Enchanted__Forest.Resources.Strings", typeof(Trap).Assembly);
 
-        return new Token[]
-        {
+        return
+        [
             new Token("Elf🧝", resourceManager6.GetString("ElfDescription") ?? "Default description for Elf", 3, 5, 
             (user, target) =>{
                 
@@ -90,7 +87,7 @@ public static class TokenFactory
             {
                 Console.WriteLine(string.Format(elfMimicAbility, user.Name, target.Name, target.Token.Name));
             }
-            user.Token.MimicAbility(target.Token, user, target); }),
+            user.Token.CopyAbility(target.Token, user, target); }),
 
             new Token("Wizard🧙", resourceManager6.GetString("WizardDescription") ?? "Default description for Wizard", 4, 3,
                 (user, target) =>{
@@ -110,7 +107,7 @@ public static class TokenFactory
                 {
                     Console.WriteLine(string.Format(fairySwapPosition, user.Name, target.Name));
                 }
-                Player.SwapPlayerPositions(user, target); }),
+                Player.SwapPositions(user, target); }),
 
             new Token("Siren🧜", resourceManager6.GetString("SirenDescription") ?? "Default description for Siren", 5, 3,
                 (user, target) =>{
@@ -134,19 +131,18 @@ public static class TokenFactory
             new Token("Unicorn🦄", resourceManager6.GetString("UnicornDescription") ?? "Default description for Unicorn", 6, 4,
                 (user, target) =>{
                 Random rand = new Random();
-                int effect = rand.Next(1, 4); // Aleatoriamente escoje entre 1, 2, o 3
+                int effect = rand.Next(1, 4); // Aleatoriamente escoje entre 1 a 3
                 string? unicornMessage = string.Empty;
 
                     switch (effect)
                     {
-                        case 1: // Swap posiciones
+                        case 1: //Hace swap a las posiciones
                             unicornMessage = resourceManager6.GetString("UnicornSwapPosition");
                             if (!string.IsNullOrEmpty(unicornMessage))
                             {
                                 Console.WriteLine(string.Format(unicornMessage, user.Name, target.Name));
                             }
-                            Console.WriteLine($"{user.Name}'s Unicorn swaps positions with {target.Name}.");
-                            Player.SwapPlayerPositions(user, target);
+                            Player.SwapPositions(user, target);
                             break;
 
                         case 2: //Salta el turno del otro jugador
@@ -158,7 +154,7 @@ public static class TokenFactory
                             target.SkipTurns = 1;
                             break;
 
-                        case 3: 
+                        case 3: //aumenta su velocidad
                             unicornMessage = resourceManager6.GetString("UnicornIncreaseSpeed");
                             if (!string.IsNullOrEmpty(unicornMessage))
                             {
@@ -168,6 +164,6 @@ public static class TokenFactory
                             break;
                     }
                 })
-        };
+        ];
     }
 }
