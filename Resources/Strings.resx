@@ -18,6 +18,28 @@
 <data name="LanguageChanged" xml:space="preserve">
   <value>Language changed to</value>
 </data>
+<data name="Tokens" xml:space="preserve">
+  <value>Tokens</value>
+</data>
+<data name="TokenDescriptionsTitle" xml:space="preserve">
+  <value>Select a token to view its description:</value>
+</data>
+<data name="BackToMenu" xml:space="preserve">
+  <value>Back to Main Menu</value>
+</data>
+<data name="TokenDescriptionNotFound" xml:space="preserve">
+  <value>Description not found.</value>
+</data>
+<data name="Speed" xml:space="preserve">
+  <value>Speed</value>
+</data>
+<data name="CooldownTime" xml:space="preserve">
+  <value>Cooldown Time</value>
+</data>
+<data name="Description" xml:space="preserve">
+  <value>Description</value>
+</data>
+
 
 
 <data name="ThankYou" xml:space="preserve">
@@ -154,21 +176,40 @@
 </data>
 
 <data name="ElfDescription" xml:space="preserve">
-    <value>Permanently copies the ability of the other player's token</value>
+    <value>The Elf🧝, guardian of the enchanted forest, has the unique ability to permanently copy the skills of the other player's token. With his keen senses and unparalleled agility, he ensures balance within the mystical woods.</value>
 </data>
 <data name="WizardDescription" xml:space="preserve">
-    <value>Reduces the speed of the other player's token</value>
+    <value>The Wizard🧙, master of ancient spells and arcane knowledge, can reduce the speed of the other player's token. His mere presence invokes awe and respect as he channels the raw magic of the forest to manipulate time and motion.</value>
 </data>
 <data name="FairyDescription" xml:space="preserve">
-    <value>Swaps its position with the position of the other player's token</value>
+    <value>The Fairy🧚, a delicate yet powerful creature, can swap its position with the position of the other player's token. With wings that glisten in the moonlight, she dances through the air, weaving enchantments and mischief.</value>
 </data>
 <data name="SirenDescription" xml:space="preserve">
-    <value>Skips the other player's turn</value>
+    <value>The Siren🧜, whose haunting melody can skip the other player's turn, is both a sight of beauty and peril. Her voice echoes through the labyrinth, luring the unwary with promises of safety, only to ensnare them in her captivating song.</value>
 </data>
 <data name="GrandmaDescription" xml:space="preserve">
-    <value>She can increase her own speed by 1</value>
+    <value>Grandma👵, the unsuspecting adventurer, wandered into the enchanted forest purely by chance, enticed by the beauty of its trees and driven by the thought of snapping a perfect picture for her grandkids. She has the endearing ability to increase her own speed by 1.</value>
 </data>
 <data name="UnicornDescription" xml:space="preserve">
+    <value>The Unicorn🦄, a mystical and majestic being, activates a random effect as a combination of abilities of the previous tokens. With its radiant horn and ethereal presence, it brings a touch of unpredictable magic to the forest.</value>
+</data>
+
+<data name="ElfAbilities" xml:space="preserve">
+    <value>Permanently copies the ability of the other player's token</value>
+</data>
+<data name="WizardAbilities" xml:space="preserve">
+    <value>Reduces the speed of the other player's token</value>
+</data>
+<data name="FairyAbilities" xml:space="preserve">
+    <value>Swaps its position with the position of the other player's token</value>
+</data>
+<data name="SirenAbilities" xml:space="preserve">
+    <value>Skips the other player's turn</value>
+</data>
+<data name="GrandmaAbilities" xml:space="preserve">
+    <value>She can increase her own speed by 1</value>
+</data>
+<data name="UnicornAbilities" xml:space="preserve">
     <value>Activates a random effect as a combination of abilities of the previous tokens</value>
 </data>
 </root>

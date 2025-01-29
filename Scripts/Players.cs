@@ -19,17 +19,6 @@ public class Player
         SkipTurns = 0;
         this.maze = maze; 
     }
-    /*
-    public bool Move(int dx, int dy)
-    {
-        return Program.TryMove(this, dx, dy, Token.Speed, maze);
-    }
-
-    public override string ToString()
-    {
-        return $"{Name} en {Position}, Ficha: {Token.Name}";
-    }
-    */
     public void CheckCooldownAndRestoreSpeed() 
     {
         if (Token.CurrentCooldown == 0)

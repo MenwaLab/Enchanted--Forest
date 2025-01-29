@@ -37,21 +37,21 @@ public class MazePrinter
         AnsiConsole.WriteLine();
     }
 
-    private string GetInteriorOfCell(int i, int j)
+    private string GetInteriorOfCell(int i, int j) //Toma el contenido de la celda, ej paredes, pasillo, fichas, salida, etc
     {
         var exit = maze.exit;
         var player1Pos = maze.GetPlayer1Position();
         var player2Pos = maze.GetPlayer2Position();
 
-        if (i == maze.exit.x && j == maze.exit.y) //maze.exit==(i,j)
+        if ((i,j) == maze.exit) 
         {
             return "[bold white]⭐[/]"; 
         }
-        if (player1Pos.x == i && player1Pos.y == j && player2Pos.x == i && player2Pos.y == j) //player1Pos==(i,j) && player2Pos==(i,j)
+        if (player1Pos==(i,j) && player2Pos==(i,j))
         {
             return "[bold blue]🤼[/]"; // Cuando las dos fichas están en la misma casilla
         }
-        if (player1Pos.x == i && player1Pos.y == j)//  (player1Pos==(i,j)) )
+        if (player1Pos==(i,j))
         {
             if (GameManager.Player1 != null)
             {
@@ -60,7 +60,7 @@ public class MazePrinter
             return "[bold blue]🤷‍♂️[/]"; // Default si es nulo
         }
 
-        if (player2Pos.x == i && player2Pos.y == j) //player2Pos==(i,j)
+        if (player2Pos==(i,j)) 
         {
             if (GameManager.Player2 != null)
             {

@@ -79,7 +79,7 @@ public static class TokenCreation
 
         return
         [
-            new Token("Elf🧝", resourceManager6.GetString("ElfDescription") ?? "Default description for Elf", 3, 5, 
+            new Token("Elf🧝", resourceManager6.GetString("ElfAbilities") ?? "Default description for Elf", 3, 5, 
             (user, target) =>{
                 
             string? elfMimicAbility = resourceManager6.GetString("ElfMimicAbility");
@@ -89,7 +89,7 @@ public static class TokenCreation
             }
             user.Token.CopyAbility(target.Token, user, target); }),
 
-            new Token("Wizard🧙", resourceManager6.GetString("WizardDescription") ?? "Default description for Wizard", 4, 3,
+            new Token("Wizard🧙", resourceManager6.GetString("WizardAbilities") ?? "Default description for Wizard", 4, 3,
                 (user, target) =>{
                     
                 string? wizardReduceSpeed = resourceManager6.GetString("WizardReduceSpeed");
@@ -99,7 +99,7 @@ public static class TokenCreation
                 }
                 target.Token.Speed = Math.Max(1, target.Token.Speed - 1); }),
             
-            new Token("Fairy🧚", resourceManager6.GetString("FairyDescription") ?? "Default description for Fairy", 7, 4,
+            new Token("Fairy🧚", resourceManager6.GetString("FairyAbilities") ?? "Default description for Fairy", 7, 4,
                 (user, target) =>{
                     
                 string? fairySwapPosition = resourceManager6.GetString("FairySwapPosition");
@@ -109,7 +109,7 @@ public static class TokenCreation
                 }
                 Player.SwapPositions(user, target); }),
 
-            new Token("Siren🧜", resourceManager6.GetString("SirenDescription") ?? "Default description for Siren", 5, 3,
+            new Token("Siren🧜", resourceManager6.GetString("SirenAbilities") ?? "Default description for Siren", 5, 3,
                 (user, target) =>{
                 string? sirenSkipTurn = resourceManager6.GetString("SirenSkipTurn");
                 if (!string.IsNullOrEmpty(sirenSkipTurn))
@@ -118,7 +118,7 @@ public static class TokenCreation
                 }
                 target.SkipTurns = 1; }),
 
-            new Token("Abuela👵", resourceManager6.GetString("GrandmaDescription") ?? "Default description for Grandma", 2, 2, 
+            new Token("Abuela👵", resourceManager6.GetString("GrandmaAbilities") ?? "Default description for Grandma", 2, 2, 
                 (user, target) =>{
                 string? abuelaIncreaseSpeed = resourceManager6.GetString("AbuelaIncreaseSpeed");
                 if (!string.IsNullOrEmpty(abuelaIncreaseSpeed))
@@ -128,7 +128,7 @@ public static class TokenCreation
                 user.Token.Speed += 1;
                 user.Token.SetCooldown(1);}),
             
-            new Token("Unicorn🦄", resourceManager6.GetString("UnicornDescription") ?? "Default description for Unicorn", 6, 4,
+            new Token("Unicorn🦄", resourceManager6.GetString("UnicornAbilities") ?? "Default description for Unicorn", 6, 4,
                 (user, target) =>{
                 Random rand = new Random();
                 int effect = rand.Next(1, 4); // Aleatoriamente escoje entre 1 a 3

@@ -19,7 +19,7 @@ class Program
     static bool startGame()
     {
         Console.WriteLine("");
-        Console.WriteLine(resourceManager.GetString("WelcomeMessage"));
+        AnsiConsole.MarkupLine($"[chartreuse4]{resourceManager.GetString("WelcomeMessage")}[/]");
         Console.WriteLine("");
         Console.WriteLine(resourceManager.GetString("EnterMazeSize"));
         int size;
@@ -142,7 +142,7 @@ class Program
                         case "Cooldown Reduction":
                             if (player.Token.CooldownTime > 0)
                             {
-                                player.Token.CooldownTime = Math.Max(0, player.Token.CooldownTime - 2); //tiempo de enfriamiento minimo 0
+                                player.Token.CooldownTime = Math.Max(0, player.Token.CooldownTime - 2); //no permite tiempo de enfriamiento negativo
                                 string? cooldownReducedTemplate = resourceManager.GetString("CooldownReduced");
                                 if (!string.IsNullOrEmpty(cooldownReducedTemplate))
                                 {

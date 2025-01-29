@@ -2,8 +2,8 @@ using System.Resources;
 public static class GameManager
 {
     static ResourceManager resourceManager = new ResourceManager("Enchanted__Forest.Resources.Strings",  typeof(Program).Assembly);
-    public static Player? Player1 { get; set; }
-    public static Player? Player2 { get; set; }
+    public static Player? Player1 {get; set;}
+    public static Player? Player2 {get; set;}
 
     public static void InitializePlayers(Player player1, Player player2)
     {

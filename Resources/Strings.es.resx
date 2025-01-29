@@ -18,6 +18,27 @@
 <data name="LanguageChanged" xml:space="preserve">
   <value>Idioma cambiado a</value>
 </data>
+<data name="Tokens" xml:space="preserve">
+  <value>Fichas</value>
+</data>
+<data name="TokenDescriptionsTitle" xml:space="preserve">
+  <value>Selecciona una ficha para ver su descripción:</value>
+</data>
+<data name="BackToMenu" xml:space="preserve">
+  <value>Regresar al menú principal</value>
+</data>
+<data name="TokenDescriptionNotFound" xml:space="preserve">
+  <value>Descripción no encontrada.</value>
+</data>
+<data name="Speed" xml:space="preserve">
+  <value>Velocidad</value>
+</data>
+<data name="CooldownTime" xml:space="preserve">
+  <value>Tiempo de enfriamiento</value>
+</data>
+<data name="Description" xml:space="preserve">
+  <value>Descripción</value>
+</data>
 
 
 <data name="ThankYou" xml:space="preserve">
@@ -148,23 +169,41 @@
     <value>{0} usó su habilidad. Tiempo de enfriamiento: {1}.</value>
 </data>
 
-<data name="ElfDescription" xml:space="preserve">
+<data name="ElfAbilities" xml:space="preserve">
     <value>Copia permanentemente la habilidad de la ficha del otro jugador</value>
 </data>
-<data name="WizardDescription" xml:space="preserve">
+<data name="WizardAbilities" xml:space="preserve">
     <value>Reduce la velocidad de la ficha del otro jugador</value>
 </data>
-<data name="FairyDescription" xml:space="preserve">
+<data name="FairyAbilities" xml:space="preserve">
     <value>Intercambia su posición con la del otro jugador</value>
 </data>
-<data name="SirenDescription" xml:space="preserve">
+<data name="SirenAbilities" xml:space="preserve">
     <value>Le quita el turno al otro jugador</value>
 </data>
-<data name="GrandmaDescription" xml:space="preserve">
+<data name="GrandmaAbilities" xml:space="preserve">
     <value>Aumenta su propia velocidad por 1</value>
 </data>
-<data name="UnicornDescription" xml:space="preserve">
+<data name="UnicornAbilities" xml:space="preserve">
     <value>Activa un efecto (de las fichas anteriores) al azar</value>
 </data>
 
+<data name="ElfDescription" xml:space="preserve">
+    <value>El Elfo🧝, guardián del bosque encantado, tiene la habilidad única de copiar permanentemente las habilidades de la ficha del otro jugador. Con sus agudos sentidos y agilidad inigualable, asegura el equilibrio dentro de los bosques místicos.</value>
+</data>
+<data name="WizardDescription" xml:space="preserve">
+    <value>El Mago🧙, maestro de antiguos hechizos y conocimiento arcano, puede reducir la velocidad de la ficha del otro jugador. Su mera presencia invoca asombro y respeto mientras canaliza la magia pura del bosque para manipular el tiempo y el movimiento.</value>
+</data>
+<data name="FairyDescription" xml:space="preserve">
+    <value>La Hada🧚, una criatura delicada pero poderosa, puede intercambiar su posición con la posición de la ficha del otro jugador. Con alas que brillan a la luz de la luna, ella danza por el aire, tejiendo encantamientos y travesuras.</value>
+</data>
+<data name="SirenDescription" xml:space="preserve">
+    <value>La Sirena🧜, cuya melodía hipnótica puede hacer que el otro jugador pierda su turno, es una visión tanto de belleza como de peligro. Su voz resuena a través del laberinto, atrayendo a los incautos con promesas de seguridad, solo para atraparlos en su cautivadora canción.</value>
+</data>
+<data name="GrandmaDescription" xml:space="preserve">
+    <value>La Abuela👵, la aventurera desprevenida, se adentró en el bosque encantado puramente por casualidad, atraída por la belleza de sus árboles y motivada por la idea de tomar la foto perfecta para sus nietos. Tiene la encantadora habilidad de aumentar su propia velocidad en 1.</value>
+</data>
+<data name="UnicornDescription" xml:space="preserve">
+    <value>El Unicornio🦄, un ser místico y majestuoso, activa un efecto aleatorio como una combinación de las habilidades de las fichas anteriores. Con su radiante cuerno y presencia etérea, aporta un toque de magia impredecible al bosque.</value>
+</data>
 </root>

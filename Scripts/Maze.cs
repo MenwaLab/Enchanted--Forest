@@ -194,9 +194,9 @@ public class MazeCreation
         {
             for (int j = 0; j < size; j++)
             {
-                if (maze[i, j].isOpen && !(i == 0 && j == 0)&& !(i == exit.x && j == exit.y))//Una posicion valida es un pasillo que no sea la salida
+                if (maze[i, j].isOpen && !(i == 0 && j == 0)&& !((i,j) == exit))//Una posicion valida es un pasillo que no sea la salida
                 {
-                    validPositions.Add((i, j)); //(i,j) IGUAL exit HERE
+                    validPositions.Add((i, j)); 
                 }
             }
         }
@@ -225,7 +225,7 @@ public class MazeCreation
     {
         foreach (var trap in traps)
         {
-            if (trap.X == i && trap.Y == j) // HERE 
+            if (trap.X == i && trap.Y == j)  
             {
                 
                 return trap; 
@@ -329,7 +329,7 @@ public bool IsExitReachable(int exitRow, int exitCol) //Algortimo de Lee
         {
             for (int j = 0; j < size; j++)
             {
-                if (maze[i, j].isOpen && !(i == exit.x && j == exit.y) && IsTrapAtPosition(i, j) == null) // HERE
+                if (maze[i, j].isOpen && !((i,j) == exit) && IsTrapAtPosition(i, j) == null) 
                 {
                     validPositions.Add((i, j));
                 }
@@ -389,7 +389,7 @@ public bool IsExitReachable(int exitRow, int exitCol) //Algortimo de Lee
     {
         if (maze[x, y].isOpen && !(x == exit.x && y == exit.y)  && IsTrapAtPosition(x, y) == null && !IsBeneficialTile(x, y, out _)) // Chequea si una posicion no es una pared, la salida, no es una trampa o casilla beneficiosa 
         {
-            return true;  // HERE
+            return true;  
         }
         return false;  
     }
@@ -413,7 +413,7 @@ public bool IsExitReachable(int exitRow, int exitCol) //Algortimo de Lee
         {
             for (int j = 0; j < size; j++)
             {
-                if (maze[i, j].isOpen && !(i == exit.x && j == exit.y))
+                if (maze[i, j].isOpen && !((i,j) == exit))
                 {
                     validPositions.Add((i, j));
                 }
