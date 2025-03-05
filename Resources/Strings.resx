@@ -86,9 +86,9 @@
   <data name="SkippingTurn" xml:space="preserve">
     <value>{0} is skipping a turn.</value>
   </data>
-  <data name="UseAbilityPrompt" xml:space="preserve">
-    <value>Do you want to use your ability? (Insert 1 for Yes, 0 for No):</value>
-  </data>
+ <data name="useAbility" xml:space="preserve">
+  <value>Use Ability</value>
+</data>
   <data name="InvalidInputYN" xml:space="preserve">
     <value>Invalid input. Please enter 1 for Yes or 0 for No:</value>
   </data>
@@ -212,4 +212,18 @@
 <data name="UnicornAbilities" xml:space="preserve">
     <value>Activates a random effect as a combination of abilities of the previous tokens</value>
 </data>
+
+<data name="AdjustSpeedButton" xml:space="preserve">
+  <value>Adjust Speed</value>
+</data>
+<data name="NoAdjustSpeed" xml:space="preserve">
+  <value>Move Immediately</value>
+</data>
+<data name="ChooseStepsTitle" xml:space="preserve">
+  <value>Choose speed:</value>
+</data>
+<data name="ChooseAction" xml:space="preserve">
+  <value>Choose an action:</value>
+</data>
+
 </root>

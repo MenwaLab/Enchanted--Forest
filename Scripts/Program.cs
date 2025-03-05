@@ -1,5 +1,6 @@
 ﻿using System.Resources;
 using Spectre.Console;
+using Spectre.Console.Rendering;
 class Program
 { 
     static List<Player> players = new List<Player>();
@@ -103,7 +104,7 @@ class Program
                 }
                 player.Token.DecreaseCooldown();
                 player.CheckCooldownAndRestoreSpeed();
-
+/*
                 Console.WriteLine("");
                 Console.WriteLine(resourceManager.GetString("UseAbilityPrompt"));
                 
@@ -128,7 +129,8 @@ class Program
                         input = Console.ReadLine();
                     }
                 }
-                GameManager.HandlesMovement(player, generatorMaze,input);
+                */
+                GameManager.HandlesMovement(player, generatorMaze);
 
                 player.Token.Speed = player.Token.Speed > player.Token.BaseSpeed
                     ? player.Token.BaseSpeed

@@ -80,9 +80,9 @@
   <data name="SkippingTurn" xml:space="preserve">
     <value>El jugador {0} no juega este turno.</value>
   </data>
-  <data name="UseAbilityPrompt" xml:space="preserve">
-    <value>¿Quieres usar tu habilidad? (Inserte 1 para Sí, 0 para No):</value>
-  </data>
+  <data name="useAbility" xml:space="preserve">
+  <value>Usar Habilidad</value>
+</data>
   <data name="InvalidInputYN" xml:space="preserve">
     <value>Entrada inválida. Por favor ingresa 1 para Sí o 0 para No:</value>
   </data>
@@ -206,4 +206,18 @@
 <data name="UnicornDescription" xml:space="preserve">
     <value>El Unicornio🦄, un ser místico y majestuoso, activa un efecto aleatorio como una combinación de las habilidades de las fichas anteriores. Con su radiante cuerno y presencia etérea, aporta un toque de magia impredecible al bosque.</value>
 </data>
+
+<data name="AdjustSpeedButton" xml:space="preserve">
+  <value>Ajustar Velocidad</value>
+</data>
+<data name="NoAdjustSpeed" xml:space="preserve">
+  <value>Avanzar Inmediatamente</value>
+</data>
+<data name="ChooseStepsTitle" xml:space="preserve">
+  <value>Elige su velocidad:</value>
+</data>
+<data name="ChooseAction" xml:space="preserve">
+  <value>Elige una acción:</value>
+</data>
+
 </root>

@@ -1,4 +1,6 @@
 using System.Resources;
+using Spectre.Console;
+using Spectre.Console.Rendering;
 public static class GameManager
 {
     static ResourceManager resourceManager = new ResourceManager("Enchanted__Forest.Resources.Strings",  typeof(Program).Assembly);
@@ -10,11 +12,42 @@ public static class GameManager
         Player1 = player1;
         Player2 = player2;
     }
-    public static void HandlesMovement(Player player, MazeCreation generatorMaze, string input)
+    public static void HandlesMovement(Player player, MazeCreation generatorMaze)
     {
         while (true) // Seguir intentando hasta que el jugador se mueva o cambie de dirección
         {
+            string adjustSpeedLabel = resourceManager.GetString("AdjustSpeedButton") ?? "Adjust Speed";
+            string noAdjustSpeedLabel = resourceManager.GetString("NoAdjustSpeed") ?? "Move Immediately";
+            string chooseActionLabel = resourceManager.GetString("ChooseAction") ?? "Choose an action:";
+            string useAbilityLabel = resourceManager.GetString("useAbility") ?? "Use Ability";
+
+            var action = AnsiConsole.Prompt(
+                new SelectionPrompt<string>()
+                    .Title($"[chartreuse4]{chooseActionLabel}[/]")
+                    .HighlightStyle(new Style(foreground: Color.Green))
+                    .AddChoices(useAbilityLabel,adjustSpeedLabel, noAdjustSpeedLabel)
+        );
+         if (action == useAbilityLabel)
+        {
+            player.HasUsedAbility = true;
+                        Player target = (player == GameManager.Player1) ? GameManager.Player2! : GameManager.Player1!;
+                        player.Token.Ability(player, target);
+        }
+
+        int chosenSteps = player.Token.Speed;
+
+        if (action == adjustSpeedLabel)
+        {
+            string chooseStepsTitle = resourceManager.GetString("ChooseStepsTitle") ?? "Choose how many steps:";
             
+            var stepSelection = new SelectionPrompt<int>()
+                .Title($"[chartreuse4]{chooseStepsTitle}[/]")
+                .HighlightStyle(new Style(foreground: Color.Green))
+                .AddChoices(Enumerable.Range(1, player.Token.Speed)); 
+
+            chosenSteps = AnsiConsole.Prompt(stepSelection);
+        }
+
             Console.WriteLine(resourceManager.GetString("ArrowKeyPrompt"));
             ConsoleKeyInfo key = Console.ReadKey(true); 
 
@@ -38,7 +71,7 @@ public static class GameManager
                     continue;
             }
 
-            if (Program.TryMove(player, dx, dy, player.Token.Speed, generatorMaze))
+            if (Program.TryMove(player, dx, dy, chosenSteps, generatorMaze))
             {
                 
                 break; // Se movió exitosamente, sal del ciclo
@@ -72,7 +105,7 @@ public static class GameManager
             else
             {
                 
-                return true; // Permitir movimiento auque la trampa no esté activada
+                return true; // Permitir movimiento aunque la trampa no esté activada
             }
         }
             
